@@ -1,0 +1,31 @@
+<div class="card chuhe-card <%= className %> " id='<%= id %>'>
+    <div class="card-content white-text">
+        <p class="card-stats-title">
+            <a id='<%= id + "-title" %>'class="btn-flat dropdown-button waves-effect waves-light chuhe-card-btn" data-activates='<%= id + "-dropdown" %>' href="#">
+                <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+        </p>
+        <div class='chuhe-card-name'>
+            <%= name %>&nbsp;
+                <%= unit %>
+        </div>
+        <div class="chuhe-card-compare">
+            <div class='chuhe-card-compare-item'>
+                <h4 id='<%= id + "-current-number" %>' class="card-stats-number chuhe-card-current-number" >1.50</h4>
+            </div>
+            <div class='chuhe-card-compare-item'>
+                <h6 id='<%= id + "-history-number" %>' class="card-stats-number chuhe-card-history-number">1.67</h6>
+            </div>
+            <div class='chuhe-card-compare-item'>
+                <span class='chuhe-card-current-label'>当前</span>
+            </div>
+            <div class='chuhe-card-compare-item'>
+                <span class='chuhe-card-history-label'>昨日最高</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-action">
+        <div id='<%= id + "clients-bar" %>' class="center-align"><canvas width="227" height="25" style="display: inline-block; width: 227px; height: 25px; vertical-align: top;"></canvas></div>
+    </div>
+    <ul id='<%= id + "-dropdown"%>' class="dropdown-content active chuhe-dropown-content">
+    </ul>
+</div>

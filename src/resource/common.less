@@ -1,0 +1,143 @@
+@bg: rgb(10, 26, 44);
+@expanded: rgb(30, 190, 159);
+
+html
+{
+    background-color: @bg;
+    font-family: "Microsoft YaHei", "Arial" !important;
+}
+
+nav {
+  background: rgb(3, 13, 25);
+}
+
+body
+{
+    background-color: @bg;
+    overflow-x: hidden;
+}
+
+.side-nav a
+{
+    color: white;
+}
+
+ul.side-nav.leftside-navigation ul.collapsible-accordion
+{
+    background: transparent;
+
+}
+
+.side-nav .collapsible-body
+{
+    background-color: transparent;
+}
+
+.chuhe-title
+{
+    font-size: 30px;
+    text-align: center;
+}
+
+.chuhe-nav-button
+{
+    background-color: transparent;
+}
+
+.chuhe-side-nav
+{
+    background-color: rgb(10 ,22, 42)
+}
+
+footer.chuhe-page-footer
+{
+    background-color: rgb(3, 13, 25);
+}
+
+.chuhe-right
+{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.chuhe-card-btn
+{
+    color: white;
+    margin: 0 10px;
+    padding: 0 0;
+    z-index: auto;
+    text-transform: none;
+}
+
+.chuhe-card
+{
+    overflow: visible;
+
+    .chuhe-card-name
+    {
+        margin: 10px 10px ;
+    }
+
+    .card-stats-title
+    {
+        background-color: #1d92fc;
+    }
+    .card-content
+    {
+        padding: 0;
+    }
+
+    .chuhe-dropown-content
+    {
+        li {
+          &.chuhe-sensor-item-selected
+          {
+            background-color: red;
+          }
+          > a {
+            color:blue;
+            padding: 0px 0px 5px 5px;
+          }
+
+          > span {
+
+          }
+        }
+    }
+
+    .chuhe-card-compare
+    {
+        display: flex;
+        flex-wrap: wrap;
+        align-items:baseline;
+        .chuhe-card-compare-item
+        {
+            width: 50%;
+            .card-stats-number
+            {
+                margin: 0px 0px 0px 10px;
+            }
+            .chuhe-card-current-number
+            {
+                font-size: 32px;
+            }
+            .chuhe-card-history-number
+            {
+                font-size: 20px;
+            }
+            .chuhe-card-current-label
+            {
+                margin-left: 10px;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 14px;
+            }
+            .chuhe-card-history-label
+            {
+                margin-left: 10px;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 14px
+            }
+        }
+    }
+}
