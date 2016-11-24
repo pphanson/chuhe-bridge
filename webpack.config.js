@@ -9,9 +9,10 @@ const dashboard = [
     "./dashboard/index.js"
 ];
 
-const monitor = [
+const vibration = [
   'webpack-hot-middleware/client?reload=true',
-  "./monitor/acceleration/index.js"
+  "./monitor/index.js",
+  "./monitor/vibration/index.js"
 ];
 
 const entry = {
@@ -20,7 +21,7 @@ const entry = {
       './resource/common.less'
     ],
     "dashboard": dashboard,
-    "monitor": monitor
+    "vibration": vibration
 };
 
 
@@ -71,9 +72,9 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: "./monitor/acceleration/html.js",
-            filename: "./monitor/acceleration/index.html",
-            chunks: ["vendor", "monitor"]
+            template: "./monitor/vibration/html.js",
+            filename: "./monitor/vibration/index.html",
+            chunks: ["vendor", "vibration"]
         }),
 
         // new webpack.ProvidePlugin({

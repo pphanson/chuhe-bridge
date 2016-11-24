@@ -5,8 +5,9 @@
                 <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
         </p>
         <div class='chuhe-card-name'>
-            <%= name %>&nbsp;
-                <%= unit %>
+          <a id='<%=id + "-monitor-link" %>' class='chuhe-monitor-link' href="#">
+            <%= name %>&nbsp;<%= unit %>
+          </a>
         </div>
         <div class="chuhe-card-compare">
             <div class='chuhe-card-compare-item'>

@@ -1,0 +1,50 @@
+<div class='chuhe-monitor'>
+    <nav class="chuhe-monitor-nav">
+        <div class="nav-wrapper">
+            <ul class='left'>
+                <li><a id='chuhe-sensor-title' class="btn-flat dropdown-button waves-effect waves-light chuhe-card-btn" data-activates="chuhe-monitor-dropdown"><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <ul id='chuhe-monitor-dropdown' class="dropdown-content">
+                    </ul>
+            </ul>
+        </div>
+    </nav>
+    <div class='chuhe-monitor-content'>
+        <div id='chuhe-realtime' class='chuhe-monitor-item chuhe-realtime'>
+        </div>
+
+        <div class='chuhe-monitor-item chuhe-current-stats'>
+            <%= currentStatsCard %>
+        </div>
+
+        <div class='chuhe-monitor-item chuhe-history-stats'>
+            <%= historyStatsCard %>
+        </div>
+
+        <div class='chuhe-monitor-item chuhe-3d'>
+          <div class='chuhe-3d-title'>
+              <span><%= name + '传感器三维模型示意图'%></span>
+          </div>
+        </div>
+
+        <div class='chuhe-monitor-item chuhe-linechart'>
+          <div class='chuhe-linechart-content'>
+          </div>
+          <div class='chuhe-linechart-legend'>
+            <div class='chuhe-linechart-title'>
+                <span>趋势分析图表</span>
+            </div>
+            <div class="chuhe-linechart-interaction">
+              <ul class='chuhe-linechart-value-switch'>
+                  <% values.forEach(function(value){ %>
+                      <li id='<%= value %>' class='chuhe-linechart-item'><span><%= value %></span></li>
+                  <% }) %>
+              </ul>
+              <ul class='chuhe-linechart-time-switch'>
+                <li class='chuhe-linechart-item'>时域</li>
+                <li class='chuhe-linechart-item'>频率</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

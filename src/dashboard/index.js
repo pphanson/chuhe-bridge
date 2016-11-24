@@ -79,7 +79,9 @@ function selectSensorItem(type, item, remote) {
     var $selectedSensorItem = $(`div#${type}-card  li.chuhe-sensor-item-selected`);
     var $sensorItem = $(`div#${type}-card  li#${item.id}`);
     var $chardTitle = $(`div#${type}-card a#${type}-card-title`);
+    var $chardMonitorLink = $(`div#${type}-card div.chuhe-card-name > a.chuhe-monitor-link`);
 
+    $chardMonitorLink.attr('href', `/monitor/${type}/index.html#${item.id}`);
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
@@ -88,34 +90,30 @@ function selectSensorItem(type, item, remote) {
     let sensorIds = Object.values(selectedSensors);
     bridgeScene.bridge.showSensors(sensorIds);
 
-    if (remote)
-    {
+    if (remote) {
         $.ajax({
-          url: "http://localhost:3000/sensors/data/stats",
-          dataType: 'json',
-          type: 'POST',
-          data: ({
-            sensors: JSON.stringify([item.id]),
-            from: (new Date(1479546000000)).toJSON(),
-            to: (new Date(1479556800000)).toJSON()
-          })
-        }).then(function(e){
-          alert(JSON.stringify(e))
+            url: "http://localhost:3000/sensors/data/stats",
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                sensors: JSON.stringify([item.id]),
+                from: (new Date(1479546000000)).toJSON(),
+                to: (new Date(1479556800000)).toJSON()
+            }
+        }).then(function(e) {
+            alert(JSON.stringify(e))
         });
 
         $.ajax({
-          url: "http://localhost:3000/api/sensor/" + item.id + "/value",
-          dataType: 'json',
-          data: ({
-            from: (new Date(1479546000000)).toJSON(),
-            to: (new Date(1479556800000)).toJSON()
-          })
-        }).then(function(e){
-          alert(JSON.stringify(e))
+            url: "http://localhost:3000/api/sensor/" + item.id + "/value",
+            dataType: 'json',
+            data: ({
+                from: (new Date(1479546000000)).toJSON(),
+                to: (new Date(1479556800000)).toJSON()
+            })
+        }).then(function(e) {
+            alert(JSON.stringify(e))
         });
-
-
-
     }
 }
 
@@ -132,17 +130,17 @@ $.ajax({
     let to = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 23, 59);
 
     return $.ajax({
-      url: "http://localhost:3000/sensors/data/stats",
-      type: 'POST',
-      dataType: "json",
-      data: ({
-        sensors: JSON.stringify(Object.values(selectedSensors)),
-        from: (new Date(1479546000000)).toJSON(),
-        to: (new Date(1479556800000)).toJSON()
-      })
+        url: "http://localhost:3000/sensors/data/stats",
+        type: 'POST',
+        dataType: "json",
+        data: ({
+            sensors: JSON.stringify(Object.values(selectedSensors)),
+            from: (new Date(1479546000000)).toJSON(),
+            to: (new Date(1479556800000)).toJSON()
+        })
     });
-}).then(function(data){
-  alert(JSON.stringify(data));
+}).then(function(data) {
+    alert(JSON.stringify(data));
 });
 
 
@@ -159,10 +157,24 @@ bridgeScene.on("load", function(e) {
 });
 
 bridgeScene.on("sensorclick", function(e) {
-    alert(e.sensor.id);
     this.bridge.focusOnSensor(e.sensor);
 });
+bridgeScene.invalidateSize();
 
 $(window).on("resize", function(e) {
     bridgeScene.invalidateSize();
+});
+
+
+////////////////// switch //////////////////////////////
+$(".content a#chuhe-switch-button").on('click', e => {
+    var $button = $(e.currentTarget);
+    var $label = $button.children('i');
+    var $map = $(".content #map");
+    var $detail = $(".content #detail");
+
+    $label.toggleClass('mdi-action-info');
+    $label.toggleClass('mdi-navigation-cancel');
+    $map.slideToggle();
+    $detail.slideToggle();
 });
