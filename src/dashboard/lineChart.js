@@ -1,0 +1,55 @@
+module.exports = function(id) {
+    const options = {
+        lines: {
+            show: true,
+            fill: true,
+            fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+        },
+        points: {
+            show: false
+        }
+    };
+
+    let data = [{
+      color: 'rgb(61, 217, 214)',
+      data: [[1, 3], [2, 4], [3, 6], [4, 8]]
+    }];
+
+    let lineChart = $(`div#${id}-card > div.card-lineChart-container > div#${id}-card-lineChart`).plot(data, {
+        series: options,
+        xaxis: {
+            show: false,
+            font: {
+                color: 'white'
+            }
+        },
+        yaxis: {
+            show: false,
+            font: {
+                color: 'white'
+            }
+        },
+        grid: {
+            show: true,
+            color: '#9b99ff',
+            borderWidth: {
+                left: 1,
+                bottom: 1,
+                top: 0,
+                right: 0
+            },
+
+            borderColor: {
+                left: '#9b99ff',
+                bottom: '#9b99ff'
+            }
+        }
+    }).data("plot");
+
+    $(window).on('resize', function() {
+        lineChart.resize();
+        lineChart.setupGrid();
+    });
+
+    return lineChart;
+};

@@ -6,29 +6,68 @@
     height: 100%;
     .chuhe-card-container
     {
+        flex-basis: 220px;
+        flex-shrink: 0;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-around;
-        height:40%;
         .chuhe-card-item
         {
-            width: 12%;
+            flex-grow: 1;
+            margin: 0px 5px 0px 5px;
+            > .chuhe-card
+            {
+                min-height: 100%;
+            }
         }
     }
 
     .chuhe-chart-container
     {
+        flex-grow: 1;
         display: flex;
-        height:60%;
+        position: relative;
+        flex-wrap: wrap;
         .chuhe-3d-item
         {
-            width: 60%;
-            height: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            > .chuhe-3d-wrapper
+            {
+                flex-grow: 1;
+                width: 100%;
+                overflow: hidden;
+                border-bottom: 1px solid rgb(7, 51, 70);
+                position: relative;
+
+                > .chuhe-3d-content
+                {
+                    position: absolute;
+                }
+            }
+
+            > .chuhe-3d-description
+            {
+                flex-grow: 0;
+                display: flex;
+                background-color: #203656;
+                > div
+                {
+                    flex-grow: 1;
+                }
+
+                > div:first-child
+                {
+                    border-right: 1px solid rgb(74, 101, 130);
+                }
+            }
         }
 
         .chuhe-info-item
         {
-            width: 40%;
-            height: 100%;
+            flex-basis: 600px;
             position: relative;
 
             > .chuhe-label-container
@@ -66,6 +105,15 @@
                 display: none;
                 background-color: rgb(7, 51, 70);
                 margin: 0px;
+
+                > span
+                {
+                    display: inline-block;
+                    margin-top: 40px;
+                    text-indent: 40px;
+                    line-height: 30px;
+                    font-size: 20px
+                }
             }
         }
     }
@@ -87,7 +135,7 @@
     }
 }
 
-.chuhe-shift-card
+.chuhe-displacement-card
 {
     background: rgba(82,64,219,0.3);
 
@@ -102,7 +150,7 @@
     }
 }
 
-.chuhe-perpendicularity-card
+.chuhe-verticality-card
 {
   background: rgba(43,168,175,0.3);
 
@@ -132,7 +180,7 @@
   }
 }
 
-.chuhe-cable-card
+.chuhe-cableforce-card
 {
   background: rgba(88,127,237,0.3);
 
@@ -162,7 +210,7 @@
   }
 }
 
-.chuhe-load-card
+.chuhe-trafficload-card
 {
   background: rgba(186,80,93,0.3);
 

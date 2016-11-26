@@ -1,0 +1,96 @@
+.chuhe-legend
+{
+    display: flex;
+    flex-direction: column;
+    > ul.chuhe-legend-classify
+    {
+      margin-left: 15px;
+      margin-right: 15px;
+      display: flex;
+      flex-grow: wrap;
+      > li.chuhe-legend-item
+      {
+          height: 24px;
+          line-height: 24px;
+          text-align: center;
+          flex-grow: 1;
+          &.selected
+          {
+              height: 48px;
+              line-height: 48px;
+              min-width: 80px;
+          }
+
+          &.level-1
+          {
+            background-color: #00c47d;
+            color: #123006;
+          }
+
+          &.level-2
+          {
+            background-color: #a6ff33;
+            color: #101904;
+          }
+
+          &.level-3
+          {
+            background-color: #ffe12e;
+            color:#2d2c05;
+          }
+
+          &.level-4
+          {
+            background-color: #ff9c31;
+            color:#2b1c05;
+          }
+
+          &.level-5
+          {
+            background-color: #ff6161;
+            color:#350707;
+          }
+      }
+    }
+
+    > div.chuhe-legend-content
+    {
+        margin-left: 15px;
+       > span.chuhe-legend-field
+       {
+           color: white;
+       }
+
+       > span.chuhe-legend-value
+       {
+           color: white;
+           font-size: 32px;
+           font-weight: bold;
+           margin-left: 10px;
+           &.level-1
+           {
+             color:#00c47d;
+           }
+
+           &.level-2
+           {
+             color:#a6ff33;
+           }
+
+           &.level-3
+           {
+             color:#ffe12e;
+           }
+
+           &.level-4
+           {
+             color:#ff9c31;
+           }
+
+           &.level-5
+           {
+             color:#ff6161;
+           }
+       }
+    }
+}

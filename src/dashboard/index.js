@@ -1,6 +1,15 @@
 require('./style.less');
-
+const lineChart = require('./lineChart.js');
 ///////////////// Map ///////////////////////////
+const displacementlineChart = lineChart('displacement');
+const trafficloadlineChart = lineChart('trafficload');
+const strainlineChart = lineChart('strain');
+const corrisionlineChart = lineChart('corrosion');
+const verticalitylineChart = lineChart('verticality');
+const deflectionlineChart = lineChart('deflection');
+const cableforcelineChart = lineChart('cableforce');
+const vibrationlineChart = lineChart('vibration');
+
 
 let mapStyle = {
     styleJson: [{
@@ -112,7 +121,7 @@ function selectSensorItem(type, item, remote) {
                 to: (new Date(1479556800000)).toJSON()
             })
         }).then(function(e) {
-            alert(JSON.stringify(e))
+            // alert(JSON.stringify(e))
         });
     }
 }
@@ -140,13 +149,13 @@ $.ajax({
         })
     });
 }).then(function(data) {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
 });
 
 
 ///////////////// bridge3d ///////////////////////////
 let bridgeScene = new bridge3d.BridgeScene({
-    $element: $("#chuhe-bridge-scene"),
+    $element: $("#chuhe-bridge-scene.chuhe-3d-content"),
     bridgeModelUrl: "/models/bridge.obj"
 });
 bridgeScene.startAnimation();

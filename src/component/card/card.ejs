@@ -11,10 +11,10 @@
         </div>
         <div class="chuhe-card-compare">
             <div class='chuhe-card-compare-item'>
-                <h4 id='<%= id + "-current-number" %>' class="card-stats-number chuhe-card-current-number" >-</h4>
+                <h4 id='<%= id + "-current-number" %>' class="card-stats-number chuhe-card-current-number" >&ndash;</h4>
             </div>
             <div class='chuhe-card-compare-item'>
-                <h6 id='<%= id + "-history-number" %>' class="card-stats-number chuhe-card-history-number">-</h6>
+                <h6 id='<%= id + "-history-number" %>' class="card-stats-number chuhe-card-history-number">&ndash;</h6>
             </div>
             <div class='chuhe-card-compare-item'>
                 <span class='chuhe-card-current-label'>当前</span>
@@ -24,8 +24,8 @@
             </div>
         </div>
     </div>
-    <div class="card-action">
-        <div id='<%= id + "clients-bar" %>' class="center-align"><canvas width="227" height="25" style="display: inline-block; width: 227px; height: 25px; vertical-align: top;"></canvas></div>
+    <div class="card-lineChart-container">
+        <div id='<%= id + "-lineChart" %>' class='chuhe-card-lineChart'></div>
     </div>
     <ul id='<%= id + "-dropdown"%>' class="dropdown-content active chuhe-dropown-content">
     </ul>

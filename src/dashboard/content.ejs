@@ -2,7 +2,15 @@
     <!--start container-->
     <div class="chuhe-dashboard-container">
         <div class='chuhe-chart-container'>
-            <div id='chuhe-bridge-scene' class='chuhe-3d-item'>
+            <div  class='chuhe-3d-item'>
+              <div class='chuhe-3d-wrapper'>
+                <div id='chuhe-bridge-scene' class='chuhe-3d-content'>
+                </div>
+              </div>
+              <div class='chuhe-3d-description'>
+                  <%= legend %>
+                  <%= indicator %>
+              </div>
             </div>
 
             <div class='chuhe-info-item'>
@@ -15,6 +23,7 @@
 
               <div id='detail' class='card-panel chuhe-detail'>
                 <span class='white-text'>
+                  <%= description %>
                 </span>
               </div>
             </div>
@@ -27,11 +36,11 @@
             </div>
             <div class="chuhe-card-item">
               <!-- 位移传感器-->
-              <%= shiftSensor %>
+              <%= displacementSensor %>
             </div>
             <div class="chuhe-card-item">
               <!-- 垂直度传感器-->
-              <%= perpendicularitySensor %>
+              <%= verticalitySensor %>
             </div>
             <div class="chuhe-card-item">
               <!-- 应变传感器-->
@@ -39,7 +48,7 @@
             </div>
             <div class="chuhe-card-item">
               <!-- 索利传感器-->
-              <%= cableSensor %>
+              <%= cableforceSensor %>
             </div>
             <div class="chuhe-card-item">
               <!-- 震动传感器-->
@@ -47,7 +56,7 @@
             </div>
             <div class="chuhe-card-item">
               <!-- 荷载传感器-->
-              <%= loadSensor %>
+              <%= trafficloadSensor %>
             </div>
             <div class="chuhe-card-item">
               <!-- 服饰度传感器-->

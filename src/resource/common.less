@@ -1,3 +1,7 @@
+@import "./legend.less";
+@import "./indicator.less";
+@import "./monitor.less";
+
 @bg: rgb(10, 26, 44);
 @expanded: rgb(30, 190, 159);
 
@@ -99,6 +103,17 @@ footer.chuhe-page-footer {
         padding: 0;
     }
 
+    > .card-lineChart-container
+    {
+       border-top: 1px solid rgba(160, 160, 160, 0.2);
+
+       > .chuhe-card-lineChart
+       {
+           width: 100%;
+           height: 80px;
+       }
+    }
+
     .chuhe-dropown-content {
         max-height: 135px;
 
@@ -150,196 +165,6 @@ footer.chuhe-page-footer {
                 color: rgba(255, 255, 255, 0.6);
                 font-size: 14px;
             }
-        }
-    }
-}
-
-.chuhe-monitor {
-    height: 100%;
-    max-height: 135px;
-
-    #chuhe-monitor-dropdown {
-        background: rgb(10, 25, 43);
-
-        > li {
-            color: white;
-            line-height: 32px;
-            height: 32px;
-            > a {
-                color: white;
-                padding: 0 0 0 10px;
-            }
-
-            &.selected
-            {
-                background: gray;
-            }
-        }
-
-    }
-
-    > .chuhe-monitor-nav {
-        background: rgb(10, 25, 43);
-    }
-
-    > .chuhe-monitor-content {
-        position: absolute;
-        top: 56px;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        flex-wrap: wrap;
-
-        > .chuhe-monitor-item {
-            box-sizing: border-box;
-            border: 5px solid transparent;
-            position: relative;
-        }
-
-        > .chuhe-realtime {
-            height: 48%;
-            width: 20%;
-            > svg
-            {
-                background: #1c334f;
-            }
-        }
-
-        > .chuhe-current-stats {
-            height: 26%;
-            width: 20%;
-
-            > .chuhe-stats-card {
-                background-color: rgba(88,127,237,0.3);
-            }
-        }
-
-        > .chuhe-history-stats {
-            width: 20%;
-            height: 26%;
-
-            > .chuhe-stats-card {
-                background-color: rgba(68,193,148,0.3);
-            }
-        }
-
-        > .chuhe-3d {
-            width: 80%;
-            height: 48%;
-
-            > .chuhe-3d-title {
-                position: absolute;
-                font-size: 24px;
-                color: #b9e5ef;
-                left: 15px;
-                top: 5px;
-            }
-        }
-
-        > .chuhe-linechart {
-            width: 80%;
-            height: 52%;
-
-            .chuhe-linechart-legend {
-                position: absolute;
-                width: 100%;
-                display: flex;
-                left: 0px;
-                top: 0px;
-                .chuhe-linechart-item {
-                    float: left;
-                    height: 24px;
-                    line-height: 24px;
-                    border: 1px solid white;
-                    min-width: 60px;
-                    text-align: center;
-                    color: #d7d7ff;
-                    &:hover
-                    {
-                      cursor: pointer;
-                    }
-                    &.selected
-                    {
-                        background: white;
-                        border: white;
-                        color: rgb(44, 47, 107);
-                    }
-                }
-                > .chuhe-linechart-interaction
-                {
-                  width: 50%;
-                  margin-top: 10px;
-                  > .chuhe-linechart-value-switch {
-                    margin: 0px;
-                    display: inline-block;
-                  }
-
-                  > .chuhe-linechart-time-switch {
-                    margin: 0px 0px 0px 30px;
-                    display: inline-block;
-
-                  }
-                }
-
-                > .chuhe-linechart-title {
-                    font-size: 24px;
-                    color: #b9e5ef;
-                    width: 30%;
-                    margin-left: 15px;
-                    margin-top: 5px;
-                }
-            }
-
-            > .chuhe-linechart-content {
-                height: 100%;
-                width: 100%;
-
-                > canvas {
-                    background-color: rgba(122,90,255,0.1);
-                }
-            }
-        }
-    }
-}
-
-.chuhe-stats-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-
-    > div.card-title {
-        height: 50%;
-        font-size: 18px;
-        color: white;
-        margin-top: 10px;
-        margin-left: 15px;
-    }
-
-    > div.card-content {
-        display: flex;
-        height: 50%;
-
-        > div.card-item {
-            width: 33.333333%;
-            height: 100%;
-            color: white;
-
-            > .card-item-name {
-                margin-left: 15px;
-                font-size: 16px;
-            }
-
-            > .card-item-value {
-                margin-left: 15px;
-                font-size: 18px;
-            }
-
-            &.card-avg-item {}
-
-            &.card-min-item {}
-
-            &.card-max-item {}
         }
     }
 }

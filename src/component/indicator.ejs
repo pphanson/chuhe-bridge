@@ -1,0 +1,16 @@
+<div class='chuhe-indicator'>
+  <div class='chuhe-label'>
+    <% items.forEach(function(item){ %>
+      <div class='chuhe-label-item <%= item.name %>'>
+        <span class='chuhe-name'><%= item.title %></span><span class='chuhe-unit'>&nbsp;&nbsp;(<%= item.unit %>)</span>
+      </div>
+    <% }) %>
+  </div>
+  <div class='chuhe-value'>
+    <% items.forEach(function(item){ %>
+      <div class='chuhe-value-item <%= item.name %>'>
+        <span>&mdash;</span>
+      </div>
+    <% }) %>
+  </div>
+</div>
