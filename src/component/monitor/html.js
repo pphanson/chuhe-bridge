@@ -4,7 +4,6 @@ const statsCard = require('./statsCard.ejs');
 
 module.exports = function()
 {
-    console.log(arguments);
     return layout({
       "name": arguments[0].name,
       "values": arguments[0].values,

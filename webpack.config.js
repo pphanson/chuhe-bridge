@@ -4,25 +4,74 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require("webpack");
 
+
+const types = ['vibration', 'displacement', 'strain', 'cableforce', 'corrosion', 'verticality', 'trafficload', 'deflection']
 const dashboard = [
     'webpack-hot-middleware/client?reload=true',
     "./dashboard/index.js"
 ];
 
-const vibration = [
-  'webpack-hot-middleware/client?reload=true',
-  "./monitor/index.js",
-  "./monitor/vibration/index.js"
-];
-
-const entry = {
+let entry = Object.assign({
     "vendor": [
       'webpack-hot-middleware/client?reload=true',
       './resource/common.less'
     ],
     "dashboard": dashboard,
-    "vibration": vibration
-};
+}, initMonitorEntry());
+
+function initMonitorEntry()
+{
+    let entries = {};
+
+    for (let type of types)
+    {
+        entries[type] = [
+          'webpack-hot-middleware/client?reload=true',
+          "./monitor/index.js",
+          `./monitor/${type}/index.js`
+        ];
+    }
+    return entries;
+}
+
+let plugins = [
+  new HtmlWebpackPlugin({
+      template: "./dashboard/html.js",
+      filename: "./dashboard/index.html",
+      chunks: ["vendor", "dashboard"]
+  }),
+
+  // new webpack.ProvidePlugin({
+  //     $: 'jquery',
+  //     jQuery: 'jquery',
+  //     'window.jQuery': 'jquery',
+  //     'window.$': 'jquery',
+  // }),
+  new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: '[name]/common.js',
+      minChunks: 4,
+  }),
+  new ExtractTextPlugin('resource/[name].css'),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.NoErrorsPlugin()
+].concat(initHtmlWebpackPluginConfig());
+
+function initHtmlWebpackPluginConfig()
+{
+    let plugins = [];
+
+    for (let type of types)
+    {
+        plugins.push(new HtmlWebpackPlugin({
+            template: `./monitor/${type}/html.js`,
+            filename: `./monitor/${type}/index.html`,
+            chunks: ["vendor",`${type}`]
+        }));
+    }
+    return plugins;
+}
 
 
 module.exports = {
@@ -64,34 +113,6 @@ module.exports = {
             exclude: "lib"
         }]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./dashboard/html.js",
-            filename: "./dashboard/index.html",
-            chunks: ["vendor", "dashboard"]
-        }),
-
-        new HtmlWebpackPlugin({
-            template: "./monitor/vibration/html.js",
-            filename: "./monitor/vibration/index.html",
-            chunks: ["vendor", "vibration"]
-        }),
-
-        // new webpack.ProvidePlugin({
-        //     $: 'jquery',
-        //     jQuery: 'jquery',
-        //     'window.jQuery': 'jquery',
-        //     'window.$': 'jquery',
-        // }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: '[name]/common.js',
-            minChunks: 4,
-        }),
-        new ExtractTextPlugin('resource/[name].css'),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
+    plugins: plugins,
     devtool: 'source-map'
 };

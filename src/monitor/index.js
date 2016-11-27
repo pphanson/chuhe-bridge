@@ -119,7 +119,7 @@ module.exports = function(options) {
     id = match ? match[1] : '';
     $('div.chuhe-monitor a#chuhe-sensor-title').html(`${'sensor_' + id}<i class="mdi-navigation-arrow-drop-down right">`);
 
-    if ($.isArray(values) || values.length > 1)
+    if ($.isArray(values) && values.length > 1)
     {
         $(`div.chuhe-monitor ul.chuhe-linechart-value-switch > li#${value}`).addClass('selected');
     }
