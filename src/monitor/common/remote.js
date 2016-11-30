@@ -1,3 +1,20 @@
+const io = require('socket.io-client');
+let client = {};
+
+function startMonitor(id, cb)
+{
+    client[id] = io('http://localhost:3000/api/sensor/' + id);
+    client[id].on("value", cb);
+}
+
+function stopMonitor(id)
+{
+    if (client[id])
+    {
+        client[id].disconnect();
+    }
+}
+
 /**
  *获取某个传感器实例在某段区间的所有监控数据
  */
@@ -47,5 +64,7 @@ function fetchSensorStats(id, from, to)
 module.exports = {
   fetchSensors,
   fetchSensorStats,
-  fetchSensorData
+  fetchSensorData,
+  startMonitor,
+  stopMonitor
 };

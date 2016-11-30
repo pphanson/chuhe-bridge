@@ -9,16 +9,16 @@ module.exports = function(options) {
         levelColorsGradient: true,
         levelColors: ["#6aff7d", "#ff5665"],
     });
-
-    let i = 1;
-    const refresh = function() {
-        let t = setTimeout(function() {
-            g.refresh(i++);
-            if (i === 100) {
-                cleartimeout(t)
-            }
-            refresh(i)
-        }, 100);
-    }
-    refresh();
+    return g;
+    // let i = 1;
+    // const refresh = function() {
+    //     let t = setTimeout(function() {
+    //         g.refresh(i++);
+    //         if (i === 100) {
+    //             clearTimeout(t)
+    //         }
+    //         refresh(i)
+    //     }, 100);
+    // }
+    // refresh();
 };
