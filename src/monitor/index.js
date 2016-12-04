@@ -8,7 +8,7 @@ let id;
 let collection = [];
 let values;
 let value;
-let stats;
+let historyStats;
 
 let lineChart;
 let gauge;
@@ -56,7 +56,13 @@ function selectSensor($li) {
     $li.addClass('selected');
     $('div.chuhe-monitor a#chuhe-sensor-title').html(`${item.name}<i class="mdi-navigation-arrow-drop-down right">`);
 
-    requestUtil.stopMonitor(id)
+    requestUtil.stopMonitor(id);
+    collection = series({
+        from,
+        to,
+        values,
+        interval
+    });
 
     id = item.id;
     let f = new Date(
@@ -76,6 +82,7 @@ function selectSensor($li) {
 
     //获取昨日统计值
     requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
+        historyStats = data[id];
         refreshSensorStats(id, data);
     });
 
@@ -90,9 +97,9 @@ function selectSensor($li) {
 }
 
 
-function refreshSensorStats(id, data) {
-    stats = data[id].stats;
-    let $card = $('div.chuhe-monitor  div.chuhe-history-stats > div.chuhe-stats-card');
+function refreshSensorStats(id, data, classify='history') {
+    const stats = data[id] ? data[id] : data;
+    let $card = $(`div.chuhe-monitor  div.chuhe-${classify}-stats > div.chuhe-stats-card`);
     if (value !== null && value !== undefined && stats !== null && stats !== undefined && stats[value] !== null && stats[value] !== undefined) {
         $card.find("div.card-avg-item > div.card-item-value > span").text(stats[value].avg.toFixed(2));
         $card.find("div.card-max-item > div.card-item-value > span").text(stats[value].max.toFixed(2));
@@ -127,7 +134,7 @@ function switchValue($li) {
     lineChart.setupGrid();
     lineChart.draw();
 
-
+    refreshSensorStats(id, historyStats);
 }
 
 function updateRealTimeData(data) {
@@ -177,6 +184,20 @@ module.exports = function(options) {
         this.bridge.focusOnSensor(this.bridge.sensors[`sensor#${id}`]);
     });
 
+    let f = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 1
+    );
+
+    let t = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 1,
+        23,
+        59,
+        59
+    );
 
     gauge = Gauge({
         unit
@@ -199,25 +220,34 @@ module.exports = function(options) {
     //获取指定类型传感器列表
     requestUtil.fetchSensors(type).then(data => {
         renderSensorList(data);
+        if (id === null || id === undefined || id === '')
+        {
+            id = data[0].id;
+            $('div.chuhe-monitor a#chuhe-sensor-title').html(`${'sensor_' + id}<i class="mdi-navigation-arrow-drop-down right">`);
+            //获取昨日统计值
+            requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
+                historyStats = data[id];
+                refreshSensorStats(id, data);
+            });
+
+            //获取昨日同期监控数据
+            requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
+                //refreshLineChart(data);
+            });
+
+            requestUtil.startMonitor(id, data => {
+                updateRealTimeData(data);
+            }, data => {
+                refreshSensorStats(id, data, 'current');
+            });
+        }
     });
 
-    let f = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1
-    );
 
-    let t = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1,
-        23,
-        59,
-        59
-    );
 
     //获取昨日统计值
     requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
+        historyStats = data[id];
         refreshSensorStats(id, data);
     });
 
@@ -228,6 +258,8 @@ module.exports = function(options) {
 
     requestUtil.startMonitor(id, data => {
         updateRealTimeData(data);
+    }, data => {
+        refreshSensorStats(id, data, 'current');
     });
 
     return {
