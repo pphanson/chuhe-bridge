@@ -5,5 +5,6 @@ const { fetchSensorDat } = require('../common/remote');
 const { id, lineChart, gauge, bridgeScene } = monitor({
     type: 'strain',
     unit: 'MPa',
-    value: 'strain'
+    value: 'strain',
+    interval: 60 * 1000
 });

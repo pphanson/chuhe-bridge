@@ -5,5 +5,6 @@ const { fetchSensorDat } = require('../common/remote');
 const { id, lineChart, gauge, bridgeScene } = monitor({
     type: 'cableforce',
     unit: 'kN',
-    value: 'baseband'
+    value: 'baseband',
+    interval: 60 * 1000
 });

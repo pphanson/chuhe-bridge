@@ -8,7 +8,11 @@ module.exports = function ({from, to, values, interval})
         {
             let series = {
               data: [],
-              color: 'white'
+              color: 'white',
+              lines: {
+                fill: true,
+                fillColor: {colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']}
+              }
             };
             collection.push(series);
             collection[value] = series;

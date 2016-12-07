@@ -9,31 +9,75 @@ let collection = [];
 let values;
 let value;
 let historyStats;
-
 let lineChart;
 let gauge;
+let interval;
+let from;
+let to;
 
+function getTimeRange()
+{
+    const now = new Date();
 
+    if (interval === 60 * 1000)
+    {
+        return {
+          from: new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            now.getHours()
+          ),
+          to: new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            now.getHours(),
+            59
+          )
+        };
+    }
+    else if (interval === 60 * 60 * 1000){
+        return {
+            from: new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate()
+            ),
+            to: new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate(),
+              23
+            )
+        }
+    }
+    else if (interval === 5 * 1000)
+    {
+        return {
+            from: new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate(),
+              now.getHours(),
+              now.getMinutes()
+            ),
+            to: new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate(),
+              now.getHours(),
+              now.getMinutes() + 5
+            )
+        };
+    }
+}
 
-const interval = 1000;
-const now = new Date();
-let from = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    now.getHours(),
-    now.getMinutes(),
-    0
-);
-
-let to = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    now.getHours(),
-    now.getMinutes(),
-    59
-);
+function getTimestamp(time)
+{
+    const index = Math.floor((time - from) / interval);
+    return new Date(from.getTime() + index * interval);
+}
 
 function renderSensorList(data) {
     let $list = $('div.chuhe-monitor ul#chuhe-monitor-dropdown');
@@ -138,8 +182,7 @@ function switchValue($li) {
 }
 
 function updateRealTimeData(data) {
-    let timestamp = new Date(data.lastUpdatedTime);
-
+    let timestamp = getTimestamp(new Date(data.lastUpdatedTime));
     for (let v of values) {
         if (timestamp < to) {
             let timeslot = Math.floor((timestamp - from) / interval);
@@ -165,9 +208,11 @@ module.exports = function(options) {
     const type = options.type;
     const unit = options.unit;
     value = options.value;
-    values = options.values;
+    values = options.values ? options.values: [options.value];
+    interval = options.interval;
     const match = window.location.href.match(/#(.*)$/);
     id = match ? match[1] : '';
+
     $('div.chuhe-monitor a#chuhe-sensor-title').html(`${'sensor_' + id}<i class="mdi-navigation-arrow-drop-down right">`);
     $(`div.chuhe-monitor ul.chuhe-linechart-value-switch`).on('click', 'li', e => {
         switchValue($(e.currentTarget));
@@ -184,12 +229,15 @@ module.exports = function(options) {
         this.bridge.focusOnSensor(this.bridge.sensors[`sensor#${id}`]);
     });
 
+    const now = new Date();
+    // 昨日起始时间
     let f = new Date(
         now.getFullYear(),
         now.getMonth(),
         now.getDate() - 1
     );
 
+    // 昨日截止时间
     let t = new Date(
         now.getFullYear(),
         now.getMonth(),
@@ -198,6 +246,10 @@ module.exports = function(options) {
         59,
         59
     );
+
+    let timeRange = getTimeRange();
+    from = timeRange.from;
+    to = timeRange.to;
 
     gauge = Gauge({
         unit

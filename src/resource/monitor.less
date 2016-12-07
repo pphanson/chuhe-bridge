@@ -11,8 +11,7 @@
 
             > a {
                 color: white;
-                padding: 0 0 0 10px;
-            }
+                          }
 
             &.selected {
                 background: gray;
@@ -25,6 +24,10 @@
 
         >.nav-wrapper
         {
+            > ul.left
+            {
+              position: relative;
+            }
             i
             {
                height: auto;
@@ -49,8 +52,8 @@
 
         > .chuhe-monitor-top
         {
-            flex-grow: 1;
-            flex-basis: 48%;
+            flex-grow: 0;
+            flex-basis: 50%;
             display: flex;
             flex-wrap: wrap;
             > .chuhe-realtime {
@@ -78,7 +81,6 @@
         > .chuhe-monitor-bottom
         {
             flex-grow: 1;
-            flex-basis: 52%;
             display: flex;
             flex-wrap: wrap;
             > .chuhe-monitor-stats

@@ -1,4 +1,4 @@
-module.exports = function(id) {
+module.exports = function(id, collection) {
     const options = {
         lines: {
             show: true,
@@ -10,12 +10,7 @@ module.exports = function(id) {
         }
     };
 
-    let data = [{
-      color: 'rgb(61, 217, 214)',
-      data: [[1, 3], [2, 4], [3, 6], [4, 8]]
-    }];
-
-    let lineChart = $(`div#${id}-card > div.card-lineChart-container > div#${id}-card-lineChart`).plot(data, {
+    let lineChart = $(`div#${id}-card > div.card-lineChart-container > div#${id}-card-lineChart`).plot(collection || [], {
         series: options,
         xaxis: {
             show: false,

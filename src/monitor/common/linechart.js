@@ -1,13 +1,52 @@
+let iInterval;
+
+function getTickSize()
+{
+    if (iInterval === 60 * 1000)
+    {
+        return [1, 'minute']
+    }
+    else if (iInterval === 5 * 1000)
+    {
+        return [5, 'second']
+    }
+    else if (iInterval === 60 * 60 * 1000)
+    {
+        return [1, 'hour'];
+    }
+}
+
+
+function tickFormatter(value, axis)
+{
+    let d = new Date(value);
+
+    if (iInterval === 60 * 1000)
+    {
+        return d.getMinutes();
+    }
+    else if (iInterval === 5 * 1000)
+    {
+        return d.getSeconds();
+    }
+    else if (iInterval === 60 * 60 * 1000)
+    {
+        return d.getHours();
+    }
+}
+
 module.exports = function({from, to, interval, collection}) {
     const options = {
         lines: {
             show: true,
-            lineWidth: 1
+            lineWidth: 2
         },
         points: {
             show: false
         }
     };
+
+    iInterval = interval;
 
     let lineChart = $(".chuhe-linechart-content").plot(collection, {
         series: options,
@@ -20,17 +59,11 @@ module.exports = function({from, to, interval, collection}) {
         xaxis: {
             mode: 'time',
             show: true,
-            tickSize: [1, "second"],
-          
-            zoomRange: [from, null],
-            panRange: [from, to],
+            tickSize: getTickSize(),
             font: {
                 color: 'white'
             },
-            tickFormatter: function(val, axis) {
-                var d = new Date(val);
-                return d.getSeconds();
-            }
+            tickFormatter: tickFormatter
         },
         yaxis: {
             show: true,
