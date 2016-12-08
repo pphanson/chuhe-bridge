@@ -51,10 +51,10 @@ module.exports = function({from, to, interval, collection}) {
     let lineChart = $(".chuhe-linechart-content").plot(collection, {
         series: options,
         zoom: {
-            interactive: true
+            interactive: false
         },
         pan: {
-            interactive: true
+            interactive: false
         },
         xaxis: {
             mode: 'time',

@@ -193,7 +193,7 @@ function updateRealTimeData(data) {
             collection[v].data.splice(0, 1);
             collection[v].data.push([timestamp.getTime(), data.value[v]]);
             to = timestamp;
-            from = new Date(collection[v].data[0][1]);
+            from = new Date(collection[v].data[0][0]);
         }
     }
 
@@ -283,9 +283,9 @@ module.exports = function(options) {
             });
 
             //获取昨日同期监控数据
-            requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
-                //refreshLineChart(data);
-            });
+            // requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
+            //     //refreshLineChart(data);
+            // });
 
             requestUtil.startMonitor(id, data => {
                 updateRealTimeData(data);
@@ -304,9 +304,9 @@ module.exports = function(options) {
     });
 
     //获取昨日同期监控数据
-    requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
-        //refreshLineChart(data);
-    });
+    // requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
+    //     //refreshLineChart(data);
+    // });
 
     requestUtil.startMonitor(id, data => {
         updateRealTimeData(data);

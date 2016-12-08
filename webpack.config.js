@@ -17,6 +17,9 @@ let entry = Object.assign({
       './resource/common.less'
     ],
     "dashboard": dashboard,
+    "fft": [
+      './analytics/fft/index.js'
+    ]
 }, initMonitorEntry());
 
 function initMonitorEntry()
@@ -40,7 +43,11 @@ let plugins = [
       filename: "./dashboard/index.html",
       chunks: ["vendor", "dashboard"]
   }),
-
+  new HtmlWebpackPlugin({
+      template: './analytics/fft/html.js',
+      filename: './analytics/fft/index.html',
+      chunk: ['vendor', 'fft']
+  }),
   // new webpack.ProvidePlugin({
   //     $: 'jquery',
   //     jQuery: 'jquery',
