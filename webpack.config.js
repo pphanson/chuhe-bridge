@@ -121,5 +121,6 @@ module.exports = {
         }]
     },
     plugins: plugins,
+    extensions: [".js", ".ejs", ".less", ".css"],
     devtool: 'source-map'
 };
