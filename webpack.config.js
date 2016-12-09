@@ -18,6 +18,7 @@ let entry = Object.assign({
     ],
     "dashboard": dashboard,
     "fft": [
+      'webpack-hot-middleware/client?reload=true',
       './analytics/fft/index.js'
     ]
 }, initMonitorEntry());
@@ -46,7 +47,7 @@ let plugins = [
   new HtmlWebpackPlugin({
       template: './analytics/fft/html.js',
       filename: './analytics/fft/index.html',
-      chunk: ['vendor', 'fft']
+      chunks: ['vendor', 'fft']
   }),
   // new webpack.ProvidePlugin({
   //     $: 'jquery',
