@@ -1,3 +1,33 @@
+const io = require('socket.io-client');
+let client = {};
+
+function startMonitor(id, value, stats)
+{
+    if (!client[id])
+    {
+        client[id] = io('http://localhost:3000/api/sensor/' + id);
+        if ($.isFunction(value))
+        {
+            client[id].on("value", value);
+        }
+
+        if ($.isFunction(stats))
+        {
+            client[id].on("stats", stats);
+        }
+
+    }
+    client[id].connect();
+}
+
+function stopMonitor(id)
+{
+    if (client[id])
+    {
+        client[id].disconnect();
+    }
+}
+
 /**
  *获取某个传感器实例在某段区间的所有监控数据
  */
@@ -32,12 +62,20 @@ function fetchSensors(type)
  */
 function fetchSensorStats(id, from, to)
 {
+    let ids;
+    if ($.isArray(id))
+    {
+      ids = id;
+    }
+    else {
+      ids = [id];
+    }
     return $.ajax({
         url: "http://localhost:3000/sensors/data/stats",
         dataType: 'json',
         type: 'POST',
         data: {
-            sensors: JSON.stringify([id]),
+            sensors: JSON.stringify(ids),
             from: from,
             to: to
         }
@@ -47,5 +85,8 @@ function fetchSensorStats(id, from, to)
 module.exports = {
   fetchSensors,
   fetchSensorStats,
-  fetchSensorData
+  fetchSensorData,
+  startMonitor,
+  stopMonitor,
+  fetchSensors
 };

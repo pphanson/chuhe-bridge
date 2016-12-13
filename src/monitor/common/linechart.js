@@ -1,23 +1,74 @@
-module.exports = function() {
+let iInterval;
+
+function getTickSize()
+{
+    if (iInterval === 60 * 1000)
+    {
+        return [1, 'minute']
+    }
+    else if (iInterval === 5 * 1000)
+    {
+        return [5, 'second']
+    }
+    else if (iInterval === 60 * 60 * 1000)
+    {
+        return [1, 'hour'];
+    }
+}
+
+
+function tickFormatter(value, axis)
+{
+    let d = new Date(value);
+
+    if (iInterval === 60 * 1000)
+    {
+        return d.getMinutes();
+    }
+    else if (iInterval === 5 * 1000)
+    {
+        return d.getSeconds();
+    }
+    else if (iInterval === 60 * 60 * 1000)
+    {
+        return d.getHours();
+    }
+}
+
+module.exports = function({from, to, interval, collection}) {
     const options = {
         lines: {
-            show: true
+            show: true,
+            lineWidth: 2
         },
         points: {
             show: false
         }
     };
 
-    let lineChart = $.plot(".chuhe-linechart-content", [], {
+    iInterval = interval;
+
+    let lineChart = $(".chuhe-linechart-content").plot(collection, {
         series: options,
+        zoom: {
+            interactive: false
+        },
+        pan: {
+            interactive: false
+        },
         xaxis: {
+            mode: 'time',
             show: true,
+            tickSize: getTickSize(),
             font: {
                 color: 'white'
-            }
+            },
+            tickFormatter: tickFormatter
         },
         yaxis: {
             show: true,
+            zoomRange: false,
+				    panRange: false,
             font: {
                 color: 'white'
             }
@@ -43,7 +94,7 @@ module.exports = function() {
                 bottom: '#9b99ff'
             }
         }
-    });
+    }).data('plot');
 
     $(window).on('resize', function() {
         lineChart.resize();

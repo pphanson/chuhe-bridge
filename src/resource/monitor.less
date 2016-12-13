@@ -11,8 +11,7 @@
 
             > a {
                 color: white;
-                padding: 0 0 0 10px;
-            }
+                          }
 
             &.selected {
                 background: gray;
@@ -25,6 +24,10 @@
 
         >.nav-wrapper
         {
+            > ul.left
+            {
+              position: relative;
+            }
             i
             {
                height: auto;
@@ -44,27 +47,29 @@
 
         .chuhe-monitor-item {
             position: relative;
-            margin: 5px;
         }
 
         > .chuhe-monitor-top
         {
-            flex-grow: 1;
-            flex-basis: 48%;
+            flex-grow: 0;
+            flex-basis: 50%;
+
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            margin-bottom: 3px;
             > .chuhe-realtime {
                 flex-basis: 300px;
-
+                flex-shrink: 0;
                 > svg {
                     background: #1c334f;
                 }
+                margin-right: 3px;
             }
 
             > .chuhe-3d {
                 flex-grow: 1;
-                flex-shrink: 0;
                 width: auto;
+                margin-left: 3px;
                 > .chuhe-3d-title {
                     position: absolute;
                     font-size: 24px;
@@ -78,9 +83,10 @@
         > .chuhe-monitor-bottom
         {
             flex-grow: 1;
-            flex-basis: 52%;
+
             display: flex;
             flex-wrap: wrap;
+            margin-top: 3px;
             > .chuhe-monitor-stats
             {
                 flex-basis: 300px;
@@ -88,11 +94,11 @@
                 display: flex;
                 flex-wrap: nowrap;
                 flex-direction: column;
-
+                margin-right: 3px;
                 > .chuhe-current-stats {
                     flex-grow: 1;
                     position: relative;
-                    margin-bottom: 5px;
+                    margin-bottom: 3px;
                     > .chuhe-stats-card {
                         background-color: rgba(88,127,237,0.3);
                     }
@@ -101,7 +107,7 @@
                 > .chuhe-history-stats {
                     flex-grow: 1;
                     position: relative;
-                    margin-top: 5px;
+                    margin-top: 3px;
 
                     > .chuhe-stats-card {
                         background-color: rgba(68,193,148,0.3);
@@ -112,6 +118,7 @@
             > .chuhe-linechart {
                 flex-grow: 1;
                 flex-shrink: 0;
+                margin-left: 3px;
                 .chuhe-linechart-legend {
                     position: absolute;
                     width: 100%;
@@ -207,12 +214,6 @@
                 margin-left: 15px;
                 font-size: 18px;
             }
-
-            &.card-avg-item {}
-
-            &.card-min-item {}
-
-            &.card-max-item {}
         }
     }
 }

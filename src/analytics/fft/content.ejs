@@ -1,0 +1,96 @@
+
+<div class='chuhe-fft-container'>
+  <div class='chuhe-fft-left'>
+      <div class='chuhe-time-select'>
+        <div class='chuhe-time-title'>傅里叶分析</div>
+        <div class='chuhe-time-name'>选择时间</div>
+        <div class='chuhe-time-input'>
+            <input type="text" name="beginTime" id='beginTime' placeholder="2016-12-01 11:00:00">
+            &nbsp&nbsp&nbsp&nbsp至:&nbsp&nbsp&nbsp&nbsp<input type="text" name="endTime" id='endTime' placeholder="2016-12-15 11:00:00">
+        </div>
+      </div>
+      <div class='chuhe-sensor-select'>
+        <div class='chuhe-sensorId-select'>
+            <select name="sensorId" id="sensorValue">
+              <option value="0601">振动传感器01</option>
+              <option value="0602">振动传感器02</option>
+              <option value="0603">振动传感器03</option>
+              <option value="0604">振动传感器04</option>
+              <option value="0605">振动传感器05</option>
+              <option value="0606">振动传感器06</option>
+            </select>
+            <select name="sensorDirection" id="sensorDirection">
+              <option value="x">x方向</option>
+              <option value="y">y方向</option>
+              <option value="z">z方向</option>
+            </select>
+            <%- fetchSensorData() %>
+          <input id='clickid' onclick="fetchSensorData()" type="submit" name="submited" value="确定">
+        </div>
+        <div id='chuhe-bridge'>
+        </div>
+      </div>
+  </div>
+  <div class='chuhe-fft-right'>
+      <div class='chuhe-analytics-linechart chuhe-time-linechart'>
+          <div class='chuhe-linechart-title'>
+            <div class='chuhe-linechart-name'><span>加速度趋势图</span></div>
+            <div class='chuhe-linechart-unit'><span>加速度(mm/s&#178)</span></div>
+          </div>
+          <div class='chuhe-linechart-content'>
+          </div>
+      </div>
+      <div class='chuhe-analytics-linechart chuhe-fft-linechart'>
+         <div class='chuhe-linechart-title'>
+           <div class='chuhe-linechart-name'><span>傅里叶分析</span></div>
+           <div class='chuhe-linechart-unit'><span>频谱分量</span></div>
+         </div>
+        <div class='chuhe-linechart-content'>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+
+  let from = new Date(document.getElementById("beginTime").value);
+let to = new Date(document.getElementById("endTime").value);
+let id = document.getElementById("sensorValue").value;
+
+
+function processData(data)
+{
+  alert(data);
+  return(data);
+
+}
+$('#clickid').click(function(){
+requestUtil.fetchSensorData(id, from.toJSON(), to.JSON()).then(data => {
+  series.data = processData(data);
+  linechart.setData([series]);
+  linechart.setupGrid();
+  linechart.draw();
+});
+})
+</script>
+<!--<script>
+  function update(){
+  let from = new Date(document.getElementById("beginTime").value);
+  let to = new Date(document.getElementById("endTime").value);
+  let sensorId = document.getElementById("sensorValue").value;
+  let sensorDirection = document.getElementById("sensorDirection").value;
+  $("#clickid").click(function(){
+    $.ajax({
+      type: "get",
+      url: "analytics/getfft",
+      data: {
+        from: from.toJSON(),
+        to: to.toJSON(),
+        sensorId: sensorId,
+        sensorDirection: sensorDirection,
+      },
+    })
+  })
+}
+</script>-->

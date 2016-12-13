@@ -1,0 +1,138 @@
+@bg: gray;
+
+.chuhe-fft-container
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    > .chuhe-fft-left
+    {
+        flex-basis: 40%;
+        flex-grow: 0;
+        height: 100%;
+        margin-right: 5px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+
+        > .chuhe-time-select
+        {
+            flex-basis: 30%;
+            width: 100%;
+            color: white;
+            margin-bottom: 5px;
+            background: #192e46;
+            >.chuhe-time-title
+            {
+                font-size: 30px;
+                margin-left: 10px;
+            }
+            >.chuhe-time-name
+            {
+                font-size: 18px;
+                margin-top: 30px;
+                margin-left: 10px;
+            }
+            >.chuhe-time-input
+            {
+                margin-left: 10px;
+                >input
+                {
+                    width: 40% !important;
+                }
+            }
+        }
+
+        > .chuhe-sensor-select
+        {
+            width: 100%;
+            color: wheat;
+            flex-grow: 1;
+            background: #192e46;
+            margin-top: 5px;
+            position: relative;
+            >.chuhe-sensorId-select
+            {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                margin-left: 10px;
+                height: 20%;
+                color: white;
+                >input
+                {
+                    background: #203656;
+                    color: white;
+                    padding: 0px 15px;
+                    border: 0px;
+                    font-size: 16px;
+                }
+            }
+
+           div#chuhe-bridge
+           {
+               position: absolute;
+               height: 85%;
+               width: 100%;
+           }
+        }
+
+    }
+
+    > .chuhe-fft-right
+    {
+        flex-grow: 1;
+        height: 100%;
+        margin-left: 5px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+
+        > .chuhe-analytics-linechart
+        {
+            flex-grow: 1;
+            width: 100%;
+            position: relative;
+            > .chuhe-linechart-title
+            {
+                height: 60px;
+                color: white;
+                margin-left: 10px;
+                margin-top: 10px;
+                >.chuhe-linechart-name
+                {
+                    font-size: 24px;
+                }
+                >.chuhe-linechart-unit
+                {
+                    font-size: 18px;
+                }
+            }
+
+            > .chuhe-linechart-content
+            {
+                position: absolute;
+                top: 60px;
+                bottom: 0px;
+                width: 100%
+            }
+        }
+
+        > .chuhe-analytics-linechart.chuhe-time-linechart
+        {
+            background: red;
+        }
+        > .chuhe-analytics-linechart.chuhe-fft-linechart
+        {
+
+            background: orange;
+        }
+    }
+
+
+}

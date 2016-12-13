@@ -5,5 +5,6 @@ const { fetchSensorDat } = require('../common/remote');
 const { id, lineChart, gauge, bridgeScene } = monitor({
     type: 'trafficload',
     unit: 'kN',
-    value: 'weight'
+    value: 'weight',
+    interval: 100
 });

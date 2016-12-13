@@ -6,5 +6,6 @@ const { id, lineChart, gauge, bridgeScene } = monitor({
     type: 'vibration',
     unit: 'mm/s2',
     values: ['x', 'y', 'z'],
-    value: 'x'
+    value: 'x',
+    interval: 5 * 1000
 });
