@@ -11,10 +11,12 @@ setTimeout(() => {
     linechart.draw();
 }, 2000)
 
+
 let from;
 let to;
 let type;
 let id;
+
 
 const timeInterval = {
   'strain': 60 * 1000,
@@ -37,3 +39,4 @@ requestUtil.fetchSensorData(id, from.toJSON(), to.JSON()).then(data => {
   linechart.setupGrid();
   linechart.draw();
 });
+
