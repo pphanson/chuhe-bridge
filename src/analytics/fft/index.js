@@ -12,6 +12,12 @@ setTimeout(() => {
 }, 2000)
 
 
+let from;
+let to;
+let type;
+let id;
+
+
 const timeInterval = {
   'strain': 60 * 1000,
   'displacement': 60 * 1000,
@@ -22,5 +28,15 @@ const timeInterval = {
   'corrosion': 60 * 60 * 1000
 };
 
+function processData(data)
+{
 
+}
+
+requestUtil.fetchSensorData(id, from.toJSON(), to.JSON()).then(data => {
+  series.data = processData(data);
+  linechart.setData([series]);
+  linechart.setupGrid();
+  linechart.draw();
+});
 

@@ -17,6 +17,10 @@ let entry = Object.assign({
       './resource/common.less'
     ],
     "dashboard": dashboard,
+    "fft": [
+      'webpack-hot-middleware/client?reload=true',
+      './analytics/fft/index.js'
+    ]
 }, initMonitorEntry());
 
 function initMonitorEntry()
@@ -40,7 +44,11 @@ let plugins = [
       filename: "./dashboard/index.html",
       chunks: ["vendor", "dashboard"]
   }),
-
+  new HtmlWebpackPlugin({
+      template: './analytics/fft/html.js',
+      filename: './analytics/fft/index.html',
+      chunks: ['vendor', 'fft']
+  }),
   // new webpack.ProvidePlugin({
   //     $: 'jquery',
   //     jQuery: 'jquery',
@@ -114,5 +122,6 @@ module.exports = {
         }]
     },
     plugins: plugins,
+    extensions: [".js", ".ejs", ".less", ".css"],
     devtool: 'source-map'
 };

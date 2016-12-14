@@ -76,7 +76,7 @@ async function loadSensor()
 
 function printStarLine()
 {
-    console.log('*'.repeat(80));
+    //console.log('*'.repeat(80));
 }
 
 startup();

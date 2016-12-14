@@ -93,7 +93,7 @@ gulp.task("dev", ["clean"], cb => {
     runSequence(
         [
             'build-lib',
-            'sever:dev'
+            'server:dev'
         ],
         cb
     );
