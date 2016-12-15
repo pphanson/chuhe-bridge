@@ -20,6 +20,14 @@ let entry = Object.assign({
     "fft": [
       'webpack-hot-middleware/client?reload=true',
       './analytics/fft/index.js'
+    ],
+    "correlation":[
+        'webpack-hot-middleware/client?reload=true',
+        './analytics/correlation/index.js'
+    ],
+    "alarm":[
+        'webpack-hot-middleware/client?reload=true',
+        './statistics/alarm/index.js'
     ]
 }, initMonitorEntry());
 
@@ -48,6 +56,16 @@ let plugins = [
       template: './analytics/fft/html.js',
       filename: './analytics/fft/index.html',
       chunks: ['vendor', 'fft']
+  }),
+  new HtmlWebpackPlugin({
+      template: './analytics/correlation/html.js',
+      filename: './analytics/correlation/index.html',
+      chunks: ['vendor','correlation']
+  }),
+  new HtmlWebpackPlugin({
+      template: './statistics/alarm/html.js',
+      filename: './statistics/alarm/index.html',
+      chunks: ['vendor','alarm']
   }),
   // new webpack.ProvidePlugin({
   //     $: 'jquery',

@@ -43,6 +43,20 @@ function stopMonitor(id)
     });
  }
 
+function getAnalytics(id, from, to)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/fft/',
+        dataType: 'json',
+        data: {
+            sensorId: id,
+            from: from,
+            to: to
+        }
+    });
+}
+//hy
+
 /**
  * 根据传感器类型获取传感器列表
  */
@@ -88,5 +102,5 @@ module.exports = {
   fetchSensorData,
   startMonitor,
   stopMonitor,
-  fetchSensors
+  getAnalytics
 };

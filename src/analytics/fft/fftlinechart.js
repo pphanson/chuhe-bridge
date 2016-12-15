@@ -1,11 +1,11 @@
-const seriesTime = {
+const seriesFft = {
  // data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
-  color: 'white',
+  color: 'green',
   fill: true,
   fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
+const lineChartFft = $(".chuhe-fft-linechart > .chuhe-linechart-content").plot([seriesFft], {
     series: {
       lines: {
           show: true
@@ -15,7 +15,7 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
       }
     },
     zoom: {
-        interactive: true
+        interactive: false
     },
     pan: {
         interactive: false
@@ -72,14 +72,14 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChartTime.resize();
-    lineChartTime.setupGrid();
-    lineChartTime.draw();
+    lineChartFft.resize();
+    lineChartFft.setupGrid();
+    lineChartFft.draw();
 });
 
 module.exports = {
-  linechartTime: lineChartTime,
-  seriesTime: seriesTime
+    linechartFft: lineChartFft,
+    seriesFft: seriesFft
 }
 
 

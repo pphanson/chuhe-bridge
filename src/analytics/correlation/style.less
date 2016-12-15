@@ -1,0 +1,127 @@
+@bg:blue;
+
+.chuhe-correlation-container
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    > .chuhe-correlation-left
+    {
+        flex-basis: 40%;
+        flex-grow: 0;
+        height: 100%;
+        margin: 10px 5px 10px 10px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+
+        > .chuhe-cortime-select
+        {
+            flex-basis: 30%;
+            width: 100%;
+            margin-bottom: 5px;
+            background: #192e46;
+
+            >.chuhe-cortime-title
+            {
+                font-size: 42px;
+                margin-left: 10px;
+            }
+
+            >.chuhe-cortime-name
+            {
+                font-size: 18px;
+                margin-top: 30px;
+                margin-left: 10px;
+            }
+
+            >.chuhe-cortime-input
+            {
+                margin-left: 10px;
+
+                >input
+                {
+                    width: 40% !important;
+                }
+            }
+        }
+
+        > .chuhe-corsensor-select
+        {
+            width: 100%;
+            flex-grow: 1;
+            background: #192e46;
+            margin-top: 5px;
+            position: relative;
+            >.chuhe-corline-select
+            {
+                margin-top: 10px;
+                margin-left: 10px;
+                >button
+                {
+                    background: #203656;
+                }
+            }
+            >.chuhe-corsensorId-select
+            {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-left: 10px;
+                margin-right: 10px;
+                height: 20%;
+                >button
+                {
+                    background: #203656;
+                }
+            }
+
+           div#chuhe-bridge
+           {
+               position: absolute;
+               height: 76%;
+               width: 100%;
+           }
+        }
+
+    }
+
+    > .chuhe-correlation-right
+    {
+        flex-grow: 1;
+        height: 100%;
+        margin: 10px 10px 10px 5px;
+        background: #1c334f;
+        color: white;
+        position: relative;
+        > .chuhe-correlationLine-title
+        {
+            height: 60px;
+            margin-left: 10px;
+            font-size: 30px;
+        }
+
+        > .chuhe-correlationY-title
+        {
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        > .chuhe-correlationLineChart-contant
+        {
+            position: absolute;
+            top: 90px;
+            width: 100%;
+            bottom: 10px;
+            height: 80%;
+        }
+        > .chuhe-correlationX-title
+        {
+            font-size: 18px;
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+        }
+    }
+}

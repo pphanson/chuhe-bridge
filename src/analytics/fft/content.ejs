@@ -1,6 +1,24 @@
 <div class='chuhe-fft-container'>
   <div class='chuhe-fft-left'>
-      <div class='chuhe-time-select'>
+      <div class='chuhe-condition-select'>
+        <div class='chuhe-fft-title'>傅里叶分析</div>
+        <div class='chuhe-name'>选择时间</div>
+        <div class='chuhe-time-input'>
+            <input type="text" name="beginTime" id='beginTime' placeholder="2016-12-01 11:00:00">
+            <span class='chuhe-time'>至:</span>
+            <input type="text" name="endTime" id='endTime' placeholder="2016-12-15 11:00:00">
+        </div>
+
+        <div class='chuhe-name'>选择传感器</div>
+        <div class="chuhe-sensorId-select">
+            <p class="chuhe-fftStats-title">
+                <a id='vibration-title' class="btn-flat dropdown-button waves-effect waves-light chuhe-card-btn" data-activates='vibration-dropdown' href="#">
+                      <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id='vibration-dropdown' class="dropdown-content active chuhe-fftdropown-content">
+                </ul>
+            </p>
+            <input id='clickid' type="submit" name="submited" value="确定">
+        </div>
       </div>
       <div class='chuhe-sensor-select'>
         <div id='chuhe-bridge'>
@@ -13,14 +31,14 @@
             <div class='chuhe-linechart-name'><span>加速度趋势图</span></div>
             <div class='chuhe-linechart-unit'><span>加速度(mm/s&#178)</span></div>
           </div>
-          <div class='chuhe-linechart-content'>
-          </div>
+          <div class='chuhe-linechart-content'></div>
       </div>
       <div class='chuhe-analytics-linechart chuhe-fft-linechart'>
-        <div class='chuhe-linechart-title'>
-        </div>
-        <div class='chuhe-linechart-content'>
-        </div>
+         <div class='chuhe-linechart-title'>
+           <div class='chuhe-linechart-name'><span>傅里叶分析</span></div>
+           <div class='chuhe-linechartY-unit'><span>频谱分量</span></div>
+         </div>
+         <div class='chuhe-linechart-content'></div>
       </div>
   </div>
 </div>

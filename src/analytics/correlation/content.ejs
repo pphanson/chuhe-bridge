@@ -1,0 +1,42 @@
+<div class='chuhe-correlation-container'>
+  <div class='chuhe-correlation-left'>
+    <div class='chuhe-cortime-select'>
+        <div class='chuhe-cortime-title'>相关性分析</div>
+        <div class='chuhe-cortime-name'>选择时间</div>
+        <div class='chuhe-cortime-input'>
+            <input type="text" name="beginTime" placeholder="2016-12-01 11:00:00">
+            <input type="text" name="endTime" placeholder="2016-12-15 11:00:00">
+        </div>
+      </div>
+      <div class='chuhe-corsensor-select'>
+        <div class='chuhe-corline-select'>
+          <button class="btn waves-effect waves-light" onclick=''>X轴</button>
+          <button class="btn waves-effect waves-light" onclick=''>Y轴</button>
+        </div>
+        <div class='chuhe-corsensorId-select'>
+            <select name="sensorTypeX">
+              <option value="02">挠度</option>
+              <option value="01">位移</option>
+              <option value="03">垂直度</option>
+              <option value="04">应变</option>
+              <option value="05">索力</option>
+              <option value="06">振动</option>
+              <option value="07">温湿度</option>
+              <option value="08">腐蚀</option>
+              <option value="09">交通荷载</option>
+            </select>
+            <button class='btn waves-effect waves-light right' id='clickid' onclick="" type="submit" name="action">确定</button>
+        </div>
+        <div id='chuhe-bridge'>
+        </div>
+      </div>
+  </div>
+  <div class='chuhe-correlation-right'>
+    <div class='chuhe-correlationLine-title'>
+      <div class='chuhe-correlationLine-name'><span>相关性分析</span></div>
+    </div>
+    <div class='chuhe-correlationY-title'>挠度（mm）</div>
+    <div class='chuhe-correlationLineChart-contant'></div>
+    <div class='chuhe-correlationX-title right'>位移（mm）</div>
+  </div>
+</div>
