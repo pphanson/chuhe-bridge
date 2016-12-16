@@ -1,5 +1,7 @@
+/**
+ *傅里叶分析下方的频率变换
+ */
 const seriesFft = {
- // data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
   color: 'green',
   fill: true,
   fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
@@ -20,18 +22,6 @@ const lineChartFft = $(".chuhe-fft-linechart > .chuhe-linechart-content").plot([
     pan: {
         interactive: false
     },
-    //xaxis: {
-    //  mode: 'time',
-    //  show: true,
-    //  font: {
-    //      color: 'white'
-    //  },
-    //  tickFormatter: function(value)
-    //  {
-    //      var d = new Date(value);
-    //      return `${d.getFullYear()}- ${d.getMonth()}-${d.getDate()}`;
-    //  }
-    //},
     xaxis: {
         show: true,
         zoomRange: false,

@@ -5,6 +5,7 @@ const {linechartFft, seriesFft} = require('./fftlinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 
+
 let type = 'vibration';
 requestUtil.fetchSensors(type).then(data => {
     initSensorlist(type, data);
@@ -22,8 +23,6 @@ function initSensorlist(type, data) {
     $ul.on('click', 'li', function (e) {
         selectSensorItem(type, $(e.currentTarget).data())
     })
-
-    alert(id);
 
     function selectSensorItem(type, item) {
         var $selectedSensorItem = $(`ul#vibration-dropdown li.chuhe-sensor-item-selected`);
@@ -43,7 +42,6 @@ function initSensorlist(type, data) {
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);
     let id = $("ul#vibration-dropdown li.chuhe-sensor-item-selected").attr("id");
-        alert(id);
 
     requestUtil.getAnalytics(id, from.toJSON(), to.toJSON()).then(data => {
         seriesTime.data = data.timeArray;
