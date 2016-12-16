@@ -5,7 +5,6 @@ const {linechartFft, seriesFft} = require('./fftlinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 
-
 let type = 'vibration';
 requestUtil.fetchSensors(type).then(data => {
     initSensorlist(type, data);
@@ -60,3 +59,4 @@ function initSensorlist(type, data) {
     });
 
 });
+
