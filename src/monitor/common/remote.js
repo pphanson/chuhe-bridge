@@ -96,11 +96,22 @@ function fetchSensorStats(id, from, to)
     });
 }
 
+
+function fetchSensorsMeta()
+{
+    return $.ajax({
+      url: 'http://localhost:3000/sensors/meta',
+      dataType: 'json',
+      async: false
+    });
+}
+
 module.exports = {
   fetchSensors,
   fetchSensorStats,
   fetchSensorData,
   startMonitor,
   stopMonitor,
-  getAnalytics
+  getAnalytics,
+  fetchSensorsMeta
 };

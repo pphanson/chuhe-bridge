@@ -1,6 +1,10 @@
 require('./style.less');
 
 const series = require('../monitor/common/series');
+const map = require('./map');
+const bridgeScene =require('./bridge');
+const LineChart = require('./lineChart.js');
+const RequestUtil = require('../monitor/common/remote');
 
 const now = new Date();
 const historyFrom = new Date(
@@ -17,50 +21,56 @@ const historyTo = new Date(
   59
 );
 
+let sensorMeta;
+
+RequestUtil.fetchSensorsMeta().then(data => {
+    sensorMeta = data;
+})
+
+
+
+
 const timeInterval = {
-  'strain': 60 * 1000,
-  'displacement': 60 * 1000,
-  'verticality': 60 * 1000,
-  'deflection': 60 * 1000,
-  'vibration': 5 * 1000,
-  'cableforce': 60 * 1000,
-  'corrosion': 60 * 60 * 1000
+  '04': 60 * 1000,
+  '01': 60 * 1000,
+  '03': 60 * 1000,
+  '02': 60 * 1000,
+  '06': 5 * 1000,
+  '05': 60 * 1000,
+  '08': 60 * 60 * 1000
 };
 
 const timeRange = {
-  'strain': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  'displacement': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  'verticality': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  'deflection': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  'vibration': [new Date(now.getTime()), new Date(now.getTime() + 5 * 60 * 1000)],
-  'cableforce': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  'corrosion': [new Date(now.getTime()), new Date(now.getTime() + 60 * 60 * 1000 * 23)],
+  '04': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+  '01': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+  '03': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+  '02': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+  '06': [new Date(now.getTime()), new Date(now.getTime() + 5 * 60 * 1000)],
+  '05': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+  '08': [new Date(now.getTime()), new Date(now.getTime() + 60 * 60 * 1000 * 23)],
 };
 
 const collection = {
-  'strain': series({'from': timeRange['strain'][0], 'to': timeRange['strain'][1], 'values': ['strain'], 'interval': 60 * 1000}),
-  'verticality': series({'from': timeRange['verticality'][0], 'to': timeRange['verticality'][1], 'values': ['verticality'], 'interval':60 * 1000}),
-  'displacement': series({'from': timeRange['displacement'][0], 'to': timeRange['displacement'][1], 'values': ['displacement'], 'interval': 60 * 1000}),
-  'deflection': series({'from': timeRange['deflection'][0], 'to': timeRange['deflection'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
-  'vibration': series({'from': timeRange['vibration'][0], 'to': timeRange['vibration'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
-  'cableforce': series({'from': timeRange['cableforce'][0], 'to': timeRange['cableforce'][1], 'values': ['baseband'], 'interval': 60 * 1000}),
-  'corrosion': series({'from': timeRange['corrosion'][0], 'to': timeRange['corrosion'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
+  '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000}),
+  '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['verticality'], 'interval':60 * 1000}),
+  '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['displacement'], 'interval': 60 * 1000}),
+  '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
+  '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
+  '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['baseband'], 'interval': 60 * 1000}),
+  '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
 };
 
-const map = require('./map');
-const bridgeScene =require('./bridge');
-const LineChart = require('./lineChart.js');
-const RequestUtil = require('../monitor/common/remote');
+
 
 const lineCharts = {
-  'strain': LineChart('strain', collection['strain']),
-  'displacement': LineChart('displacement', collection['displacement']),
-  'verticality': LineChart('verticality', collection['verticality']),
-  'cableforce': LineChart('cableforce', collection['cableforce']),
-  'deflection': LineChart('deflection', collection['deflection']),
-  'trafficload': LineChart('trafficload'),
-  'corrosion': LineChart('corrosion', collection['corrosion']),
-  'vibration': LineChart('vibration', collection['vibration'])
+  '04': LineChart('strain', collection['04']),
+  '03': LineChart('displacement', collection['03']),
+  '01': LineChart('verticality', collection['01']),
+  '05': LineChart('cableforce', collection['05']),
+  '02': LineChart('deflection', collection['02']),
+  '09': LineChart('trafficload'),
+  '08': LineChart('corrosion', collection['08']),
+  '06': LineChart('vibration', collection['06'])
 };
 
 
@@ -73,7 +83,7 @@ bridgeScene.on("load", function(e) {
 let selectedSensors = {};
 
 function initSensorlist(type, data) {
-    var $ul = $(`ul#${type}-card-dropdown`);
+    var $ul = $(`ul#${sensorMeta[type].name}-card-dropdown`);
     data.forEach((item, index) => {
         let $li = $(`<li id=${item.id}><a href='#'><span>${item.name}</span></a></li>`);
         $li.data(item);
@@ -97,7 +107,7 @@ function getTimestamp(time, type)
 
 function refreshRealValue(type, v, data)
 {
-    if (type === 'temperature and humidity')
+    if (type === '07')
     {
         return;
     }
@@ -106,7 +116,7 @@ function refreshRealValue(type, v, data)
     const col = collection[type];
 
 
-    let $card = $(`div#${type}-card.chuhe-card #${type}-card-current-number`);
+    let $card = $(`div#${sensorMeta[type].name}-card.chuhe-card #${sensorMeta[type].name}-card-current-number`);
     $card.text(data.value[v].toFixed(2));
 
     if (timestamp < timeRange[type][1]) {
@@ -128,21 +138,21 @@ function refreshRealValue(type, v, data)
 
 function refreshHistoryValue(type, id, value, data)
 {
-    if (type === 'temperature and humidity')
+    if (type === '07')
     {
         return;
     }
-    var $card = $(`div#${type}-card.chuhe-card #${type}-card-history-number`);
+    var $card = $(`div#${sensorMeta[type].name}-card.chuhe-card #${sensorMeta[type].name}-card-history-number`);
     $card.html(data[id] && data[id][value]&& data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
 }
 
 function selectSensorItem(type, item, remote) {
-    var $selectedSensorItem = $(`div#${type}-card  li.chuhe-sensor-item-selected`);
-    var $sensorItem = $(`div#${type}-card  li#${item.id}`);
-    var $chardTitle = $(`div#${type}-card a#${type}-card-title`);
-    var $chardMonitorLink = $(`div#${type}-card div.chuhe-card-name > a.chuhe-monitor-link`);
+    var $selectedSensorItem = $(`div#${sensorMeta[type].name}-card  li.chuhe-sensor-item-selected`);
+    var $sensorItem = $(`div#${sensorMeta[type].name}-card  li#${item.id}`);
+    var $chardTitle = $(`div#${sensorMeta[type].name}-card a#${type}-card-title`);
+    var $chardMonitorLink = $(`div#${sensorMeta[type].name}-card div.chuhe-card-name > a.chuhe-monitor-link`);
 
-    $chardMonitorLink.attr('href', `/monitor/${type}/index.html#${item.id}`);
+    $chardMonitorLink.attr('href', `/monitor/${sensorMeta[type].name}/index.html#${item.id}`);
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
@@ -163,20 +173,17 @@ function selectSensorItem(type, item, remote) {
           historyTo.toJSON()
         ).then(data => {
 
-            refreshHistoryValue(type, item.id, type === 'vibration' ? 'x': type, data);
+            refreshHistoryValue(type, item.id, type === '06' ? 'x': sensorMeta[type].name, data);
         });
 
         RequestUtil.startMonitor(item.id, data => {
             let v;
-            if (type === 'vibration')
+            if (type === '06')
             {
                v = 'x';
             }
-            else if (type === 'cableforce'){
-               v = 'baseband';
-            }
             else {
-               v = type;
+               v = sensorMeta[type].name;
             }
             refreshRealValue(type, v, data);
         });
