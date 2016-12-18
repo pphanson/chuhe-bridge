@@ -6,7 +6,7 @@ const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 
 
-let type = 'vibration';
+let type = '06';
 requestUtil.fetchSensors(type).then(data => {
     initSensorlist(type, data);
 });
@@ -42,6 +42,9 @@ function initSensorlist(type, data) {
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);
     let id = $("ul#vibration-dropdown li.chuhe-sensor-item-selected").attr("id");
+    alert(from);
+        alert(to);
+        alert(id);
 
     requestUtil.getAnalytics(id, from.toJSON(), to.toJSON()).then(data => {
         seriesTime.data = data.timeArray;

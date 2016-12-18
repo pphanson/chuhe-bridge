@@ -20,7 +20,7 @@
                <form action="">
                    <div class="chuhe-coordinate-select">
                       <span class="chuhe-coordinate-direction">X轴:</span>
-                      <select name="sensorType" id="">
+                      <select class='chuhe-type-select' name="sensorType" id="">
                           <option value="02">挠度</option>
                           <option value="01">位移</option>
                           <option value="03">垂直度</option>
@@ -31,11 +31,6 @@
                           <option value="08">腐蚀</option>
                           <option value="09">荷载</option>
                       </select>
-
-                   </div>
-
-                   <div class="chuhe-coordinate-select">
-                       <span class="chuhe-coordinate-direction">Y轴:</span>
                        <select name="sensorType" id="">
                            <option value="02">挠度</option>
                            <option value="01">位移</option>
@@ -49,7 +44,34 @@
                        </select>
 
                    </div>
-                   <input type="submit" name="submited" value="确定">
+
+                   <div class="chuhe-coordinate-select">
+                       <span class="chuhe-coordinate-direction">Y轴:</span>
+                       <select class='chuhe-type-select' name="sensorType" id="">
+                           <option value="02">挠度</option>
+                           <option value="01">位移</option>
+                           <option value="03">垂直度</option>
+                           <option value="04">应变</option>
+                           <option value="05">索力</option>
+                           <option value="06">振动</option>
+                           <option value="07">温湿度</option>
+                           <option value="08">腐蚀</option>
+                           <option value="09">荷载</option>
+                       </select>
+                       <select name="sensorType" id="">
+                           <option value="02">挠度</option>
+                           <option value="01">位移</option>
+                           <option value="03">垂直度</option>
+                           <option value="04">应变</option>
+                           <option value="05">索力</option>
+                           <option value="06">振动</option>
+                           <option value="07">温湿度</option>
+                           <option value="08">腐蚀</option>
+                           <option value="09">荷载</option>
+                       </select>
+
+                   </div>
+                   <input id="chuhe-correlation-submit" class="right" type="submit" name="submited" value="确定">
                </form>
 
            </div>

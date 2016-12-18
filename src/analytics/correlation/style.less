@@ -40,7 +40,7 @@
 
                 > .chuhe-timeSelect-title
                 {
-                    font-size: 18px;
+                    font-size: 24px;
                     margin-left: 10px;
                     margin-top: 10px;
                     margin-bottom: 10px;
@@ -52,7 +52,7 @@
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: baseline;
-                    margin-right: 10px;
+                    margin-right: 20px;
                     margin-left: 10px;
                     >.chuhe-cortime
                     {
@@ -71,10 +71,9 @@
 
             > .chuhe-sensor-select
             {
-
                 > .chuhe-sensorSelect-title
                 {
-                    font-size: 18px;
+                    font-size: 24px;
                     margin-left: 10px;
                     margin-bottom: 10px;
                 }
@@ -82,27 +81,35 @@
                 >form
                 {
                     margin-left: 10px;
-                    margin-right: 10px;
+                    margin-right: 20px;
+
+                    > input
+                    {
+                        background: #203656;
+                        width: 20%;
+                        border: 0px;
+                        height: 40px;
+                    }
+
                     > .chuhe-coordinate-select
                     {
                         display: flex;
                         flex-direction: row;
-                        justify-content: flex-start;
+                        justify-content: space-between;
                         align-items: baseline;
 
                         > .chuhe-coordinate-direction
                         {
                             font-size: 18px;
 
+                            > .chuhe-type-select
+                            {
+                                width:30%;
+                            }
+
                         }
 
-                        > select
-                        {
-                            background: #203656;
-                            width: 30%;
-                            margin-left: 20px;
-                            margin-right: 10px;
-                        }
+
                     }
 
                 }
