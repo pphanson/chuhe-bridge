@@ -4,7 +4,7 @@ const {linechartTime, seriesTime} = require('./timelinechart');
 const {linechartFft, seriesFft} = require('./fftlinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
-
+const Meta = require('../../monitor/common/meta');
 
 let type = '06';
 requestUtil.fetchSensors(type).then(data => {
@@ -21,19 +21,19 @@ function initSensorlist(type, data) {
     });
 
     $ul.on('click', 'li', function (e) {
-        selectSensorItem(type, $(e.currentTarget).data())
+        selectSensorItem($(e.currentTarget).data(), true)
     })
 
-    function selectSensorItem(type, item) {
+    function selectSensorItem(item) {
+        const type = item.meta;
+        const name = Meta.getSensorMetaName(type);
         var $selectedSensorItem = $(`ul#vibration-dropdown li.chuhe-sensor-item-selected`);
         var $sensorItem = $(`ul#vibration-dropdown  li#${item.id}`);
-        var $chardTitle = $(`a#${type}-title`);
+        var $chardTitle = $(`a#${name}-title`);
 
         $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
         $sensorItem.addClass("chuhe-sensor-item-selected");
         $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
-
-
     }
 }
 
@@ -42,9 +42,6 @@ function initSensorlist(type, data) {
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);
     let id = $("ul#vibration-dropdown li.chuhe-sensor-item-selected").attr("id");
-    alert(from);
-        alert(to);
-        alert(id);
 
     requestUtil.getAnalytics(id, from.toJSON(), to.toJSON()).then(data => {
         seriesTime.data = data.timeArray;

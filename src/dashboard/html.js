@@ -27,7 +27,7 @@ module.exports = layout.generate(content({
       id: 'deflection-card',
       title: "绕度传感器",
       className: "chuhe-deflection-card",
-      name: "绕度",
+      name: "挠度",
       unit: "mm"
   }),
   "displacementSensor": card({
@@ -53,16 +53,16 @@ module.exports = layout.generate(content({
   }),
   "cableforceSensor": card({
       id: "cableforce-card",
-      title: "索利传感器",
+      title: "索力传感器",
       className: 'chuhe-cableforce-card',
-      name: "索利",
+      name: "索力",
       unit: "kN"
   }),
   "vibrationSensor": card({
       id: "vibration-card",
-      title: "震动传感器",
+      title: "振动传感器",
       className: 'chuhe-vibration-card',
-      name: "震动",
+      name: "振动",
       unit: "mm/s&#178"
   }),
   "trafficloadSensor": card({

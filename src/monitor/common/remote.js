@@ -55,7 +55,7 @@ function getAnalytics(id, from, to)
         }
     });
 }
-//hy
+
 
 /**
  * 根据传感器类型获取传感器列表
