@@ -3,7 +3,9 @@ const Gauge = require('./common/gauge');
 const LineChart = require('./common/lineChart');
 const requestUtil = require('./common/remote');
 const series = require('./common/series');
+const Meta = require('./common/meta');
 
+let type;
 let id;
 let collection = [];
 let values;
@@ -15,129 +17,70 @@ let interval;
 let from;
 let to;
 
-function getTimeRange()
-{
-    const now = new Date();
 
-    if (interval === 60 * 1000)
-    {
-        return {
-          from: new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            now.getHours()
-          ),
-          to: new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            now.getHours(),
-            59
-          )
-        };
-    }
-    else if (interval === 60 * 60 * 1000){
-        return {
-            from: new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate()
-            ),
-            to: new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              23
-            )
-        }
-    }
-    else if (interval === 5 * 1000)
-    {
-        return {
-            from: new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes()
-            ),
-            to: new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes() + 5
-            )
-        };
-    }
-}
-
-function getTimestamp(time)
-{
-    const index = Math.floor((time - from) / interval);
-    return new Date(from.getTime() + index * interval);
-}
-
+/**
+ * 渲染传感器列表
+ */
 function renderSensorList(data) {
     let $list = $('div.chuhe-monitor ul#chuhe-monitor-dropdown');
     for (let item of data) {
         let $li = $(`<li id=${item.id}><a href='#${item.id}'><span>${item.name}</span></a></li>`).data(item);
         $list.append($li);
-    }
 
+        if (item.id === id)
+        {
+            $('div.chuhe-monitor a#chuhe-sensor-title').html(`${item.name}<i class="mdi-navigation-arrow-drop-down right">`);
+        }
+    }
     $list.on('click', 'li', e => {
         selectSensor($(e.currentTarget))
     });
 }
 
+function fetchSensorData()
+{
+    const historyTimeRange = Meta.createHistoryTimeRange();
+    //获取昨日统计值
+    requestUtil.fetchSensorStats(id, historyTimeRange[0].toJSON(),  historyTimeRange[1].toJSON()).then(data => {
+        historyStats = data[id];
+        refreshSensorStats(id, data);
+    });
+
+    //获取昨日同期监控数据
+    requestUtil.fetchSensorData(id,  historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then(data => {
+        //refreshLineChart(data);
+    });
+
+    requestUtil.startMonitor(id, data => {
+        updateRealTimeData(data);
+    }, data => {
+        refreshSensorStats(id, data, 'current');
+    });
+}
+
+/**
+ * 选择传感器
+ */
 function selectSensor($li) {
-    let item = $li.data();
-
-    let $selectedLi = $('div.chuhe-monitor ul#chuhe-monitor-dropdown > li.selected');
+    //更新选中传感器
+    const item = $li.data();
+    const $selectedLi = $('div.chuhe-monitor ul#chuhe-monitor-dropdown > li.selected');
     $selectedLi.removeClass('selected');
-
     $li.addClass('selected');
     $('div.chuhe-monitor a#chuhe-sensor-title').html(`${item.name}<i class="mdi-navigation-arrow-drop-down right">`);
 
+    // 停止之前传感器监控
     requestUtil.stopMonitor(id);
+
+    // 开启选中传感器监控
+    id = item.id;
     collection = series({
         from,
         to,
         values,
         interval
     });
-
-    id = item.id;
-    let f = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1
-    );
-
-    let t = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1,
-        23,
-        59,
-        59
-    );
-
-    //获取昨日统计值
-    requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
-        historyStats = data[id];
-        refreshSensorStats(id, data);
-    });
-
-    //获取昨日同期监控数据
-    requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
-        //refreshLineChart(data);
-    });
-
-    requestUtil.startMonitor(id, data => {
-        updateRealTimeData(data);
-    });
+    fetchSensorData();
 }
 
 
@@ -167,6 +110,9 @@ function refreshLineChart(data) {
     lineChart.draw();
 }
 
+/**
+ * 切换监控参数
+ */
 function switchValue($li) {
     const $selectedLi = $(`div.chuhe-monitor ul.chuhe-linechart-value-switch > li.selected`);
     const v = $li.attr('id');
@@ -177,12 +123,14 @@ function switchValue($li) {
     lineChart.setData([collection[value]]);
     lineChart.setupGrid();
     lineChart.draw();
-
     refreshSensorStats(id, historyStats);
 }
 
+/**
+ * 更新 series
+ */
 function updateRealTimeData(data) {
-    let timestamp = getTimestamp(new Date(data.lastUpdatedTime));
+    let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), from, type);
     for (let v of values) {
         if (timestamp < to) {
             let timeslot = Math.floor((timestamp - from) / interval);
@@ -205,15 +153,14 @@ function updateRealTimeData(data) {
 }
 
 module.exports = function(options) {
-    const type = options.type;
+    type = options.type;
     const unit = options.unit;
     value = options.value;
     values = options.values ? options.values: [options.value];
-    interval = options.interval;
+    interval = Meta.getSensorMonitorInterval(type);
     const match = window.location.href.match(/#(.*)$/);
     id = match ? match[1] : '';
 
-    $('div.chuhe-monitor a#chuhe-sensor-title').html(`${'sensor_' + id}<i class="mdi-navigation-arrow-drop-down right">`);
     $(`div.chuhe-monitor ul.chuhe-linechart-value-switch`).on('click', 'li', e => {
         switchValue($(e.currentTarget));
     });
@@ -229,27 +176,9 @@ module.exports = function(options) {
         this.bridge.focusOnSensor(this.bridge.sensors[`sensor#${id}`]);
     });
 
-    const now = new Date();
-    // 昨日起始时间
-    let f = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1
-    );
-
-    // 昨日截止时间
-    let t = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() - 1,
-        23,
-        59,
-        59
-    );
-
-    let timeRange = getTimeRange();
-    from = timeRange.from;
-    to = timeRange.to;
+    const timeRange = Meta.createCurrentTimeRange(type);
+    from = timeRange[0];
+    to = timeRange[1];
 
     gauge = Gauge({
         unit
@@ -272,47 +201,13 @@ module.exports = function(options) {
     //获取指定类型传感器列表
     requestUtil.fetchSensors(type).then(data => {
         renderSensorList(data);
-        if (id === null || id === undefined || id === '')
-        {
-            id = data[0].id;
-            $('div.chuhe-monitor a#chuhe-sensor-title').html(`${'sensor_' + id}<i class="mdi-navigation-arrow-drop-down right">`);
-            //获取昨日统计值
-            requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
-                historyStats = data[id];
-                refreshSensorStats(id, data);
-            });
-
-            //获取昨日同期监控数据
-            // requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
-            //     //refreshLineChart(data);
-            // });
-
-            requestUtil.startMonitor(id, data => {
-                updateRealTimeData(data);
-            }, data => {
-                refreshSensorStats(id, data, 'current');
-            });
-        }
+        const ids = data.map( d => {
+          return d.id;
+        });
+        bridgeScene.bridge.showSensors(ids);
     });
 
-
-
-    //获取昨日统计值
-    requestUtil.fetchSensorStats(id, f.toJSON(), t.toJSON()).then(data => {
-        historyStats = data[id];
-        refreshSensorStats(id, data);
-    });
-
-    //获取昨日同期监控数据
-    // requestUtil.fetchSensorData(id, f.toJSON(), t.toJSON()).then(data => {
-    //     //refreshLineChart(data);
-    // });
-
-    requestUtil.startMonitor(id, data => {
-        updateRealTimeData(data);
-    }, data => {
-        refreshSensorStats(id, data, 'current');
-    });
+    fetchSensorData();
 
     return {
         id,

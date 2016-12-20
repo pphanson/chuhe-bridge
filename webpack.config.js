@@ -28,6 +28,10 @@ let entry = Object.assign({
     "alarm":[
         'webpack-hot-middleware/client?reload=true',
         './statistics/alarm/index.js'
+    ],
+    "specialevent":[
+        'webpack-hot-middleware/client?reload=true',
+        './statistics/specialevent/index.js'
     ]
 }, initMonitorEntry());
 
@@ -67,6 +71,11 @@ let plugins = [
       filename: './statistics/alarm/index.html',
       chunks: ['vendor','alarm']
   }),
+    new HtmlWebpackPlugin({
+        template: './statistics/specialevent/html.js',
+        filename: './statistics/specialevent/index.html',
+        chunks: ['vendor','specialevent']
+    }),
   // new webpack.ProvidePlugin({
   //     $: 'jquery',
   //     jQuery: 'jquery',

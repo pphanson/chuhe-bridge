@@ -4,37 +4,39 @@ const {linechartTime, seriesTime} = require('./timelinechart');
 const {linechartFft, seriesFft} = require('./fftlinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
+const Meta = require('../../monitor/common/meta');
 
-
-let type = 'vibration';
+let type = '06';
 requestUtil.fetchSensors(type).then(data => {
-    initSensorlist(type, data);
+    initSensorlist(data);
 });
 
 
-function initSensorlist(type, data) {
+function initSensorlist(data) {
     var $ul = $('ul#vibration-dropdown');
-    data.forEach((item) => {
+    data.forEach((item, index) => {
         let $li = $(`<li id=${item.id}><a href='#'><span>${item.name}</span></a></li>`);
         $li.data(item);
         $ul.append($li);
+        if (index === 0) {
+            selectSensorItem(item, true);
+        }
     });
-
     $ul.on('click', 'li', function (e) {
-        selectSensorItem(type, $(e.currentTarget).data())
+        selectSensorItem($(e.currentTarget).data(), true);
     })
+}
 
-    function selectSensorItem(type, item) {
-        var $selectedSensorItem = $(`ul#vibration-dropdown li.chuhe-sensor-item-selected`);
-        var $sensorItem = $(`ul#vibration-dropdown  li#${item.id}`);
-        var $chardTitle = $(`a#${type}-title`);
+function selectSensorItem(item) {
+    const type = item.meta;
+    const name = Meta.getSensorMetaName(type);
+    var $selectedSensorItem = $('ul#vibration-dropdown li.chuhe-sensor-item-selected');
+    var $sensorItem = $(`ul#vibration-dropdown  li#${item.id}`);
+    var $chardTitle = $("a#vibration-title");
 
-        $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
-        $sensorItem.addClass("chuhe-sensor-item-selected");
-        $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
-
-
-    }
+    $chardTitle.html(name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+    $sensorItem.addClass("chuhe-sensor-item-selected");
+    $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
 }
 
     $('input#clickid').on('click', e => {

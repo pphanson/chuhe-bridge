@@ -1,0 +1,91 @@
+<card class='chuhe-specialEvent-container'>
+    <div class='chuhe-specialEvent-title'>
+        <div class="chuhe-specialEvent-name">事件列表</div>
+
+        <div class='chuhe-eventCondition-select'>
+            <span class="chehe-specialSelect-time">
+                <span class="chuhe-special-titleName">时间范围:</span>
+                <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+                <span class="chuhe-time">至:</span>
+                <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+            </span>
+
+            <span class="chuhe-specialSelect-content">
+                <span class="chuhe-special-titleName">报警内容:</span>
+                <input type="text" placeholder="    搜索关键字">
+            </span>
+
+            <span class="chuhe-addSpecial">
+                <button id="creat-things" class="waves-effect waves-light" type="text">创建事件</button>
+            </span>
+        </div>
+    </div>
+
+    <div class="chuhe-specialEvent-table">
+        <table>
+            <thead>
+            <tr>
+                <th>事件时间</th>
+                <th>事件名称</th>
+                <th>事件类型</th>
+                <th>事件详情</th>
+                <th>修改</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
+                <td>大风事件1</td>
+                <td>大风</td>
+                <td>查看详情</td>
+                <td>修改</td>
+            </tr>
+            <tr>
+                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
+                <td>船撞事件1</td>
+                <td>船撞</td>
+                <td>查看详情</td>
+                <td>修改</td>
+            </tr>
+            <tr>
+                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
+                <td>大风事件1</td>
+                <td>大风</td>
+                <td>查看详情</td>
+                <td>修改</td>
+            </tr>
+            <tr>
+                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
+                <td>船撞事件1</td>
+                <td>船撞</td>
+                <td>查看详情</td>
+                <td>修改</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form>
+        <span>创建事件</span>
+        <span class="chehe-specialSelect-time">
+            <span class="chuhe-special-titleName">时间范围:</span>
+            <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+            <span class="chuhe-time">至:</span>
+            <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+        </span>
+        <span>
+            <span> 事件名称</span>
+            <input type="text">
+        </span>
+        <span>
+            <span>事件类型</span>
+            <input type="checkbox">
+                <lable>大风</lable>
+                <lable>地震</lable>
+                <lable>船撞</lable>
+        </span>
+        <span>
+            <button class="waves-effect waves-light" type="text">确定</button>
+        </span>
+    </form>
+</div>

@@ -5,21 +5,9 @@ const map = require('./map');
 const bridgeScene =require('./bridge');
 const LineChart = require('./lineChart.js');
 const RequestUtil = require('../monitor/common/remote');
+const Meta = require('../monitor/common/meta');
 
-const now = new Date();
-const historyFrom = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  now.getDate() - 1
-);
-const historyTo = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  now.getDate() - 1,
-  23,
-  59,
-  59
-);
+
 
 let sensorMeta;
 
@@ -39,6 +27,7 @@ const timeInterval = {
   '05': 60 * 1000,
   '08': 60 * 60 * 1000
 };
+const now = new Date();
 
 const timeRange = {
   '04': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
@@ -52,11 +41,11 @@ const timeRange = {
 
 const collection = {
   '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000}),
-  '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['verticality'], 'interval':60 * 1000}),
-  '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['displacement'], 'interval': 60 * 1000}),
+  '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000}),
+  '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000}),
   '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
   '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
-  '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['baseband'], 'interval': 60 * 1000}),
+  '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['cableforce'], 'interval': 60 * 1000}),
   '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
 };
 
@@ -83,40 +72,37 @@ bridgeScene.on("load", function(e) {
 let selectedSensors = {};
 
 function initSensorlist(type, data) {
-    var $ul = $(`ul#${sensorMeta[type].name}-card-dropdown`);
+    var $ul = $(`ul#${Meta.getSensorMetaName(type)}-card-dropdown`);
     data.forEach((item, index) => {
         let $li = $(`<li id=${item.id}><a href='#'><span>${item.name}</span></a></li>`);
         $li.data(item);
         $ul.append($li);
         if (index === 0) {
-            selectSensorItem(type, item, true);
+            selectSensorItem(item, true);
         }
     });
     $ul.on('click', 'li', function(e) {
-        selectSensorItem(type, $(e.currentTarget).data(), true)
+        selectSensorItem($(e.currentTarget).data(), true)
     })
 }
 
-function getTimestamp(time, type)
-{
-    const from = timeRange[type][0];
-    const interval = timeInterval[type];
-    const index = Math.floor((time - from) / interval);
-    return new Date(from.getTime() + index * interval);
-}
 
-function refreshRealValue(type, v, data)
+function refreshRealValue(sensor, data)
 {
+    const type = sensor.meta;
+    const name = Meta.getSensorMetaName(type);
+    const v = Meta.getSensorValues(type)[0];
+
     if (type === '07')
     {
         return;
     }
-    let timestamp = getTimestamp(new Date(data.lastUpdatedTime), type);
+    let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
     const lineChart = lineCharts[type];
     const col = collection[type];
 
 
-    let $card = $(`div#${sensorMeta[type].name}-card.chuhe-card #${sensorMeta[type].name}-card-current-number`);
+    let $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
     $card.text(data.value[v].toFixed(2));
 
     if (timestamp < timeRange[type][1]) {
@@ -136,26 +122,60 @@ function refreshRealValue(type, v, data)
     lineChart.draw();
 }
 
-function refreshHistoryValue(type, id, value, data)
+function refreshHistoryValue(sensor, data)
 {
+    const id = sensor.id;
+    const type = sensor.meta;
+    const name = Meta.getSensorMetaName(type);
+    const value = Meta.getSensorValues(type)[0];
     if (type === '07')
     {
         return;
     }
-    var $card = $(`div#${sensorMeta[type].name}-card.chuhe-card #${sensorMeta[type].name}-card-history-number`);
-    $card.html(data[id] && data[id][value]&& data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
+    else {
+        const $card = $(`div#${name}-card.chuhe-card #${name}-card-history-number`);
+        $card.html(data[id] && data[id][value]&& data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
+    }
 }
 
-function selectSensorItem(type, item, remote) {
-    var $selectedSensorItem = $(`div#${sensorMeta[type].name}-card  li.chuhe-sensor-item-selected`);
-    var $sensorItem = $(`div#${sensorMeta[type].name}-card  li#${item.id}`);
-    var $chardTitle = $(`div#${sensorMeta[type].name}-card a#${type}-card-title`);
-    var $chardMonitorLink = $(`div#${sensorMeta[type].name}-card div.chuhe-card-name > a.chuhe-monitor-link`);
 
-    $chardMonitorLink.attr('href', `/monitor/${sensorMeta[type].name}/index.html#${item.id}`);
+function fetchSensorData(sensor)
+{
+    const historyTimeRange = Meta.createHistoryTimeRange();
+    RequestUtil.fetchSensorStats(
+      sensor.id,
+      historyTimeRange[0].toJSON(),
+      historyTimeRange[1].toJSON()
+    ).then(data => {
+        refreshHistoryValue(sensor, data);
+    });
+
+    RequestUtil.startMonitor(sensor.id, data => {
+        refreshRealValue(sensor, data);
+    });
+}
+
+function updateSensorNavigation(item)
+{
+    const type = item.meta;
+    const name = Meta.getSensorMetaName(type);
+    $(`aside#left-sidebar-nav li#${name}-link > a`).attr('href', `/monitor/${name}/index.html#${item.id}`);
+}
+
+function selectSensorItem(item, remote) {
+    const type = item.meta;
+    const name = Meta.getSensorMetaName(type);
+    const $selectedSensorItem = $(`div#${name}-card  li.chuhe-sensor-item-selected`);
+    const $sensorItem = $(`div#${name}-card  li#${item.id}`);
+    const $chardTitle = $(`div#${name}-card a#${name}-card-title`);
+    const $chardMonitorLink = $(`div#${name}-card div.chuhe-card-name > a.chuhe-monitor-link`);
+
+    $chardMonitorLink.attr('href', `/monitor/${name}/index.html#${item.id}`);
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
+
+    updateSensorNavigation(item);
 
     if (selectedSensors[type])
     {
@@ -167,26 +187,7 @@ function selectSensorItem(type, item, remote) {
     bridgeScene.bridge.showSensors(sensorIds);
 
     if (remote) {
-        RequestUtil.fetchSensorStats(
-          item.id,
-          historyFrom.toJSON(),
-          historyTo.toJSON()
-        ).then(data => {
-
-            refreshHistoryValue(type, item.id, type === '06' ? 'x': sensorMeta[type].name, data);
-        });
-
-        RequestUtil.startMonitor(item.id, data => {
-            let v;
-            if (type === '06')
-            {
-               v = 'x';
-            }
-            else {
-               v = sensorMeta[type].name;
-            }
-            refreshRealValue(type, v, data);
-        });
+        fetchSensorData(item);
     }
 }
 

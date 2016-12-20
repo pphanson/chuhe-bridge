@@ -8,9 +8,9 @@
            <div class='chuhe-cortime-select'>
                 <div class='chuhe-timeSelect-title'>选择时间</div>
                 <div class='chuhe-cortime-input'>
-                    <input type="text" name="beginTime" placeholder="2016-12-01 11:00:00">
+                    <input id='beginTime' type="text" name="beginTime" placeholder="2016-12-01 11:00:00">
                     <span class='chuhe-cortime'>至:</span>
-                    <input type="text" name="endTime" placeholder="2016-12-15 11:00:00">
+                    <input id='endTime' type="text" name="endTime" placeholder="2016-12-15 11:00:00">
                 </div>
            </div>
 
@@ -20,36 +20,39 @@
                <form action="">
                    <div class="chuhe-coordinate-select">
                       <span class="chuhe-coordinate-direction">X轴:</span>
-                      <select name="sensorType" id="">
-                          <option value="02">挠度</option>
-                          <option value="01">位移</option>
-                          <option value="03">垂直度</option>
-                          <option value="04">应变</option>
-                          <option value="05">索力</option>
-                          <option value="06">振动</option>
-                          <option value="07">温湿度</option>
-                          <option value="08">腐蚀</option>
-                          <option value="09">荷载</option>
-                      </select>
+                       <p class="chuhe-type-select  chuhe-transverse">
+                           <a id='sensor-x-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-x-dropdown' href="#">
+                               <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                           <ul id='sensorType-x-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
+                           </ul>
+                       </p>
+
+                       <p class="chuhe-sensors-select chuhe-transverse">
+                           <a id='sensors-x-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-x-dropdown' href="#">
+                               <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                           <ul id='sensors-x-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
+                           </ul>
+                       </p>
 
                    </div>
 
                    <div class="chuhe-coordinate-select">
                        <span class="chuhe-coordinate-direction">Y轴:</span>
-                       <select name="sensorType" id="">
-                           <option value="02">挠度</option>
-                           <option value="01">位移</option>
-                           <option value="03">垂直度</option>
-                           <option value="04">应变</option>
-                           <option value="05">索力</option>
-                           <option value="06">振动</option>
-                           <option value="07">温湿度</option>
-                           <option value="08">腐蚀</option>
-                           <option value="09">荷载</option>
-                       </select>
+                       <p class="chuhe-type-select  chuhe-vertical">
+                           <a id='sensor-y-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-y-dropdown' href="#">
+                               <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                           <ul id='sensorType-y-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
+                           </ul>
+                       </p>
 
+                       <p class="chuhe-sensors-select chuhe-vertical">
+                           <a id='sensors-y-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-y-dropdown' href="#">
+                               <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                           <ul id='sensors-y-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
+                           </ul>
+                       </p>
                    </div>
-                   <input type="submit" name="submited" value="确定">
+                   <input id="chuhe-correlation-submit" class="right" type="submit" name="submited" value="确定">
                </form>
 
            </div>
