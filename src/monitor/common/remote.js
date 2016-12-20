@@ -43,6 +43,9 @@ function stopMonitor(id)
     });
  }
 
+/**
+ * fft参数传入
+ */
 function getAnalytics(id, from, to)
 {
     return $.ajax({
@@ -56,6 +59,22 @@ function getAnalytics(id, from, to)
     });
 }
 
+/**
+ * 相关性参数传入
+ */
+function getCorrelation(sensorId1, sensorId2, from, to)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/analytics/',
+        dataType: 'json',
+        data: {
+            sensorId1: sensorId1,
+            sensorId2: sensorId2,
+            from: from,
+            to: to
+        }
+    });
+}
 
 /**
  * 根据传感器类型获取传感器列表
@@ -113,5 +132,6 @@ module.exports = {
   startMonitor,
   stopMonitor,
   getAnalytics,
-  fetchSensorsMeta
+  fetchSensorsMeta,
+  getCorrelation
 };
