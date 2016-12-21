@@ -13,26 +13,31 @@ requestUtil.fetchSensorsMeta().then(data => {
     let s = [];
     for (let type in data) {
         if (type) {
-            s.push({"type":type, "name": data[type].name});
+            s.push({"type": type, "name": data[type].name});
         }
     }
-    initSensorTypelistY(s);
     initSensorTypelistX(s);
-
 });
 
 function initSensorTypelistX(data) {
-    let $ul = $(`ul#sensorType-x-dropdown`);
+    let $ulx = $(`ul#sensorType-x-dropdown`);
+    let $uly = $(`ul#sensorType-y-dropdown`);
     data.forEach((item, index) => {
-        let $li = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
-        $li.data(item);
-        $ul.append($li);
+        let $lix = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
+        let $liy = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
+        $lix.data(item);
+        $ulx.append($lix);
+        $liy.data(item);
+        $uly.append($liy);
         if (index === 0) {
             selectSensorTypeX(item, true);
         }
     });
-    $ul.on('click', 'li', function(e) {
+    $ulx.on('click', 'li', function(e) {
         selectSensorTypeX($(e.currentTarget).data(), true);
+    });
+    $uly.on('click', 'li', function (e) {
+        selectSensorTypeY($(e.currentTarget).data(), true);
     });
 }
 
@@ -85,21 +90,6 @@ function selectSensorItemX(item) {
 /**
  * Y轴选择传感器类型
  */
-
-function initSensorTypelistY(data) {
-    let $ul = $(`ul#sensorType-y-dropdown`);
-    data.forEach((item, index) => {
-        let $li = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
-        $li.data(item);
-        $ul.append($li);
-        if (index === 0) {
-            selectSensorTypeY(item, true);
-        }
-    });
-    $ul.on('click', 'li', function(e) {
-        selectSensorTypeY($(e.currentTarget).data(), true);
-    });
-}
 
 function selectSensorTypeY(item) {
     selectSensorsY(item.type);
