@@ -1,4 +1,4 @@
-<card class='chuhe-specialEvent-container'>
+<div class='chuhe-specialEvent-container'>
     <div class='chuhe-specialEvent-title'>
         <div class="chuhe-specialEvent-name">事件列表</div>
 
@@ -16,7 +16,7 @@
             </span>
 
             <span class="chuhe-addSpecial">
-                <button id="creat-things" class="waves-effect waves-light" type="text">创建事件</button>
+                <button id="creat-things" class="waves-effect waves-light" type="text"><a href="javascript:void(0);">创建事件</a></button>
             </span>
         </div>
     </div>
@@ -65,27 +65,31 @@
         </table>
     </div>
 
-    <form>
-        <span>创建事件</span>
-        <span class="chehe-specialSelect-time">
-            <span class="chuhe-special-titleName">时间范围:</span>
+    <form id="chuhe-creat" method="post" action="/insert">
+        <div class="chuhe-creat-title">创建事件</div>
+
+        <div class="chuhe-beginTime-select">
+            <span class="chuhe-name">开始时间</span>
             <input type="text" name="begintime" value="" placeholder="    2016-12-01">
-            <span class="chuhe-time">至:</span>
-            <input type="text" name="endtime" value="" placeholder="    2016-12-15">
-        </span>
-        <span>
-            <span> 事件名称</span>
-            <input type="text">
-        </span>
-        <span>
-            <span>事件类型</span>
-            <input type="checkbox">
-                <lable>大风</lable>
-                <lable>地震</lable>
-                <lable>船撞</lable>
-        </span>
-        <span>
-            <button class="waves-effect waves-light" type="text">确定</button>
-        </span>
+        </div>
+
+        <div class="chuhe-endTime-select">
+            <span class="chuhe-name">结束时间</span>
+            <input type="text" name="endtime" value="" placeholder="    2016-12-01"/>
+        </div>
+
+        <div class="chuhe-things-creat">
+            <span class="chuhe-name">事件名称</span>
+            <input type="text" name="creatTings" value="" placeholder=" 大风事件"/>
+        </div>
+
+        <div class="chuhe-type-select">
+            <lable class="chuhe-name">事件类型</lable>
+                <input type="checkbox" name="wind" value="大风"/>大风
+                <input type="checkbox" name="earthquake" value="地震"/>地震
+                <input type="checkbox" name="shiphit" value="船撞"/>船撞
+        </div>
+
+        <button id="chuhe-finish" class="waves-effect waves-light right" type="text">确定</button>
     </form>
 </div>

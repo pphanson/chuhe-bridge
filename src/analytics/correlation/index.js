@@ -1,6 +1,6 @@
 require('./style.less');
 
-const {linechartTime, seriesTime} = require('./timelinechart');
+const {linechart, series} = require('./timelinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');

@@ -1,6 +1,7 @@
 const series = {
-  //data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
-  color: 'green',
+ // data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
+
+  color: white,
   fill: true,
   fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
