@@ -4,3 +4,4 @@ public/**/*
 npm-debug.log
 .eslintrc
 .idea
+.vscode
