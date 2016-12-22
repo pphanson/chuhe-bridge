@@ -11,8 +11,7 @@
     {
         flex-basis: 40%;
         flex-grow: 0;
-        height: 100%;
-        margin: 50px 5px 5px 10px;
+        margin: 50px 5px 10px 10px;
         color: white;
         display: flex;
         flex-direction: column;
@@ -27,7 +26,7 @@
 
         > .chuhe-condition-select
         {
-            flex-basis: 40%;
+            flex-basis: 30%;
             width: 100%;
             margin-bottom: 5px;
             background: #192e46;
@@ -41,7 +40,7 @@
                 > .chuhe-timeSelect-title
                 {
                     font-size: 24px;
-                    margin-left: 10px;
+                    margin-left: 20px;
                     margin-top: 10px;
                     margin-bottom: 10px;
                 }
@@ -50,7 +49,7 @@
                 {
                     display: flex;
                     flex-direction: row;
-                    justify-content: space-between;
+                    justify-content: space-around;
                     align-items: baseline;
                     margin-right: 20px;
                     margin-left: 10px;
@@ -74,20 +73,19 @@
                 > .chuhe-sensorSelect-title
                 {
                     font-size: 24px;
-                    margin-left: 10px;
-                    margin-bottom: 10px;
+                    margin-left: 20px;
                 }
 
-                >form
+                > .chuhe-sensorSelect-input
                 {
-                    margin-left: 10px;
+                    margin-left: 20px;
                     margin-right: 20px;
 
                     > input
                     {
                         background: #203656;
                         width: 20%;
-                        border: 0px;
+                        border: 0;
                         height: 40px;
                     }
 
@@ -97,6 +95,7 @@
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: baseline;
+                        height: 50px;
 
                         > .chuhe-coordinate-direction
                         {
@@ -111,6 +110,12 @@
                                 color: white;
                                 background: #203656 ;
                                 height: 40px;
+                                width: 100%;
+                            }
+
+                            > .dropdown-content
+                            {
+                                width: 15.2%;
                             }
 
                             >.dropdown-content li
@@ -133,6 +138,12 @@
                                 color: white;
                                 background: #203656 ;
                                 height: 40px;
+                                width: 100%;
+                            }
+
+                            > .dropdown-content
+                            {
+                                width: 15.2%;
                             }
 
                             >.dropdown-content li
@@ -151,6 +162,22 @@
                     }
 
                 }
+
+                >p
+                {
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-right: 42px;
+                    margin-bottom: 0px;
+                    >button
+                    {
+                        background: #203656;
+                        border: 0;
+                        padding: 0;
+                        height: 40px;
+                        width: 30%;
+                    }
+                }
             }
 
         }
@@ -161,6 +188,12 @@
             flex-grow: 1;
             background: #192e46;
             margin-top: 5px;
+            position: relative;
+
+            >div#chuhe-bridge
+            {
+                position: absolute;
+            }
         }
     }
 
@@ -170,7 +203,6 @@
     > .chuhe-correlation-right
     {
         flex-grow: 1;
-        height: 100%;
         margin: 50px 10px 10px 5px;
         background: #1c334f;
         color: white;
@@ -200,7 +232,7 @@
         {
             font-size: 18px;
             position: absolute;
-            bottom: 30px;
+            bottom: 10px;
             right: 20px;
         }
     }

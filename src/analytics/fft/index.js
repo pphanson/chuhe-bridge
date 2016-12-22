@@ -11,7 +11,6 @@ requestUtil.fetchSensors(type).then(data => {
     initSensorlist(data);
 });
 
-
 function initSensorlist(data) {
     var $ul = $('ul#vibration-dropdown');
     data.forEach((item, index) => {
@@ -19,27 +18,27 @@ function initSensorlist(data) {
         $li.data(item);
         $ul.append($li);
         if (index === 0) {
-            selectSensorItem(item, true);
+            selectSensorItem(item);
         }
     });
     $ul.on('click', 'li', function (e) {
-        selectSensorItem($(e.currentTarget).data(), true);
-    })
+        selectSensorItem($(e.currentTarget).data());
+    });
 }
 
 function selectSensorItem(item) {
-    const type = item.meta;
-    const name = Meta.getSensorMetaName(type);
+    // const type = item.meta;
+    // const name = item.name;
     var $selectedSensorItem = $('ul#vibration-dropdown li.chuhe-sensor-item-selected');
     var $sensorItem = $(`ul#vibration-dropdown  li#${item.id}`);
     var $chardTitle = $("a#vibration-title");
 
-    $chardTitle.html(name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+    $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
 }
 
-    $('input#clickid').on('click', e => {
+$('input#clickid').on('click', e => {
 
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);

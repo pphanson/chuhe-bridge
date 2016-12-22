@@ -5,151 +5,67 @@ const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');
 
-/**
- * X轴选择传感器类型
- */
-
-requestUtil.fetchSensorsMeta().then(data => {
+requestUtil.fetchSensorsMeta().then((data) => {
     let s = [];
     for (let type in data) {
         if (type) {
             s.push({"type": type, "name": data[type].name});
         }
     }
-    initSensorTypelistX(s);
+    initTypeList(s, "x");
+    initTypeList(s, "y");
 });
 
-function initSensorTypelistX(data) {
-    let $ulx = $(`ul#sensorType-x-dropdown`);
-    let $uly = $(`ul#sensorType-y-dropdown`);
+function initTypeList(data, obj) {
+    let sensorType = $(`#sensorType-${obj}-dropdown`);
     data.forEach((item, index) => {
-        let $lix = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
-        let $liy = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
-        $lix.data(item);
-        $ulx.append($lix);
-        $liy.data(item);
-        $uly.append($liy);
-        if (index === 0) {
-            selectSensorTypeX(item, true);
+        let li = $(`<li id=${item.type}><a href='#'><span>${item.name}</span></a></li>`);
+        li.data(item);
+        sensorType.append(li);
+        if (index === 0){
+            setSensorType(item, obj);
         }
     });
-    $ulx.on('click', 'li', function(e) {
-        selectSensorTypeX($(e.currentTarget).data(), true);
-    });
-    $uly.on('click', 'li', function (e) {
-        selectSensorTypeY($(e.currentTarget).data(), true);
-    });
+    sensorType.on("click", "li", {msg: obj}, function (e) {
+        setSensorType($(e.currentTarget).data(), e.data.msg);
+    })
 }
 
-function selectSensorTypeX(item) {
-    selectSensorsX(item.type);
-    var $selectedSensorTypeX = $("ul#sensorType-x-dropdown li.chuhe-sensor-item-selected");
-    var $sensorTypeX = $(`ul#sensorType-x-dropdown li#${item.type}`);
-    var $typeNameX = $("a#sensor-x-type");
-
-    $typeNameX.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
-    $sensorTypeX.addClass("chuhe-sensor-item-selected");
-    $selectedSensorTypeX.removeClass("chuhe-sensor-item-selected");
+function setSensorType(item, msg) {
+    $(`#sensor-${msg}-type`).html(item.name);
+    let s = $(`ul#sensorType-${msg}-dropdown li#${item.type}`);
+    $(`ul#sensorType-${msg}-dropdown li`).removeClass("sensorTypeSelected");
+    s.addClass("sensorTypeSelected");
+    setSensor(item.type, msg);
 }
 
-/**
- * X轴根据选中的传感器类型再选择具体传感器
- */
-function selectSensorsX(type) {
-    $('ul#sensors-x-dropdown li').remove();
-    requestUtil.fetchSensors(type).then(data => {
-        initSensorlistX(data);
-    });
-}
-
-function initSensorlistX(data) {
-    var $ul = $('ul#sensors-x-dropdown');
-    data.forEach((item, index) => {
-        let $li = $(`<li id=${item.id}><a href='#'><span>${item.name}</span></a></li>`);
-        $li.data(item);
-        $ul.append($li);
-        if (index === 0) {
-            selectSensorItemX(item, true);
-        }
-    });
-    $ul.on('click', 'li', function (e) {
-        selectSensorItemX($(e.currentTarget).data(), true);
+function setSensor(type, msg) {
+    let sensora = $(`#sensors-${msg}-dropdown`);
+    sensora.empty();
+    requestUtil.fetchSensors(type).then((data) => {
+        data.forEach((item, index) => {
+            let li = $(`<li id="${item.id}"><a href='#'><span>${item.name}</span></a></li>`);
+            li.data(item);
+            sensora.append(li);
+        })
+        sensora.on("click", "li", {msg: msg}, function (e) {
+            $(`ul#sensors-${e.data.msg}-dropdown li`).removeClass("sensorSelected");
+            $(this).addClass("sensorSelected");
+            $(`#sensors-${e.data.msg}-select`).html($(e.currentTarget).data().name);
+        });
     });
 }
 
-function selectSensorItemX(item) {
-    var $selectedSensorItemX = $('ul#sensors-x-dropdown li.chuhe-sensor-x-item-selected');
-    var $sensorItemX = $(`ul#sensors-x-dropdown li#${item.id}`);
-    var $chardTitleX = $("a#sensors-x-select");
-
-    $chardTitleX.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
-    $sensorItemX.addClass("chuhe-sensor-x-item-selected");
-    $selectedSensorItemX.removeClass("chuhe-sensor-x-item-selected");
-}
-
-/**
- * Y轴选择传感器类型
- */
-
-function selectSensorTypeY(item) {
-    selectSensorsY(item.type);
-    var $selectedSensorTypeY = $("ul#sensorType-y-dropdown li.chuhe-sensor-item-selected");
-    var $sensorTypeY = $(`ul#sensorType-y-dropdown li#${item.type}`);
-    var $typeNameY = $("a#sensor-y-type");
-
-    $typeNameY.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
-    $selectedSensorTypeY.removeClass("chuhe-sensor-item-selected");
-    $sensorTypeY.addClass("chuhe-sensor-item-selected");
-}
-
-/**
- * Y轴根据选中的传感器类型再选择具体传感器
- */
-function selectSensorsY(type) {
-    $('ul#sensors-y-dropdown li').remove();
-    requestUtil.fetchSensors(type).then(data => {
-        initSensorlistY(data);
-    });
-}
-
-function initSensorlistY(data) {
-    var $ul = $('ul#sensors-y-dropdown');
-    data.forEach((item, index) => {
-        let $li = $(`<li id=${item.id}><a href='#'><span>${item.name}</span></a></li>`);
-        $li.data(item);
-        $ul.append($li);
-        if (index === 0) {
-            selectSensorItemY(item, true);
-        }
-    });
-    $ul.on('click', 'li', function (e) {
-        selectSensorItemY($(e.currentTarget).data(), true);
-    });
-}
-
-function selectSensorItemY(item) {
-    let s = item;
-    var $selectedSensorItemY = $('ul#sensors-y-dropdown li.chuhe-sensor-y-a-item-selected');
-    var $sensorItemY = $(`ul#sensors-y-dropdown li#${item.id}`);
-    var $chardTitleY = $("a#sensors-y-select");
-
-    $chardTitleY.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
-    $selectedSensorItemY.removeClass("chuhe-sensor-y-a-item-selected");
-    $sensorItemY.addClass("chuhe-sensor-y-a-item-selected");
-
-}
-
-
-$('input#chuhe-correlation-submit').on('click', e => {
-
+$("#buttona").on('click', e => {
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);
-    let y = $("ul#sensors-y-dropdown li.chuhe-sensor-y-a-item-selected").attr("id");
-    let x = $("ul#sensors-x-dropdown li.chuhe-sensor-x-item-selected").attr("id");
-    alert(y);
-    alert(x);
+    let x = $("#sensors-x-dropdown li.sensorSelected").attr("id");
+    let y = $("#sensors-y-dropdown li.sensorSelected").attr("id");
 
+    requestUtil.getCorrelation(x, y, from.toJSON(), to.toJSON()).then(data => {
+        series.data = data.result;
+        linechart.setData([series]);
+        linechart.setupGrid();
+        linechart.draw();
+    });
 });
-
-
-

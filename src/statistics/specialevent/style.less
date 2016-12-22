@@ -118,97 +118,119 @@
         }
     }
 
-    >#chuhe-creat
+}
+
+form#chuhe-creat
+{
+    display:none;
+    background: #0E2535;
+    width: 35%;
+    height: 50%;
+    color: white;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+
+    > .chuhe-creat-title
     {
-        //display:none;
-        background: #0E2535;
-        width: 35%;
-        height: 45%;
-        color: white;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 
-        > .chuhe-creat-title
+    > .chuhe-beginTime-select
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        >input
         {
-            font-size: 24px;
-            text-align: center;
+            width: 70%;
+            background: #203656;
+        }
+        > .chuhe-name
+        {
+            margin-left: 10px;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+    }
+
+    > .chuhe-endTime-select
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        >input
+        {
+            width: 70%;
+            background: #203656;
+        }
+        > .chuhe-name
+        {
+            margin-left: 10px;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+    }
+
+    > .chuhe-things-creat
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        >input
+        {
+            width: 70%;
+            background: #203656;
+
+        }
+        > .chuhe-name
+        {
+            margin-left: 10px;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+    }
+
+    > .chuhe-type-select
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        > .chuhe-name
+        {
+            margin-left: 10px;
+            margin-right: 20px;
+            font-size: 18px;
         }
 
-        > .chuhe-beginTime-select
+        > p
         {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            >input
+            font-size: 18px;
+            margin: 10px;
+            > input[type="checkbox"]
             {
-                width: 70%;
-                background: #203656;
-            }
-            > .chuhe-name
-            {
+                position: initial;
+                visibility: visible;
                 margin-left: 10px;
-                margin-right: 20px;
-                font-size: 18px;
+                margin-right: 10px;
             }
         }
+    }
 
-        > .chuhe-endTime-select
-        {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            >input
-            {
-                width: 70%;
-                background: #203656;
-            }
-            > .chuhe-name
-            {
-                margin-left: 10px;
-                margin-right: 20px;
-                font-size: 18px;
-            }
-        }
-
-        > .chuhe-things-creat
-        {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            >input
-            {
-                width: 70%;
-                background: #203656;
-
-            }
-            > .chuhe-name
-            {
-                margin-left: 10px;
-                margin-right: 20px;
-                font-size: 18px;
-            }
-        }
-
-        > .chuhe-type-select
-        {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            > .chuhe-name
-            {
-                margin-left: 10px;
-                margin-right: 20px;
-                font-size: 18px;
-            }
-
-        }
-
-        >button#chuhe-finish
+    > .chuhe-form-submint
+    {
+        height: 40px;
+        margin: 0 65px 0px 100px;
+        >button
         {
             background: #203656;
             border:0;
             padding: 0;
             width: 40%;
             height: 40px;
-            margin-right: 70px;
         }
     }
+
 }

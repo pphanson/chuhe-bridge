@@ -18,4 +18,4 @@
     });
 
 
-     module.exports= bridgeScene;
+    module.exports = bridgeScene;
