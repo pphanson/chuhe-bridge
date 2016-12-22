@@ -2,7 +2,7 @@ const layout = require('../../layout/html.js');
 const content = require('./content.ejs');
 
 const correlationModule = layout.generate(content({
- name:'相关性分析'
+    title:'请选择传感器'
 }))
 
 module.exports = correlationModule;

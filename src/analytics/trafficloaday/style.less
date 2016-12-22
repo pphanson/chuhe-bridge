@@ -1,0 +1,86 @@
+
+.chuhe-trafficloaday-container
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+
+  > .chuhe-dayload-up
+  {
+    flex-basis: 50%;
+    flex-grow: 0;
+    margin: 10px 10px 5px 10px;
+    display: flex;
+    flex-direction: row;
+
+    > .chuhe-up-1eft
+    {
+      flex-basis: 50%;
+      flex-grow: 0;
+      margin-right: 5px;
+      background: #0f4655;
+      position: relative;
+      > .chuhe-chart-title
+      {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 24px;
+      }
+    }
+    > .chuhe-up-right
+    {
+      flex-grow: 1;
+      margin-left: 5px;
+      background: #10406c;
+      position: relative;
+      > .chuhe-chart-title
+      {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 24px;
+      }
+    }
+  }
+
+  > .chuhe-dayload-down
+  {
+    flex-grow: 1;
+    margin: 5px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+
+    > .chuhe-down-1eft
+    {
+      flex-basis: 50%;
+      flex-grow: 0;
+      margin-right: 5px;
+      background: #252662;
+      position: relative;
+      > .chuhe-chart-title
+      {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 24px;
+      }
+    }
+    > .chuhe-down-right
+    {
+      flex-grow: 1;
+      margin-left: 5px;
+      background: #182f3c;
+      position: relative;
+      > .chuhe-chart-title
+      {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 24px;
+      }
+    }
+  }
+}
