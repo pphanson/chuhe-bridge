@@ -9,7 +9,7 @@
         "es6":true,
         "mocha":true
     },
-    "parser": "babel-eslint",
+    # "parser": "babel-eslint",
     // JavaScript 语言选项
     "parserOptions": {
         "impliedStrict": true,
