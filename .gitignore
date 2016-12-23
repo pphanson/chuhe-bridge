@@ -2,3 +2,8 @@ node_modules
 .DS_Store
 public/**/*
 npm-debug.log
+.idea/chuhe-bridge.iml
+.idea/inspectionProfiles/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/vcs.xml
