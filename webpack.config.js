@@ -8,7 +8,7 @@ const webpack = require("webpack");
 const types = ['vibration', 'displacement', 'strain', 'cableforce', 'corrosion', 'verticality', 'trafficload', 'deflection']
 const dashboard = [
     'webpack-hot-middleware/client?reload=true',
-    "./dashboard/index.js"
+    "./dashboard/index.js",
 ];
 
 let entry = Object.assign({

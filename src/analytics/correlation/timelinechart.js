@@ -1,18 +1,22 @@
-const series = {
-  //data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
-  color: 'green',
-  fill: true,
-  fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+const series1 = {
+    //data: [[3, 3], [4, 4],[5, 6]],
+    color: 'green',
+    points: {show: true, fill: true }
+    //fill: true,
+   // fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChart = $(".chuhe-correlationLineChart-contant").plot([series], {
-    series: {
-      lines: {
-          show: false
-      },
-      points: {
-          show: true
-      }
+const series2 = {
+  //  data: [[1, 3], [2, 4],[3, 6]],
+    color: 'white',
+    lines: {show: true, fill: false }
+   // fill: true,
+  //  fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+};
+
+const lineChart = $(".chuhe-correlationLineChart-contant").plot([series1, series2], {
+    lable:{
+
     },
     zoom: {
         interactive: false
@@ -20,18 +24,7 @@ const lineChart = $(".chuhe-correlationLineChart-contant").plot([series], {
     pan: {
         interactive: false
     },
-    // xaxis: {
-    //   mode: 'time',
-    //   show: true,
-    //   font: {
-    //       color: 'white'
-    //   },
-    //   tickFormatter: function(value)
-    //   {
-    //       var d = new Date(value);
-    //       return `${d.getFullYear()}- ${d.getMonth()}-${d.getDate()}`;
-    //   }
-    // },
+
     xaxis: {
         show: true,
         zoomRange: false,
@@ -79,5 +72,6 @@ $(window).on('resize', function() {
 
 module.exports = {
   linechart: lineChart,
-  series: series
+  series1: series1,
+  series2: series2,
 }
