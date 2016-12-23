@@ -1,0 +1,41 @@
+<div class="chuhe-history-container">
+    <div class="chuhe-history-up">
+        <div class="chuhe-select">
+            <div class="chuhe-history-title">历史查询</div>
+
+            <div class="chuhe-history-time">时间选择</div>
+            <div class="chuhue-historyTime-select">
+                <input id='beginTime' type="text" name="beginTime" placeholder="2016-12-01 11:00:00">
+                <span class='chuhe-cortime'>至:</span>
+                <input id='endTime' type="text" name="endTime" placeholder="2016-12-15 11:00:00">
+            </div>
+
+            <div class="chuhe-history-sensors">传感器选择</div>
+            <div class="chuhe-sensors-select">
+                <p class="chuhe-historyType-select">
+                    <a id='sensor-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-dropdown' href="#">
+                        <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <ul id='sensorType-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
+                    </ul>
+                </p>
+
+                <p class="chuhe-historySensors-select">
+                    <a id='sensors-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-dropdown' href="#">
+                        <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id='sensors-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
+                </ul>
+                </p>
+            </div>
+
+            <input id="chuhe-history-submit" class="right" type="submit" name="submited" value="确定">
+
+        </div>
+
+        <div class="chuhe-bridge-3d" id='chuhe-bridge'></div>
+
+        <div class="chuhe-history-card"></div>
+
+    </div>
+
+    <div class="chuhe-history-down"></div>
+</div>

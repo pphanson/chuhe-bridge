@@ -1,0 +1,98 @@
+
+.chuhe-alarmStatistics-container
+{
+    height: 100%;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+    > .chuhe-alarmTime-select
+    {
+        flex-basis: 15%;
+        flex-grow: 0;
+        margin: 0 10px 5px 10px;
+        background: #192e46;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        > .chuhe-selectTime, .chuhe-cortime
+        {
+            font-size: 24px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        > input
+        {
+            height: 40px;
+            width: 15%;
+            font-size: 10px;
+            background: #203656;
+            margin: 0px;
+        }
+
+        > #chuhe-alarmAnalytics-submit
+        {
+            background: #203656;
+            border: 0px;
+            margin-left: 20px;
+        }
+    }
+
+    > .chuhe-alarmCharts
+    {
+         flex-grow: 1;
+         margin: 5px 10px 10px 10px;
+         display: flex;
+         flex-direction: row;
+         position: relative;
+
+        > .chuhe-single-Sensor
+        {
+            background: #18293D;
+            width: 33%;
+            margin-right: 10px;
+            position: relative;
+
+            > .chuhe-chart-name
+            {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                font-size: 24px;
+            }
+        }
+        > .chuhe-single-type
+        {
+            background: #18223B;
+            width: 33%;
+            margin-right: 10px;
+            position: relative;
+
+            > .chuhe-chart-name
+            {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                font-size: 24px;
+            }
+        }
+        > .chuhe-single-position
+        {
+            background: #182E3C;
+            width: 33%;
+            position: relative;
+
+            > .chuhe-chart-name
+            {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                font-size: 24px;
+            }
+        }
+
+    }
+}

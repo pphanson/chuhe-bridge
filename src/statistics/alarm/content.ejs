@@ -1,0 +1,72 @@
+<div class='chuhe-alarm-container'>
+    <div class='chuhe-alarm-title'>
+        <div class="chuhe-alarm-name">报警列表</div>
+        
+        <div class="chuhe-alarmCondition-select">
+            <form action="">
+                <span class="chuhe-select-name">
+                    <span class="chuhe-titleName">报警类型:</span>
+                    <select name="selectAge" id="selectAge">
+                        <option value="">全部</option>
+                        <option value="">数值报警</option>
+                        <option value="">传感器报警</option>
+                    </select>
+                </span>
+
+                <span class="chuhe-select-name">
+                    <span class="chuhe-titleName">报警级别:</span>
+                    <select name="selectAge" id="selectAge">
+                        <option value=""><h3>全部</h3></option>
+                        <option value="">一级告警</option>
+                        <option value="">二级告警</option>
+                        <option value="">三级告警</option>
+                    </select>
+                </span>
+
+                <span class="chehe-select-time">
+                    <span class="chuhe-titleName">时间范围:</span>
+                    <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+                    <span class="chuhe-time">至:</span>
+                    <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+                </span>
+
+                <span class="chuhe-select-content">
+                    <span class="chuhe-titleName">报警内容:</span>
+                    <input type="text" placeholder="    搜索关键字">
+
+                </span>
+            </form>
+        </div>
+
+    </div>
+    <div class="chuhe-alarm-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>报警时间</th>
+                    <th>报警类型</th>
+                    <th>报警对象</th>
+                    <th>对象说明</th>
+                    <th>报警值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2016-11-01 08:00:00</td>
+                    <td>数值报警</td>
+                    <td>挠度传感器01</td>
+                    <td>超过预警值</td>
+                    <td>369.8</td>
+                </tr>
+                <tr>
+                    <td>2016-11-02 08:00:00</td>
+                    <td>数值报警</td>
+                    <td>挠度传感器01</td>
+                    <td>超过预警值</td>
+                    <td>369.8</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

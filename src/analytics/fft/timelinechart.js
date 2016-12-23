@@ -1,36 +1,34 @@
-const series = {
-  data: [[(new Date(2000, 10, 1)).getTime(), 3],[(new Date(2000, 11, 1)).getTime(), 4],[(new Date(2000, 12, 1)).getTime(), 6]],
-  color: 'green',
+/**
+ *傅里叶分析上方的时间序列
+ */
+const seriesTime = {
+  color: 'white',
   fill: true,
   fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChart = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([series], {
+const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
     series: {
       lines: {
           show: true
       },
       points: {
-          show: true
+          show: false
       }
     },
     zoom: {
-        interactive: false
+        interactive: true
     },
     pan: {
         interactive: false
     },
     xaxis: {
-      mode: 'time',
-      show: true,
-      font: {
-          color: 'white'
-      },
-      tickFormatter: function(value)
-      {
-          var d = new Date(value);
-          return `${d.getFullYear()}- ${d.getMonth()}-${d.getDate()}`;
-      }
+        show: true,
+        zoomRange: false,
+        panRange: false,
+        font: {
+            color: 'white'
+        }
     },
     yaxis: {
         show: true,
@@ -64,12 +62,14 @@ const lineChart = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([se
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChart.resize();
-    lineChart.setupGrid();
-    lineChart.draw();
+    lineChartTime.resize();
+    lineChartTime.setupGrid();
+    lineChartTime.draw();
 });
 
 module.exports = {
-  linechart: lineChart,
-  series: series
+  linechartTime: lineChartTime,
+  seriesTime: seriesTime
 }
+
+

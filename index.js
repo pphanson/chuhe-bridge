@@ -2,7 +2,6 @@ import logger from "winston";
 import server from "./lib/server";
 import sensors from "./lib/sensors";
 import storage from "./lib/storage";
-
 import config from "./config";
 
 async function startup()

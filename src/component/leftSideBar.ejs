@@ -17,23 +17,23 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-visibility"></i>实时监测</a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a href="/monitor/deflection/index.html">挠度</a>
+                            <li id='deflection-link'><a href="/monitor/deflection/index.html">挠度</a>
                             </li>
-                            <li><a href="/monitor/displacement/index.html">位移</a>
+                            <li id='displacement-link'><a href="/monitor/displacement/index.html">位移</a>
                             </li>
-                            <li><a href="/monitor/verticality/index.html">垂直度</a>
+                            <li id='verticality-link'><a href="/monitor/verticality/index.html">垂直度</a>
                             </li>
-                            <li><a href="/monitor/strain/index.html">应变</a>
+                            <li id='strain-link'><a href="/monitor/strain/index.html">应变</a>
                             </li>
-                            <li><a href="/monitor/cableforce/index.html">索利</a>
+                            <li id='cableforce-link'><a href="/monitor/cableforce/index.html">索利</a>
                             </li>
-                            <li><a href="/monitor/vibration/index.html">震动</a>
+                            <li id='vibration-link'><a href="/monitor/vibration/index.html">振动</a>
                             </li>
                             <li><a href="#">温湿度</a>
                             </li>
-                            <li><a href="/monitor/corrosion/index.html">腐蚀</a>
+                            <li id='corrosion-link'><a href="/monitor/corrosion/index.html">腐蚀</a>
                             </li>
-                            <li><a href="/monitor/trafficload/index.html">交通负荷</a>
+                            <li id='trafficload-link'><a href="/monitor/trafficload/index.html">交通负荷</a>
                             </li>
                         </ul>
                     </div>
@@ -46,9 +46,11 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>数据分析</a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a href="#">相关性分析</a>
+                            <li><a href="/analytics/correlation/index.html">相关性分析</a>
                             </li>
-                            <li><a href="#">傅立叶变换</a>
+                            <li><a href="/analytics/fft/index.html">傅立叶变换</a>
+                            </li>
+                            <li><a href="/analytics/trafficloaday/index.html">交通流量表</a>
                             </li>
                         </ul>
                     </div>
@@ -61,14 +63,17 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-view-carousel"></i>告警</a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a href="#">告警1</a>
+                            <li><a href="/statistics/alarm/index.html">告警列表</a>
                             </li>
-                            <li><a href="#">告警2</a>
+                            <li><a href="/analytics/alarmanalytic/index.html">告警分析</a>
                             </li>
                         </ul>
                     </div>
                 </li>
             </ul>
+        </li>
+
+        <li class="bold"><a href="/statistics/specialevent/index.html" class="waves-effect waves-cyan"><i class="mdi-action-assignment"></i>事件查询</a>
         </li>
 
     </ul>
