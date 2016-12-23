@@ -9,12 +9,12 @@ const seriesTime = {
 
 const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
     series: {
-      lines: {
-          show: true
-      },
-      points: {
-          show: false
-      }
+        lines: {
+            show: true
+        },
+        points: {
+            show: true
+        }
     },
     zoom: {
         interactive: true
@@ -68,8 +68,8 @@ $(window).on('resize', function() {
 });
 
 module.exports = {
-  linechartTime: lineChartTime,
-  seriesTime: seriesTime
+    linechartTime: lineChartTime,
+    seriesTime: seriesTime
 }
 
 

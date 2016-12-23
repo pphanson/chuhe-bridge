@@ -67,33 +67,33 @@
 
 </div>
 
-<form id="chuhe-creat" method="" action="">
+<div id="chuhe-creat" action="#">
     <div class="chuhe-creat-title">创建事件</div>
 
     <div class="chuhe-beginTime-select">
         <span class="chuhe-name">开始时间</span>
-        <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+        <input type="text" name="begintime" id='beginTime2' value="" placeholder="    2016-12-01">
     </div>
 
     <div class="chuhe-endTime-select">
         <span class="chuhe-name">结束时间</span>
-        <input type="text" name="endtime" value="" placeholder="    2016-12-01"/>
+        <input type="text" name="endtime" id='endTime2' value="" placeholder="    2016-12-01"/>
     </div>
 
     <div class="chuhe-things-creat">
         <span class="chuhe-name">事件名称</span>
-        <input type="text" name="creatTings" value="" placeholder=" 大风事件"/>
+        <input type="text" name="creatTings" id='thingsName' value="" placeholder=" 大风事件"/>
     </div>
 
     <div class="chuhe-type-select">
         <lable class="chuhe-name">事件类型</lable>
-        <p><input type=checkbox name="wind" value="大风"/>大风</p>
-        <p><input type="checkbox" name="earthquake" value="地震"/>地震</p>
-        <p><input type="checkbox" name="shiphit" value="船撞"/>船撞</p>
+        <p><input type='checkbox' name="box" value="1"/>大风</p>
+        <p><input type="checkbox" name="box" value="2"/>地震</p>
+        <p><input type="checkbox" name="box" value="3"/>船撞</p>
     </div>
 
     <div class="chuhe-form-submint">
-        <button id="chuhe-close" class="waves-effect waves-light left" type="text"><a href="javascript:void(0);">取消</a></button>
+        <button id="chuhe-close" class="waves-effect waves-light left">取消</button>
         <button id="chuhe-finish" class="waves-effect waves-light right" type="submit">确定</button>
     </div>
-</form>
+</div>

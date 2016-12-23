@@ -193,9 +193,9 @@ function selectSensorItem(item, remote) {
 
 
 RequestUtil.fetchSensors().then(data => {
-  for (let type in data) {
-      initSensorlist(type, data[type]);
-  };
+    for (let type in data) {
+        initSensorlist(type, data[type]);
+    };
 });
 
 

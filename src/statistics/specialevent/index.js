@@ -9,4 +9,13 @@ $('button#creat-things').on("click", e =>{
 
 $('button#chuhe-close').on("click", e =>{
     $("#chuhe-creat").hide();
+    e.preventDefault();
+});
+
+$('button#chuhe-finish').on('click', e => {
+
+    let from = new Date(document.getElementById("beginTime2").value);
+    let to = new Date(document.getElementById("endTime2").value);
+    let name = document.getElementById("thingsName").value;
+
 });
