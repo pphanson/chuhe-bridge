@@ -82,11 +82,11 @@ function getCorrelation(sensorId1, sensorId2, from, to)
 function fetchSensors(type)
 {
     return $.ajax({
-      url: 'http://localhost:3000/sensors/data',
-      dataType: 'json',
-      data: {
-        type: type
-      }
+        url: 'http://localhost:3000/sensors/data',
+        dataType: 'json',
+        data: {
+            type: type
+        }
     });
 }
 
@@ -115,23 +115,70 @@ function fetchSensorStats(id, from, to)
     });
 }
 
-
-function fetchSensorsMeta()
+/**
+ * 新建特殊事件
+ */
+function addEvents(startTime, endTime, eventName, eventTypeId)
 {
     return $.ajax({
-      url: 'http://localhost:3000/sensors/meta',
-      dataType: 'json',
-      async: false
+        url: 'http://localhost:3000/event/addevent',
+        //dataType: 'json',
+        type: 'POST',
+        data: {
+            startTime: startTime,
+            endTime: endTime,
+            eventName: eventName,
+            eventTypeId: eventTypeId
+        },
+        success:function (data, status) {//请求成功的回调函数
+            if (data === "success") {
+                alert("插入成功");
+            } else if (data === "fail"){
+                alert("插入失败");
+            }
+        }
     });
 }
 
+/**
+ * 获取所有特殊事件的列表
+ */
+function getAllEvents(from, to, page)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/allevent',
+        dataType: 'json',
+        type: 'POST',
+        data: {
+            from: from,
+            to: to,
+            page: page
+        }
+    });
+}
+
+/**
+ * 获取传感器类型
+ */
+function fetchSensorsMeta()
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/meta',
+        dataType: 'json',
+        async: false
+    });
+}
+
+
 module.exports = {
-  fetchSensors,
-  fetchSensorStats,
-  fetchSensorData,
-  startMonitor,
-  stopMonitor,
-  getAnalytics,
-  fetchSensorsMeta,
-  getCorrelation
+    fetchSensors,
+    fetchSensorStats,
+    fetchSensorData,
+    startMonitor,
+    stopMonitor,
+    getAnalytics,
+    fetchSensorsMeta,
+    getCorrelation,
+    addEvents,
+    getAllEvents
 };
