@@ -1,0 +1,42 @@
+<div class="chuhe-specialdetail-container">
+    <div class="chuhe-detail-up">
+        <div class="chuhe-detail-select">
+            <div class="chuhe-detail-name">事件详情</div>
+
+            <div class="chuhe-time-detail">
+                <div class="chuhe-time-name">时间</div>
+                <div class='chuhe-timeDetail'>
+                    <input id='beginTime' type="text" name="beginTime" placeholder="2016-12-01 11:00:00">
+                    <span class='chuhe-time'>至:</span>
+                    <input id='endTime' type="text" name="endTime" placeholder="2016-12-01 11:00:00">
+                </div>
+            </div>
+
+            <div class="chuhe-sensors-detail">
+                <div class='chuhe-detailSensor-name'>选择传感器</div>
+
+                <div class="chuhe-sensorDetail-select">
+                    <p class="chuhe-type-select">
+                        <a id='chuhe-detail-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='chuhe-sensorType-dropdown' href="#">
+                            <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <ul id='chuhe-sensorType-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
+                    </ul>
+                    </p>
+
+                    <p class="chuhe-sensors-select">
+                        <a id='chuhe-sensors-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='chuhue-sensors-dropdown' href="#">
+                            <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <ul id='chuhue-sensors-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
+                    </ul>
+                    </p>
+                </div>
+            </div>
+
+            <input id='clickId' class="right" type="submit" name="submited" value="确定">
+        </div>
+
+        <div class="chuhe-bridge"></div>
+    </div>
+
+    <div class="chuhe-detail-down"></div>
+</div>

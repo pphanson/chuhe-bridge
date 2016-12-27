@@ -5,14 +5,14 @@
         <div class='chuhe-eventCondition-select'>
             <span class="chehe-specialSelect-time">
                 <span class="chuhe-special-titleName">时间范围:</span>
-                <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+                <input type="text" name="begintime" id="beginTime" value="" placeholder="    2016-12-01">
                 <span class="chuhe-time">至:</span>
-                <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+                <input type="text" name="endtime" id="endTime" value="" placeholder="    2016-12-15">
             </span>
 
             <span class="chuhe-specialSelect-content">
-                <span class="chuhe-special-titleName">报警内容:</span>
-                <input type="text" placeholder="    搜索关键字">
+                <input type="text" id="keyWord" placeholder="    搜索关键字">
+                <button class="waves-effect waves-light" id="searchBtn"><i class="mdi-action-search"></i></button>
             </span>
 
             <span class="chuhe-addSpecial">
@@ -32,36 +32,7 @@
                 <th>修改</th>
             </tr>
             </thead>
-            <tbody id="tbody">
-            <!--<tr>-->
-                <!--<td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>-->
-                <!--<td>大风事件1</td>-->
-                <!--<td>大风</td>-->
-                <!--<td>查看详情</td>-->
-                <!--<td>修改</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>-->
-                <!--<td>船撞事件1</td>-->
-                <!--<td>船撞</td>-->
-                <!--<td>查看详情</td>-->
-                <!--<td>修改</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>-->
-                <!--<td>大风事件1</td>-->
-                <!--<td>大风</td>-->
-                <!--<td>查看详情</td>-->
-                <!--<td>修改</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>-->
-                <!--<td>船撞事件1</td>-->
-                <!--<td>船撞</td>-->
-                <!--<td>查看详情</td>-->
-                <!--<td>修改</td>-->
-            <!--</tr>-->
-            </tbody>
+            <tbody id="tbody"></tbody>
         </table>
     </div>
 

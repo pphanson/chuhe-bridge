@@ -1,0 +1,179 @@
+
+.chuhe-specialdetail-container
+{
+  height:100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: white;
+
+  > .chuhe-detail-up
+  {
+    flex-basis: 45%;
+    flex-grow: 0;
+    display: flex;
+    margin:10px 10px 5px 10px;
+
+    > .chuhe-detail-select
+    {
+      flex-basis: 30%;
+      flex-grow: 0;
+      margin-right: 5px;
+      background: #1c334f;
+
+      > .chuhe-detail-name
+      {
+        font-size: 24px;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-bottom: 1px solid white;
+      }
+
+      > .chuhe-time-detail
+      {
+        margin:10px 20px 5px 20px;
+        > .chuhe-time-name
+        {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+
+        > .chuhe-timeDetail
+        {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: baseline;
+
+          >.chuhe-time
+          {
+            font-size: 18px;
+          }
+
+          >input
+          {
+            width: 40% !important;
+            height:40px;
+            background: #203656;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      > .chuhe-sensors-detail
+      {
+        margin:10px 20px 5px 20px;
+
+        >.chuhe-detailSensor-name
+        {
+          font-size: 18px;
+        }
+
+        > .chuhe-sensorDetail-select
+        {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: baseline;
+
+          > .chuhe-type-select
+          {
+            width:40%;
+            margin: 5px;
+            > .btn-flat
+            {
+              color: white;
+              background: #203656 ;
+              height: 40px;
+              width: 100%;
+              font-size: 16px;
+            }
+
+            > .dropdown-content
+            {
+              width: 10.9%;
+            }
+
+            >.dropdown-content li
+            {
+              text-align: left;
+              > a
+              {
+                color: white;
+                background: #203656;
+                padding-left: 2px;
+                padding-right: 0px;
+
+                > span
+                {
+                  font-size: 16px;
+                  margin-left: 30px;
+                }
+              }
+            }
+          }
+
+          > .chuhe-sensors-select
+          {
+            width:40%;
+            > .btn-flat
+            {
+              color: white;
+              background: #203656 ;
+              height: 40px;
+              width: 100%;
+              font-size: 16px;
+            }
+
+            > .dropdown-content
+            {
+              width: 10.9%;
+            }
+
+            >.dropdown-content li
+            {
+              text-align: left;
+              > a
+              {
+                color: white;
+                background: #203656;
+                padding-left: 2px;
+                padding-right: 0;
+                >span
+                {
+                  font-size: 16px;
+                  margin-left: 30px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      >input
+      {
+        border: 0;
+        height: 40px;
+        width: 40%;
+        margin-right: 20px;
+        background: #203656;
+      }
+    }
+
+    > .chuhe-bridge
+    {
+      flex-grow: 1;
+      background: rebeccapurple;
+      margin-left: 5px;
+    }
+  }
+
+  > .chuhe-detail-down
+  {
+    flex-grow: 1;
+    background: indianred;
+    margin: 5px 10px 10px 10px;
+  }
+}

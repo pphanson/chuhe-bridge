@@ -118,11 +118,10 @@ function fetchSensorStats(id, from, to)
 /**
  * 新建特殊事件
  */
-function addEvents(startTime, endTime, eventName, eventTypeId)
+function addNewEvents(startTime, endTime, eventName, eventTypeId)
 {
     return $.ajax({
         url: 'http://localhost:3000/event/addevent',
-        //dataType: 'json',
         type: 'POST',
         data: {
             startTime: startTime,
@@ -131,6 +130,7 @@ function addEvents(startTime, endTime, eventName, eventTypeId)
             eventTypeId: eventTypeId
         },
         success:function (data, status) {//请求成功的回调函数
+            console.log(data);
             if (data === "success") {
                 alert("插入成功");
             } else if (data === "fail"){
@@ -147,12 +147,26 @@ function getAllEvents(from, to, page)
 {
     return $.ajax({
         url: 'http://localhost:3000/event/allevent',
-        dataType: 'json',
-        type: 'POST',
         data: {
             from: from,
             to: to,
             page: page
+        }
+    });
+}
+
+/**
+ * 获取搜索事件列表
+ */
+function getSearchTable(from, to, page, keywords)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/allevent',
+        data: {
+            from: from,
+            to: to,
+            page: page,
+            keywords: keywords
         }
     });
 }
@@ -179,6 +193,7 @@ module.exports = {
     getAnalytics,
     fetchSensorsMeta,
     getCorrelation,
-    addEvents,
-    getAllEvents
+    addNewEvents,
+    getAllEvents,
+    getSearchTable
 };
