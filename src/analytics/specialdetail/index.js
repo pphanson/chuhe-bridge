@@ -3,6 +3,9 @@ require('./style.less');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');
 
+jQuery('#beginTime').datetimepicker();
+jQuery('#endTime').datetimepicker();
+
 const names= {
     'displacement' : '位移传感器',
     'verticality': '垂直度传感器',
