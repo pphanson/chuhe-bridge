@@ -5,14 +5,14 @@
         <div class='chuhe-eventCondition-select'>
             <span class="chehe-specialSelect-time">
                 <span class="chuhe-special-titleName">时间范围:</span>
-                <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+                <input type="text" id="beginTime" value="2016/11/01 08:00">
                 <span class="chuhe-time">至:</span>
-                <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+                <input type="text" id="endTime" value="2016/11/13 08:00">
             </span>
 
             <span class="chuhe-specialSelect-content">
-                <span class="chuhe-special-titleName">报警内容:</span>
-                <input type="text" placeholder="    搜索关键字">
+                <input type="text" id="keyWord" placeholder="    搜索关键字">
+                <button class="waves-effect waves-light" id="searchBtn"><i class="mdi-action-search"></i></button>
             </span>
 
             <span class="chuhe-addSpecial">
@@ -32,68 +32,39 @@
                 <th>修改</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
-                <td>大风事件1</td>
-                <td>大风</td>
-                <td>查看详情</td>
-                <td>修改</td>
-            </tr>
-            <tr>
-                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
-                <td>船撞事件1</td>
-                <td>船撞</td>
-                <td>查看详情</td>
-                <td>修改</td>
-            </tr>
-            <tr>
-                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
-                <td>大风事件1</td>
-                <td>大风</td>
-                <td>查看详情</td>
-                <td>修改</td>
-            </tr>
-            <tr>
-                <td>2016-11-01 08:00:00 - 2016-11-01 08:00:00</td>
-                <td>船撞事件1</td>
-                <td>船撞</td>
-                <td>查看详情</td>
-                <td>修改</td>
-            </tr>
-            </tbody>
+            <tbody id="tbody"></tbody>
         </table>
     </div>
 
 </div>
 
-<form id="chuhe-creat" method="" action="">
+<div id="chuhe-creat" action="#">
     <div class="chuhe-creat-title">创建事件</div>
 
     <div class="chuhe-beginTime-select">
         <span class="chuhe-name">开始时间</span>
-        <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+        <input type="text" id='beginTime2' value="2016/11/01 08:00">
     </div>
 
     <div class="chuhe-endTime-select">
         <span class="chuhe-name">结束时间</span>
-        <input type="text" name="endtime" value="" placeholder="    2016-12-01"/>
+        <input type="text" id='endTime2' value="2016/11/10 08:00">
     </div>
 
     <div class="chuhe-things-creat">
         <span class="chuhe-name">事件名称</span>
-        <input type="text" name="creatTings" value="" placeholder=" 大风事件"/>
+        <input type="text" name="creatTings" id='thingsName' value="" placeholder=" 大风事件"/>
     </div>
 
     <div class="chuhe-type-select">
         <lable class="chuhe-name">事件类型</lable>
-        <p><input type=checkbox name="wind" value="大风"/>大风</p>
-        <p><input type="checkbox" name="earthquake" value="地震"/>地震</p>
-        <p><input type="checkbox" name="shiphit" value="船撞"/>船撞</p>
+        <p><input type="checkbox" name="box" value="SPET_001"/>大风</p>
+        <p><input type="checkbox" name="box" value="SPET_002"/>地震</p>
+        <p><input type="checkbox" name="box" value="SPET_003"/>船撞</p>
     </div>
 
     <div class="chuhe-form-submint">
-        <button id="chuhe-close" class="waves-effect waves-light left" type="text"><a href="javascript:void(0);">取消</a></button>
+        <button id="chuhe-close" class="waves-effect waves-light left">取消</button>
         <button id="chuhe-finish" class="waves-effect waves-light right" type="submit">确定</button>
     </div>
-</form>
+</div>
