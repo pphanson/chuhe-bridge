@@ -29,6 +29,10 @@ let entry = Object.assign({
         'webpack-hot-middleware/client?reload=true',
         './analytics/correlation/index.js',
     ],
+    "specialdetail": [
+        'webpack-hot-middleware/client?reload=true',
+        './analytics/specialdetail/index.js',
+    ],
     "trafficloaday": [
         'webpack-hot-middleware/client?reload=true',
         './analytics/trafficloaday/index.js',
@@ -80,6 +84,11 @@ let plugins = [
         template: './analytics/correlation/html.js',
         filename: './analytics/correlation/index.html',
         chunks: ['vendor', 'correlation'],
+    }),
+    new HtmlWebpackPlugin({
+        template: './analytics/specialdetail/html.js',
+        filename: './analytics/specialdetail/index.html',
+        chunks: ['vendor', 'specialdetail'],
     }),
     new HtmlWebpackPlugin({
         template: './analytics/trafficloaday/html.js',

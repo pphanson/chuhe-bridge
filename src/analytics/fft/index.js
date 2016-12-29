@@ -6,6 +6,9 @@ const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');
 
+jQuery('#beginTime').datetimepicker();
+jQuery('#endTime').datetimepicker();
+
 let type = '06';
 requestUtil.fetchSensors(type).then(data => {
     initSensorlist(data);

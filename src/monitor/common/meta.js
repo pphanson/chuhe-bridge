@@ -127,10 +127,10 @@ function getSensorValues(sensorType)
 }
 
 module.exports = {
-  getSensorMetaName,
-  getSensorMonitorInterval,
-  createCurrentTimeRange,
-  createHistoryTimeRange,
-  getTimestamp,
-  getSensorValues
+    getSensorMetaName,
+    getSensorMonitorInterval,
+    createCurrentTimeRange,
+    createHistoryTimeRange,
+    getTimestamp,
+    getSensorValues
 };

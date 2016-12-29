@@ -82,11 +82,11 @@ function getCorrelation(sensorId1, sensorId2, from, to)
 function fetchSensors(type)
 {
     return $.ajax({
-      url: 'http://localhost:3000/sensors/data',
-      dataType: 'json',
-      data: {
-        type: type
-      }
+        url: 'http://localhost:3000/sensors/data',
+        dataType: 'json',
+        data: {
+            type: type
+        }
     });
 }
 
@@ -115,23 +115,116 @@ function fetchSensorStats(id, from, to)
     });
 }
 
-
-function fetchSensorsMeta()
+/**
+ * 新建特殊事件
+ */
+function addNewEvents(startTime, endTime, eventName, eventTypeId)
 {
     return $.ajax({
-      url: 'http://localhost:3000/sensors/meta',
-      dataType: 'json',
-      async: false
+        url: 'http://localhost:3000/event/addevent',
+        type: 'POST',
+        data: {
+            startTime: startTime,
+            endTime: endTime,
+            eventName: eventName,
+            eventTypeId: eventTypeId
+        },
+        success:function (data, status) {//请求成功的回调函数
+            console.log(data);
+            if (data === "success") {
+                alert("插入成功");
+            } else if (data === "fail"){
+                alert("插入失败");
+            }
+        }
     });
 }
 
+/**
+ * 获取所有特殊事件的列表
+ */
+function getAllEvents(from, to, page)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/allevent',
+        data: {
+            from: from,
+            to: to,
+            page: page
+        }
+    });
+}
+
+/**
+ * 获取搜索事件列表
+ */
+function getSearchTable(from, to, page, keywords)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/allevent',
+        data: {
+            from: from,
+            to: to,
+            page: page,
+            keywords: keywords
+        }
+    });
+}
+
+/**
+ * 获取传感器类型
+ */
+function fetchSensorsMeta()
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/meta',
+        dataType: 'json',
+        async: false
+    });
+}
+
+/**
+ * 获取报警统计数据
+ */
+function getAlarmDate(from, to)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/alarm',
+        data: {
+            from: from,
+            to: to,
+        }
+    });
+}
+
+/**
+ * 获取报警统计数据
+ */
+function getAlarmStatistics(from, to, page)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/alarmstatistics',
+        data: {
+            from: from,
+            to: to,
+        }
+    });
+}
+
+
+
 module.exports = {
-  fetchSensors,
-  fetchSensorStats,
-  fetchSensorData,
-  startMonitor,
-  stopMonitor,
-  getAnalytics,
-  fetchSensorsMeta,
-  getCorrelation
+    fetchSensors,
+    fetchSensorStats,
+    fetchSensorData,
+    startMonitor,
+    stopMonitor,
+    getAnalytics,
+    fetchSensorsMeta,
+    getCorrelation,
+    addNewEvents,
+    getAllEvents,
+    getSearchTable,
+    getAlarmDate,
+    getAlarmStatistics
 };
