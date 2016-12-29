@@ -25,14 +25,14 @@
 
                 <span class="chehe-select-time">
                     <span class="chuhe-titleName">时间范围:</span>
-                    <input type="text" name="begintime" value="" placeholder="    2016-12-01">
+                    <input type="text" id="beginTime" value="2016/11/01 08:00">
                     <span class="chuhe-time">至:</span>
-                    <input type="text" name="endtime" value="" placeholder="    2016-12-15">
+                    <input type="text" id="endTime" value="2016/11/10 08:00">
                 </span>
 
                 <span class="chuhe-select-content">
-                    <span class="chuhe-titleName">报警内容:</span>
                     <input type="text" placeholder="    搜索关键字">
+                    <button class="waves-effect waves-light" id="searchBtn"><i class="mdi-action-search"></i></button>
 
                 </span>
             </form>
@@ -45,27 +45,13 @@
                 <tr>
                     <th>报警时间</th>
                     <th>报警类型</th>
+                    <th>报警级别</th>
                     <th>报警对象</th>
                     <th>对象说明</th>
                     <th>报警值</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>2016-11-01 08:00:00</td>
-                    <td>数值报警</td>
-                    <td>挠度传感器01</td>
-                    <td>超过预警值</td>
-                    <td>369.8</td>
-                </tr>
-                <tr>
-                    <td>2016-11-02 08:00:00</td>
-                    <td>数值报警</td>
-                    <td>挠度传感器01</td>
-                    <td>超过预警值</td>
-                    <td>369.8</td>
-                </tr>
-            </tbody>
+            <tbody id="tbody"></tbody>
         </table>
     </div>
 

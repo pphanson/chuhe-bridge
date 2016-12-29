@@ -183,6 +183,35 @@ function fetchSensorsMeta()
     });
 }
 
+/**
+ * 获取报警统计数据
+ */
+function getAlarmDate(from, to)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/alarm',
+        data: {
+            from: from,
+            to: to,
+        }
+    });
+}
+
+/**
+ * 获取报警统计数据
+ */
+function getAlarmStatistics(from, to, page)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/alarmstatistics',
+        data: {
+            from: from,
+            to: to,
+        }
+    });
+}
+
+
 
 module.exports = {
     fetchSensors,
@@ -195,5 +224,7 @@ module.exports = {
     getCorrelation,
     addNewEvents,
     getAllEvents,
-    getSearchTable
+    getSearchTable,
+    getAlarmDate,
+    getAlarmStatistics
 };
