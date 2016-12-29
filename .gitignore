@@ -3,5 +3,7 @@ node_modules
 public/**/*
 npm-debug.log
 .eslintrc
-.idea
+.idea/
 .vscode
+lib/analytics/event/aaa.js
+public/
