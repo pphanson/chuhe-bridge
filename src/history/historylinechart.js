@@ -1,13 +1,11 @@
-/**
- *傅里叶分析上方的时间序列
- */
 const seriesTime = {
-    color: 'white',
+    //data: [[new Date("2016-11-01"), 2], [new Date("2016-11-02"), 3], [new Date("2016-11-03"), 4], [new Date("2016-11-04"), 5], [new Date("2016-11-05"), 6], [new Date("2016-11-06"), 7], [new Date("2016-11-01"),8]],
+    color: 'green',
     fill: true,
     fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
+const lineChart = $(".chuhe-history-down").plot(seriesTime, {
     series: {
         lines: {
             show: true
@@ -17,12 +15,15 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
         }
     },
     zoom: {
-        interactive: true
+        interactive: false
     },
     pan: {
         interactive: false
     },
+
     xaxis: {
+        // mode: "time",
+        // timeformat: "%m/%d",
         show: true,
         zoomRange: false,
         panRange: false,
@@ -62,14 +63,13 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChartTime.resize();
-    lineChartTime.setupGrid();
-    lineChartTime.draw();
+    lineChart.resize();
+    lineChart.setupGrid();
+    lineChart.draw();
 });
 
 module.exports = {
-    linechartTime: lineChartTime,
-    seriesTime: seriesTime
+    historylinechart: lineChart,
+    series: seriesTime,
 }
-
 

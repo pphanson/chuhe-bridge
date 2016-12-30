@@ -98,10 +98,10 @@ function fetchSensorStats(id, from, to)
     let ids;
     if ($.isArray(id))
     {
-      ids = id;
+        ids = id;
     }
     else {
-      ids = [id];
+        ids = [id];
     }
     return $.ajax({
         url: "http://localhost:3000/sensors/data/stats",
@@ -211,6 +211,20 @@ function getAlarmStatistics(from, to, page)
     });
 }
 
+/**
+ * 获取单个传感器的历史数据
+ */
+function getHistoryDate(from, to, sensorId)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/history',
+        data: {
+            from: from,
+            to: to,
+            sensorId: sensorId,
+        }
+    });
+}
 
 
 module.exports = {
@@ -226,5 +240,6 @@ module.exports = {
     getAllEvents,
     getSearchTable,
     getAlarmDate,
-    getAlarmStatistics
+    getAlarmStatistics,
+    getHistoryDate
 };

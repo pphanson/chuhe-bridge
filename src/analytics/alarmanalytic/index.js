@@ -5,39 +5,84 @@ const requestUtil = require('../../monitor/common/remote');
 jQuery('#beginTime').datetimepicker();
 jQuery('#endTime').datetimepicker();
 
-$("input#chuhe-alarmAnalytics-submit").on('click', e => {
-    let from = new Date(document.getElementById("beginTime").value);
-    let to = new Date(document.getElementById("endTime").value);
+/**
+ * 格式化时间
+ */
+Date.prototype.pattern = function(fmt) {
+    var o = {
+        "M+": this.getMonth()+1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
+        "H+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth()+3)/3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    var week = {
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
+    };
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    }
+    if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        }
+    }
+    return fmt;
+}
 
-    requestUtil.getAlarmStatistics(from.toJSON(), to.toJSON()).then(data => {
+/**
+ * 设置默认时间，从当前时间往前取一个月的时间
+ */
+let from = new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate()-14).pattern("yyyy-MM-dd hh:mm:ss")
+let to = new Date().pattern("yyyy-MM-dd hh:mm:ss");
+$("input#beginTime").val(from);
+$("input#endTime").val(to);
+
+function getAlarm() {
+    let begintime = new Date(document.getElementById("beginTime").value);
+    let endtime = new Date(document.getElementById("endTime").value);
+
+    requestUtil.getAlarmStatistics(begintime.toJSON(), endtime.toJSON()).then((data) => {
         let dataSet1=[];
         let color1 = ['#2B6D52', '#24884C', '#40A98B', '#6BBEB6', '#5CE5BB']
         for (let i = 0; i < data.simpleSensor.length; i++) {
             dataSet1[i] = {
-                label: data.simpleSensor[i].sensor_name,
+                label: data.simpleSensor[i]._id,
                 data: data.simpleSensor[i].count,
                 color: color1[i],
-            }
+            };
         }
 
-        let dataSet2=[];
+        let dataSet2 = [];
         let color2 = ['#654BB9', '#4654B5', '#6374DE', '#4D6DBA']
         for (let i = 0; i < data.sensorType.length; i++) {
             dataSet2[i] = {
-                label: data.sensorType[i].sensor_type_name,
+                label: data.sensorType[i]._id,
                 data: data.sensorType[i].count,
                 color: color2[i]
-            }
+            };
         }
 
-        let dataSet3=[];
+        let dataSet3 = [];
         let color3 = ['#0DC1FE', '#32E5EA', '#6CDBD5', '#3BC1B6']
         for (let i = 0; i < data.sensorPosition.length; i++) {
             dataSet3[i] = {
-                label: data.sensorPosition[i].alarm_position,
+                label: data.sensorPosition[i]._id,
                 data: data.sensorPosition[i].count,
                 color: color3[i]
-            }
+            };
         }
 
         var options = {
@@ -45,11 +90,11 @@ $("input#chuhe-alarmAnalytics-submit").on('click', e => {
                 pie: {
                     show: true,
                     innerRadius: 0.4,
-                    sensor_name: {
+                    label: {
                         show: true,
                         radius: 180,
                         formatter: function (label, series) {
-                            return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+                            return '<div style="border:1px solid grey;font-size:10pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
                                 '%</div>';
@@ -69,10 +114,38 @@ $("input#chuhe-alarmAnalytics-submit").on('click', e => {
             }
         };
 
-        $(document).ready(function () {
-            $.plot($("#chuhe-sensorSingle"), dataSet1, options);
-            $.plot($("#chuhe-sensor-type"), dataSet2, options);
-            $.plot($("#chuhe-position"), dataSet3, options);
-        });
-    })
-})
+        $.plot($("#chuhe-sensorSingle"), dataSet1, options);
+        $("#chuhe-sensorSingle").showMemo("#flot-memo");
+        $.plot($("#chuhe-sensor-type"), dataSet2, options);
+        $("#chuhe-sensor-type").showMemo("#flot-memo1");
+        $.plot($("#chuhe-position"), dataSet3, options);
+        $("#chuhe-position").showMemo("#flot-memo2");
+    });
+}
+
+$.fn.showMemo = function (id) {
+    $(this).bind("plothover", function (event, pos, item) {
+        if (!item) { return; }
+        console.log(item.series.data)
+        var html = [];
+        var percent = parseFloat(item.series.percent).toFixed(2);
+
+        html.push("<div style=\"border:1px solid grey;background-color:",
+            item.series.color,
+            "\">",
+            "<span style=\"color:white\">",
+            item.series.label,
+            " : ",
+            item.series.data[0][1],
+            " (", percent, "%)",
+            "</span>",
+            "</div>");
+        $(id).html(html.join(''));
+    });
+}
+
+getAlarm();
+$("input#chuhe-alarmAnalytics-submit").on('click', e => {
+    getAlarm();
+});
+

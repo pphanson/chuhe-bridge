@@ -1,9 +1,9 @@
 <div class='chuhe-alarmStatistics-container'>
     <div class='chuhe-alarmTime-select'>
         <span class='chuhe-selectTime'>选择时间</span>
-        <input id='beginTime' type="text" value="2016/11/01 08:00">
+        <input id='beginTime' type="text">
         <span class='chuhe-cortime'>至:</span>
-        <input id='endTime' type="text" value="2016/11/05 08:00">
+        <input id='endTime' type="text">
         <input id="chuhe-alarmAnalytics-submit" type="submit" name="submited" value="确定">
     </div>
 
@@ -11,16 +11,19 @@
         <div class="chuhe-single-Sensor">
             <span class="chuhe-chart-name">单个传感器报警统计</span>
             <div id="chuhe-sensorSingle"></div>
+            <div id="flot-memo" style="position:absolute;bottom:0;left:20%;text-align:center;height:10%;width:60%;margin:0;"></div>
         </div>
 
         <div class="chuhe-single-type">
             <span class="chuhe-chart-name">传感器类型报警统计</span>
             <div id="chuhe-sensor-type"></div>
+            <div id="flot-memo1" style="position:absolute;bottom:0;left:20%;text-align:center;height:10%;width:60%;margin:0;"></div>
         </div>
 
         <div class="chuhe-single-position">
             <span class="chuhe-chart-name">传感器安装报警统计</span>
             <div id="chuhe-position"></div>
+            <div id="flot-memo2" style="position:absolute;bottom:0;left:20%;text-align:center;height:10%;width:60%;margin:0;"></div>
         </div>
     </div>
 </div>
