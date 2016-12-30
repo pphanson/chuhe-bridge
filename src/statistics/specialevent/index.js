@@ -7,13 +7,97 @@ jQuery('#endTime').datetimepicker();
 jQuery('#beginTime2').datetimepicker();
 jQuery('#endTime2').datetimepicker();
 $('button#creat-things').on("click", e =>{
-    $("#chuhe-creat").show();
+    // $("#chuhe-creat").show();
+    $("div#chuhe-creat").openModal();
 });
 
 $('button#chuhe-close').on("click", e =>{
-    $("#chuhe-creat").hide();
+    $("div#chuhe-creat").closeModal();
     e.preventDefault();
 });
+
+
+function loadFormData(data)
+{
+    $("div#chuhe-creat").data(Object.assign({}, data));
+
+}
+
+
+/**
+ *  生成表结构
+ */
+
+function initRows(count = 15)
+{
+    var $tbody = $('table > tbody');
+
+    for (let i = 0; i < count; i++)
+    {
+        let $row = $(`<tr data-row-index=${i}><td data-field="name"></td><td data-field="age"></td></tr>`);
+
+        $tbody.append($row);
+    }
+
+    $tbody.on('click', 'tr > td[name=edit] > a', function(e){
+        var $el = $(e.curretTarget);
+        var $row = $el.parent().parent();
+        var data = $row.data();
+
+    });
+}
+
+let initialLoad = false;
+
+let cache = [];
+
+
+
+function fetchData(from, to, pageIndex = 0)
+{
+    if (cache[pageIndex]){
+        updateRows(cache[pageIndex])
+    }
+    else{
+        requestUtil.getAllEvents(from.toJSON(), to.toJSON(), pageIndex).then((result) => {
+            cache[pageIndex] = result;
+            updateRows(result);
+        });
+    }
+
+}
+
+function updateRows(result)
+{
+    // 更新数据
+
+    var $rows = $('table > tbody > tr');
+    const data = result.data;
+    const sum = result.sum;
+    const pageIndex = result.pageIndex;
+
+    $rows.each(function(index, row){
+        $(this).data(data[index]);
+       $(this).find("td[data-field='name']").data[index].name;
+    });
+
+    // 更新分页器
+    if (!initialLoad) {
+        //生成分页器
+
+        addClass('selected');
+        $('.pageNavi').on('click', '.pageNaviItem', e => {
+            var $pageItem = $(e.currentTarget);
+            var $nav = $(e.target);
+
+            $nav.find('.selected').removeClass('selected');
+            $pageItem.addClass('selected')
+            const pageIndex = $pageItem.attr('data-pageIndex');
+            fetchData(pageIndex);
+        })
+
+    }
+}
 
 /**
  * 动态获取后台数据
@@ -39,8 +123,11 @@ function addTableNumber(data) {
 /**
  * 新建特殊事件事件
  */
-$('button#chuhe-finish').on('click', e => {
-    let startTime = new Date(document.getElementById("beginTime2").value);
+$('div#chuhe-creat').on('click', 'button#chuhe-finish', e => {
+    const $form = $(e.target);
+    const $button = $(e.currentTarget);
+;
+    let startTime = new Date(document.getElementById("beginTime2").value); // $form.find('input#beginTime2').val()
     let endTime = new Date(document.getElementById("endTime2").value);
     let eventName = document.getElementById("thingsName").value;
     let eventTypeId = [];
@@ -49,7 +136,7 @@ $('button#chuhe-finish').on('click', e => {
     });
     // alert(eventTypeId.toString());
     requestUtil.addNewEvents(startTime.toJSON(), endTime.toJSON(), eventName, eventTypeId.toString()).then((data) => {
-        $("#chuhe-creat").hide();
+        $("div#chuhe-creat").closeModal();
         e.preventDefault();
     });
 });
@@ -61,9 +148,12 @@ $("button#searchBtn").on('click', e => {
     let endTime = new Date(document.getElementById("endTime").value);
     let keyWord = document.getElementById("keyWord").value;
 
-    requestUtil.getSearchTable(beginTime.toJSON(), endTime.toJSON(), 0, keyWord).then((data) =>{
-        addTableNumber(data);
-    })
+    cache = [];
+
+    // requestUtil.getSearchTable(beginTime.toJSON(), endTime.toJSON(), 0, keyWord).then((data) =>{
+    //     addTableNumber(data);
+    // })
+    fetchData(beginTime, endTime, 0)
 })
 
 /**

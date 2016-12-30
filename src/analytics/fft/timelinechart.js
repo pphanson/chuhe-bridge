@@ -13,7 +13,7 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
             show: true
         },
         points: {
-            show: true
+            show: false
         }
     },
     zoom: {
