@@ -15,9 +15,6 @@ const series2 = {
 };
 
 const lineChart = $(".chuhe-correlationLineChart-contant").plot([series1, series2], {
-    lable:{
-
-    },
     zoom: {
         interactive: false
     },

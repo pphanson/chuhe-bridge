@@ -40,20 +40,20 @@ function renderSensorList(data) {
 function fetchSensorData()
 {
     const historyTimeRange = Meta.createHistoryTimeRange();
-    //获取昨日统计值
+    // 获取昨日统计值
     requestUtil.fetchSensorStats(id, historyTimeRange[0].toJSON(),  historyTimeRange[1].toJSON()).then(data => {
         historyStats = data[id];
         refreshSensorStats(id, data);
     });
 
-    //获取昨日同期监控数据
+    // 获取昨日同期监控数据
     requestUtil.fetchSensorData(id,  historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then(data => {
-        //refreshLineChart(data);
+        // refreshLineChart(data);
     });
 
-    requestUtil.startMonitor(id, data => {
+    requestUtil.startMonitor(id, (data) => {
         updateRealTimeData(data);
-    }, data => {
+    }, (data) => {
         refreshSensorStats(id, data, 'current');
     });
 }
@@ -62,7 +62,7 @@ function fetchSensorData()
  * 选择传感器
  */
 function selectSensor($li) {
-    //更新选中传感器
+    // 更新选中传感器
     const item = $li.data();
     const $selectedLi = $('div.chuhe-monitor ul#chuhe-monitor-dropdown > li.selected');
     $selectedLi.removeClass('selected');
@@ -84,7 +84,7 @@ function selectSensor($li) {
 }
 
 
-function refreshSensorStats(id, data, classify='history') {
+function refreshSensorStats(id, data, classify = 'history') {
     const stats = data[id] ? data[id] : data;
     let $card = $(`div.chuhe-monitor  div.chuhe-${classify}-stats > div.chuhe-stats-card`);
     if (value !== null && value !== undefined && stats !== null && stats !== undefined && stats[value] !== null && stats[value] !== undefined) {
@@ -92,7 +92,7 @@ function refreshSensorStats(id, data, classify='history') {
         $card.find("div.card-max-item > div.card-item-value > span").text(stats[value].max.toFixed(2));
         $card.find("div.card-min-item > div.card-item-value > span").text(stats[value].min.toFixed(2));
     } else {
-        $card.find("div.card-item > div.card-item-value > span").text("-")
+        $card.find("div.card-item > div.card-item-value > span").text("-");
     }
 }
 
@@ -198,11 +198,11 @@ module.exports = function(options) {
         collection
     });
 
-    //获取指定类型传感器列表
-    requestUtil.fetchSensors(type).then(data => {
+    // 获取指定类型传感器列表
+    requestUtil.fetchSensors(type).then((data) => {
         renderSensorList(data);
-        const ids = data.map( d => {
-          return d.id;
+        const ids = data.map((d) => {
+            return d.id;
         });
         bridgeScene.bridge.showSensors(ids);
     });

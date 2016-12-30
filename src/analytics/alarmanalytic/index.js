@@ -10,29 +10,29 @@ jQuery('#endTime').datetimepicker();
  */
 Date.prototype.pattern = function(fmt) {
     var o = {
-        "M+" : this.getMonth()+1, //月份
-        "d+" : this.getDate(), //日
-        "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
-        "H+" : this.getHours(), //小时
-        "m+" : this.getMinutes(), //分
-        "s+" : this.getSeconds(), //秒
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度
-        "S" : this.getMilliseconds() //毫秒
+        "M+": this.getMonth()+1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
+        "H+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth()+3)/3), //季度
+        "S": this.getMilliseconds() //毫秒
     };
     var week = {
-        "0" : "/u65e5",
-        "1" : "/u4e00",
-        "2" : "/u4e8c",
-        "3" : "/u4e09",
-        "4" : "/u56db",
-        "5" : "/u4e94",
-        "6" : "/u516d"
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
     };
     if (/(y+)/.test(fmt)) {
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
     }
     if (/(E+)/.test(fmt)) {
-        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
     }
     for (var k in o) {
         if (new RegExp("(" + k + ")").test(fmt)){
@@ -59,7 +59,7 @@ function getAlarm() {
         let color1 = ['#2B6D52', '#24884C', '#40A98B', '#6BBEB6', '#5CE5BB']
         for (let i = 0; i < data.simpleSensor.length; i++) {
             dataSet1[i] = {
-                label: data.simpleSensor[i].sensor_name,
+                label: data.simpleSensor[i]._id,
                 data: data.simpleSensor[i].count,
                 color: color1[i],
             };
@@ -69,7 +69,7 @@ function getAlarm() {
         let color2 = ['#654BB9', '#4654B5', '#6374DE', '#4D6DBA']
         for (let i = 0; i < data.sensorType.length; i++) {
             dataSet2[i] = {
-                label: data.sensorType[i].sensor_type_name,
+                label: data.sensorType[i]._id,
                 data: data.sensorType[i].count,
                 color: color2[i]
             };
@@ -79,7 +79,7 @@ function getAlarm() {
         let color3 = ['#0DC1FE', '#32E5EA', '#6CDBD5', '#3BC1B6']
         for (let i = 0; i < data.sensorPosition.length; i++) {
             dataSet3[i] = {
-                label: data.sensorPosition[i].alarm_position,
+                label: data.sensorPosition[i]._id,
                 data: data.sensorPosition[i].count,
                 color: color3[i]
             };
