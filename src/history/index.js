@@ -117,7 +117,7 @@ Date.prototype.pattern = function(fmt) {
 /**
  * 设置默认时间，从当前时间往前取一个星期的时间
  */
-let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).pattern("yyyy-MM-dd hh:mm:ss")
+let from = new Date(new Date().getFullYear(), new Date().getMonth()-2, new Date().getDate()).pattern("yyyy-MM-dd hh:mm:ss")
 let to = new Date().pattern("yyyy-MM-dd hh:mm:ss");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);
@@ -155,7 +155,9 @@ function refreshSensorStats(id, data) {
 }
 
 function refreshLineChart(data) {
-    let dataSet = data;
+    let dataSet = {
+        data
+    };
 
     var options = {
         series: {
@@ -163,7 +165,7 @@ function refreshLineChart(data) {
                 show: true
             },
             points: {
-                show: false
+                show: true
             }
         },
         zoom: {
@@ -210,10 +212,10 @@ function refreshLineChart(data) {
             }
         }
     }
-    $.plot($("div.chuhe-history-down > .chuhe-history-linechart"), dataSet, options);
+    $("div.chuhe-history-down > .chuhe-history-linechart").plot([dataSet], options);
 
 }
 
-$(`div.chuhe-select`).on('click', 'input#chuhe-history-submit', e => {
+$('div.chuhe-select').on('click', 'input#chuhe-history-submit', e => {
     fetchSensorData();
 });

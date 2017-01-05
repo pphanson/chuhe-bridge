@@ -129,28 +129,21 @@ function addNewEvents(startTime, endTime, eventName, eventTypeId)
             eventName: eventName,
             eventTypeId: eventTypeId
         },
-        success:function (data, status) {//请求成功的回调函数
-            console.log(data);
-            if (data === "success") {
-                alert("插入成功");
-            } else if (data === "fail"){
-                alert("插入失败");
-            }
-        }
     });
 }
 
 /**
  * 获取所有特殊事件的列表
  */
-function getAllEvents(from, to, page)
+function getAllEvents(from, to, page, keywords)
 {
     return $.ajax({
         url: 'http://localhost:3000/event/allevent',
         data: {
             from: from,
             to: to,
-            page: page
+            page: page,
+            keywords:keywords
         }
     });
 }
@@ -167,6 +160,34 @@ function getSearchTable(from, to, page, keywords)
             to: to,
             page: page,
             keywords: keywords
+        }
+    });
+}
+
+/**
+ * 事件详情
+ */
+function getSpecialDetail(from, to, id)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/special/detail',
+        data: {
+            from: from,
+            to: to,
+            id: id
+        }
+    });
+}
+
+/**
+ * 修改记录
+ */
+function getchanged(_id)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/special/detail',
+        data: {
+            _id:_id
         }
     });
 }
@@ -241,5 +262,7 @@ module.exports = {
     getSearchTable,
     getAlarmDate,
     getAlarmStatistics,
-    getHistoryDate
+    getHistoryDate,
+    getSpecialDetail,
+    getchanged
 };

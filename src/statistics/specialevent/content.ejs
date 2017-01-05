@@ -5,9 +5,9 @@
         <div class='chuhe-eventCondition-select'>
             <span class="chehe-specialSelect-time">
                 <span class="chuhe-special-titleName">时间范围:</span>
-                <input type="text" id="beginTime" value="2016/11/01 08:00">
+                <input type="text" id="beginTime" value="">
                 <span class="chuhe-time">至:</span>
-                <input type="text" id="endTime" value="2016/11/13 08:00">
+                <input type="text" id="endTime" value="">
             </span>
 
             <span class="chuhe-specialSelect-content">
@@ -16,13 +16,13 @@
             </span>
 
             <span class="chuhe-addSpecial">
-                <button id="creat-things" class="waves-effect waves-light" type="text"><a href="javascript:void(0);">创建事件</a></button>
+                <button id="create-things" class="waves-effect waves-light" type="text"><a href="javascript:void(0);">创建事件</a></button>
             </span>
         </div>
     </div>
 
     <div class="chuhe-specialEvent-table">
-        <table>
+        <table id="data-table-simple" class="responsive-table display" cellspacing="0">
             <thead>
             <tr>
                 <th>事件时间</th>
@@ -36,10 +36,16 @@
         </table>
     </div>
 
+    <ul class="pagination right">
+        <li class="paginate_button chuhe-left"><a href="#!"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
+        <span></span>
+        <li class="paginate_button"><a href="#!"><i class="mdi-hardware-keyboard-arrow-right"></i></a></li>
+    </ul>
+
 </div>
 
-<div id="chuhe-creat" action="#">
-    <div class="chuhe-creat-title">创建事件</div>
+<div id="chuhe-create" action="#">
+    <div class="chuhe-create-title">创建事件</div>
 
     <div class="chuhe-beginTime-select">
         <span class="chuhe-name">开始时间</span>
@@ -51,9 +57,9 @@
         <input type="text" id='endTime2' value="2016/11/10 08:00">
     </div>
 
-    <div class="chuhe-things-creat">
+    <div class="chuhe-things-create">
         <span class="chuhe-name">事件名称</span>
-        <input type="text" name="creatTings" id='thingsName' value="" placeholder=" 大风事件"/>
+        <input type="text" name="createTings" id='thingsName' value="" placeholder=" 大风事件"/>
     </div>
 
     <div class="chuhe-type-select">

@@ -3,8 +3,10 @@ require('./style.less');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');
 
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+let from = localStorage.getItem("startData");
+let to = localStorage.getItem("endData");
+$('input#beginTime').val(from);
+$('input#endTime').val(to);
 
 const names= {
     'displacement' : '位移传感器',
@@ -59,11 +61,28 @@ function setSensor(type) {
             let li = $(`<li id="${item.id}"><a href='#'><span>${item.name}</span></a></li>`);
             li.data(item);
             sensora.append(li);
+            if(index === 0){
+                $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
+                $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+            }
         })
         sensora.on("click", "li", function (e) {
             $(`ul#chuhue-sensors-dropdown li`).removeClass("sensorSelected");
             $(this).addClass("sensorSelected");
             $(`#chuhe-sensors-select`).html($(e.currentTarget).data().name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
         });
+        getSpecialData()
     });
 }
+
+function getSpecialData(){
+    let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
+    requestUtil.getSpecialDetail(from.toJSON(), to.toJSON(), id).then((data)=>{
+
+     })
+}
+
+$('div.chuhe-detail-select').on('click', 'input#clickId', e => {
+    getSpecialData();
+});
+

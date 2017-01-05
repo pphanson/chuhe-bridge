@@ -1,7 +1,7 @@
 
 .chuhe-specialEvent-container
 {
-    height: 100%;
+    height: 98%;
     width: 100%;
 
     > .chuhe-specialEvent-title
@@ -86,7 +86,7 @@
             {
                 background: #203656;
                 padding: 10px 20px;
-                border: 0px;
+                border: 0;
                 height: 45px;
                 font-size: 18px;
             }
@@ -96,8 +96,8 @@
     > .chuhe-specialEvent-table
     {
         color: white;
-        height:80%;
-        margin: 5px 10px 10px 10px;
+        height:70%;
+        margin: 5px 10px 5px 10px;
         >table
         {
             >thead
@@ -107,22 +107,33 @@
                 {
                     padding:15px 10px!important;
                     text-align: center;
+
                 }
             }
             tbody
             {
                 >tr,td
                 {
-                    padding:15px !important;
+                    padding:0 !important;
                     text-align: center;
+                    height: 40px;
+                    line-height: 40px;
+                    width: 40px;
                 }
             }
         }
     }
 
+    > ul.pagination.right
+    {
+        margin-top: 10px;
+        margin-right: 10px;
+        color: white;
+    }
+
 }
 
-div#chuhe-creat
+div#chuhe-create
 {
     display:none;
     background: #0E2535;
@@ -133,7 +144,7 @@ div#chuhe-creat
     top: 30%;
     left: 30%;
 
-    > .chuhe-creat-title
+    > .chuhe-create-title
     {
         font-size: 24px;
         text-align: center;
@@ -176,7 +187,7 @@ div#chuhe-creat
         }
     }
 
-    > .chuhe-things-creat
+    > .chuhe-things-create
     {
         display: flex;
         flex-direction: row;
@@ -224,7 +235,7 @@ div#chuhe-creat
     > .chuhe-form-submint
     {
         height: 40px;
-        margin: 0 65px 0px 100px;
+        margin: 0 65px 0 100px;
         >button
         {
             background: #203656;
