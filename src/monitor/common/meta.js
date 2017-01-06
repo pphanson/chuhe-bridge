@@ -38,10 +38,7 @@ function createHistoryTimeRange()
       new Date(
           now.getFullYear(),
           now.getMonth(),
-          now.getDate() - 1,
-          23,
-          59,
-          59
+          now.getDate()
       )
     ];
 }
@@ -67,8 +64,7 @@ function createCurrentTimeRange(sensorType)
               now.getFullYear(),
               now.getMonth(),
               now.getDate(),
-              now.getHours(),
-              59
+              now.getHours() + 1,
             )
         ];
     }
@@ -83,8 +79,7 @@ function createCurrentTimeRange(sensorType)
             new Date(
               now.getFullYear(),
               now.getMonth(),
-              now.getDate(),
-              23
+              now.getDate() + 1
             )
         ];
     }

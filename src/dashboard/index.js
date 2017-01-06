@@ -95,6 +95,11 @@ function refreshRealValue(sensor, data)
 
     if (type === '07')
     {
+        if (sensor.id === '0701')
+        {
+            $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
+            $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
+        }
         return;
     }
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
@@ -111,9 +116,15 @@ function refreshRealValue(sensor, data)
             col[v].data[timeslot][1] = data.value[v];
         }
     } else {
-        col[v].data.splice(0, 1);
+        let deprecatedCount = (timestamp - timeRange[type][1])/timeInterval[type] + 1;
+        col[v].data.splice(0, deprecatedCount);
+
+        for (let t = timeRange[type][1].getTime(); t < timestamp.getTime(); t += timeInterval[type] )
+        {
+              col[v].data.push([timestamp.getTime(), null]);
+        }
         col[v].data.push([timestamp.getTime(), data.value[v]]);
-        timeRange[type][1] = timestamp;
+        timeRange[type][1] = new Date(timestamp.getTime() + timeInterval[type]);
         timeRange[type][0] = new Date(col[v].data[0][0]);
     }
 

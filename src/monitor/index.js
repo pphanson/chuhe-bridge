@@ -131,16 +131,22 @@ function switchValue($li) {
  */
 function updateRealTimeData(data) {
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), from, type);
+    let timeslot =  (timestamp - from) / interval;
     for (let v of values) {
         if (timestamp < to) {
-            let timeslot = Math.floor((timestamp - from) / interval);
             if (collection[v].data[timeslot][1] === null) {
                 collection[v].data[timeslot][1] = data.value[v];
             }
         } else {
-            collection[v].data.splice(0, 1);
+            let deprecatedCount = (timestamp - to)/interval + 1;
+            collection[v].data.splice(0, deprecatedCount);
+
+            for (let t = to.getTime(); t < timestamp.getTime(); t += interval )
+            {
+                  collection[v].data.push([timestamp.getTime(), null]);
+            }
             collection[v].data.push([timestamp.getTime(), data.value[v]]);
-            to = timestamp;
+            to = new Date(timestamp.getTime() + interval) ;
             from = new Date(collection[v].data[0][0]);
         }
     }
@@ -170,11 +176,7 @@ module.exports = function(options) {
         $(`div.chuhe-monitor ul.chuhe-linechart-value-switch`).hide();
     }
 
-    let bridgeScene = BridgeScene();
-    bridgeScene.on('load', function() {
-        this.bridge.showSensors([id]);
-        this.bridge.focusOnSensor(this.bridge.sensors[`sensor#${id}`]);
-    });
+    const bridgeScene = BridgeScene();
 
     const timeRange = Meta.createCurrentTimeRange(type);
     from = timeRange[0];
@@ -204,7 +206,11 @@ module.exports = function(options) {
         const ids = data.map((d) => {
             return d.id;
         });
-        bridgeScene.bridge.showSensors(ids);
+        setTimeout(() => {
+          bridgeScene.bridge.showSensors(ids);
+          bridgeScene.bridge.focusOnSensor(bridgeScene.bridge.sensors[`sensor#${id}`]);
+        }, 500);
+
     });
 
     fetchSensorData();

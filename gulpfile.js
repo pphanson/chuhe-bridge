@@ -44,6 +44,9 @@ gulp.task('build-lib-image', cb => {
         './src/lib/**/*.jpg',
         './src/lib/**/*.gif'
     ]).pipe(gulp.dest('./public/lib/materialize'));
+
+    gulp.src('./src/resource/models/**/*')
+    .pipe(gulp.dest('./public/models'));
 });
 
 gulp.task("build-lib", cb => {
