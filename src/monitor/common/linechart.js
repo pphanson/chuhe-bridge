@@ -42,7 +42,7 @@ module.exports = function({from, to, interval, collection}) {
             lineWidth: 2
         },
         points: {
-            show: false
+            show: true
         }
     };
 
