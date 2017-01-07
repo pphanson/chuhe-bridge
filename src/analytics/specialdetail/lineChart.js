@@ -1,11 +1,13 @@
-const seriesTime = {
-    //data: [[new Date("2016-11-01"), 2], [new Date("2016-11-02"), 3], [new Date("2016-11-03"), 4], [new Date("2016-11-04"), 5], [new Date("2016-11-05"), 6], [new Date("2016-11-06"), 7], [new Date("2016-11-01"),8]],
-    color: 'green',
+/**
+ *事件详情的时间序列
+ */
+const series = {
+    color: 'white',
     fill: true,
     fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChart = $(".chuhe-history-down").plot(seriesTime, {
+const linechart = $(".chuhe-detail-down").plot([series], {
     series: {
         lines: {
             show: true
@@ -15,18 +17,15 @@ const lineChart = $(".chuhe-history-down").plot(seriesTime, {
         }
     },
     zoom: {
-        interactive: false
+        interactive: true
     },
     pan: {
         interactive: false
     },
-
     xaxis: {
-        // mode: "time",
-        // timeformat: "%m/%d",
+        mode: 'time',
         show: true,
-        zoomRange: false,
-        panRange: false,
+        timeformat: "%m/%d %H:%M",
         font: {
             color: 'white'
         }
@@ -52,7 +51,7 @@ const lineChart = $(".chuhe-history-down").plot(seriesTime, {
         margin: {
             left: 15,
             right: 15,
-            top: 60,
+            top: 30,
             bottom: 5
         },
         borderColor: {
@@ -63,13 +62,14 @@ const lineChart = $(".chuhe-history-down").plot(seriesTime, {
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChart.resize();
-    lineChart.setupGrid();
-    lineChart.draw();
+    linechart.resize();
+    linechart.setupGrid();
+    linechart.draw();
 });
 
 module.exports = {
-    historylinechart: lineChart,
-    series: seriesTime,
+    linechart: linechart,
+    series: series
 }
+
 

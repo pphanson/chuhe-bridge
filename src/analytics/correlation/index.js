@@ -20,6 +20,17 @@ jQuery('#endTime').datetimepicker();
      'temperature and humidity': '温湿度传感器'
  };
 
+const units={
+    '01':'(mm)',
+    '02':'(mm)',
+    '03':'(°)',
+    '04':'(MPa)',
+    '05':'(kN)',
+    '06':'(mm/s²)',
+    '07':'(kN)',
+    '08':'(mm/a)',
+    '09':'(℃)'
+}
 requestUtil.fetchSensorsMeta().then((data) => {
     let s = [];
     for (let type in data) {
@@ -52,6 +63,11 @@ function setSensorType(item, msg) {
     $(`ul#sensorType-${msg}-dropdown li`).removeClass("sensorTypeSelected");
     s.addClass("sensorTypeSelected");
     setSensor(item.type, msg);
+    if(msg === 'x'){
+        $("div.chuhe-correlationX-title span.chuhe-x-unit").html(units[item.type]);
+    }else{
+        $("div.chuhe-correlationY-title span.chuhe-y-unit").html(units[item.type]);
+    }
 }
 
 function setSensor(type, msg) {
@@ -67,7 +83,13 @@ function setSensor(type, msg) {
             $(`ul#sensors-${e.data.msg}-dropdown li`).removeClass("sensorSelected");
             $(this).addClass("sensorSelected");
             $(`#sensors-${e.data.msg}-select`).html($(e.currentTarget).data().name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+            if(msg === 'x'){
+                $("div.chuhe-correlationX-title span.chuhe-x-name").html($(e.currentTarget).data().name);
+            }else{
+                $("div.chuhe-correlationY-title span.chuhe-y-name").html($(e.currentTarget).data().name);
+            }
         });
+
     });
 }
 

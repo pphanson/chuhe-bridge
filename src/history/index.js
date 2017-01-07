@@ -2,7 +2,7 @@ require('./style.less');
 
 
 const requestUtil = require('../monitor/common/remote');
-//const {historylinechart, seriesTime} = require('./historylinechart');
+const bridgeScene = require('./bridge');
 
 jQuery('#beginTime').datetimepicker();
 jQuery('#endTime').datetimepicker();
@@ -21,6 +21,18 @@ const names= {
     'vibration': '振动传感器',
     'temperature and humidity': '温湿度传感器'
 };
+
+const units={
+    '01':'(mm)',
+    '02':'(mm)',
+    '03':'(°)',
+    '04':'(MPa)',
+    '05':'(kN)',
+    '06':'(mm/s²)',
+    '07':'(kN)',
+    '08':'(mm/a)',
+    '09':'(℃)'
+}
 
 requestUtil.fetchSensorsMeta().then((data) => {
     let s = [];
@@ -53,6 +65,8 @@ function setSensorType(item) {
     $('ul#chuhe-sensorType-dropdown li').removeClass("sensorTypeSelected");
     s.addClass("sensorTypeSelected");
     setSensor(item.type);
+    $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-unit").html(units[item.type]);
+
 }
 
 function setSensor(type) {
@@ -66,12 +80,14 @@ function setSensor(type) {
             if (index === 0){
                 $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
                 $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+                $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-sensorname").html(item.name);
             }
         })
         sensora.on("click", "li", function (e) {
             $(`ul#chuhue-sensors-dropdown li`).removeClass("sensorSelected");
             $(this).addClass("sensorSelected");
             $(`#chuhe-sensors-select`).html($(e.currentTarget).data().name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+            $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-sensorname").html($(e.currentTarget).data().name);
         });
         fetchSensorData();
     });
@@ -81,7 +97,7 @@ function setSensor(type) {
  * 格式化时间
  */
 Date.prototype.pattern = function(fmt) {
-    var o = {
+    let o = {
         "M+": this.getMonth()+1, // 月份
         "d+": this.getDate(), // 日
         "h+": this.getHours()%12 === 0 ? 12 : this.getHours()%12, // 小时
@@ -91,7 +107,7 @@ Date.prototype.pattern = function(fmt) {
         "q+": Math.floor((this.getMonth() + 3)/3), // 季度
         "S": this.getMilliseconds() // 毫秒
     };
-    var week = {
+    let week = {
         "0": "/u65e5",
         "1": "/u4e00",
         "2": "/u4e8c",
@@ -106,7 +122,7 @@ Date.prototype.pattern = function(fmt) {
     if (/(E+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
     }
-    for (var k in o) {
+    for (let k in o) {
         if (new RegExp("(" + k + ")").test(fmt)){
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
         }
@@ -155,17 +171,19 @@ function refreshSensorStats(id, data) {
 }
 
 function refreshLineChart(data) {
+    for (let i=0;i<data.length;i++){
+        data[i][0] = new Date(data[i][0]);
+    }
     let dataSet = {
-        data
+        data:data
     };
-
     var options = {
         series: {
             lines: {
                 show: true
             },
             points: {
-                show: true
+                show: false
             }
         },
         zoom: {
@@ -175,9 +193,9 @@ function refreshLineChart(data) {
             interactive: false
         },
         xaxis: {
+            mode: 'time',
             show: true,
-            zoomRange: false,
-            panRange: false,
+            timeformat: "%m/%d %H:%M",
             font: {
                 color: 'white'
             }
@@ -203,7 +221,7 @@ function refreshLineChart(data) {
             margin: {
                 left: 15,
                 right: 15,
-                top: 60,
+                top: 20,
                 bottom: 5
             },
             borderColor: {
@@ -213,7 +231,6 @@ function refreshLineChart(data) {
         }
     }
     $("div.chuhe-history-down > .chuhe-history-linechart").plot([dataSet], options);
-
 }
 
 $('div.chuhe-select').on('click', 'input#chuhe-history-submit', e => {

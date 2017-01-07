@@ -1,7 +1,9 @@
 require('./style.less');
 
 const requestUtil = require('../../monitor/common/remote');
+const {linechart, series} = require('./lineChart');
 const Meta = require('../../monitor/common/meta');
+const bridgeScene = require('./bridge');
 
 let from = localStorage.getItem("startData");
 let to = localStorage.getItem("endData");
@@ -77,8 +79,14 @@ function setSensor(type) {
 
 function getSpecialData(){
     let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
-    requestUtil.getSpecialDetail(from.toJSON(), to.toJSON(), id).then((data)=>{
-
+    requestUtil.getSpecialDetail(from, to, id).then((data)=>{
+        for (let i=0;i<data.length;i++){
+            data[i][0] = new Date(data[i][0]);
+        }
+        series.data=data;
+        linechart.setData([series]);
+        linechart.setupGrid();
+        linechart.draw();
      })
 }
 

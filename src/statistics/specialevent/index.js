@@ -8,6 +8,10 @@ jQuery('#beginTime2').datetimepicker();
 jQuery('#endTime2').datetimepicker();
 
 $('button#create-things').on("click", e =>{
+    $("div#chuhe-create input#beginTime2").val("");
+    $("div#chuhe-create input#endTime2").val("");
+    $("div#chuhe-create input#thingsName").val("");
+    $('.chuhe-create-title').text('新建事件');
     $("div#chuhe-create").openModal();
 });
 
@@ -15,6 +19,12 @@ $('button#chuhe-close').on("click", e =>{
     $("div#chuhe-create").closeModal();
     e.preventDefault();
 });
+
+const eventType = {
+    'SPET_001':'大风事件',
+    'SPET_002':'船撞事件',
+    'SPET_003':'地震事件',
+}
 
 /**
  * 格式化时间
@@ -74,6 +84,7 @@ let cache = [];
 let start = new Date($("input#beginTime").val());
 let end = new Date($("input#endTime").val());
 let initialLoad = false;
+let changId;
 starta();
 function starta() {
     initRows();
@@ -155,7 +166,7 @@ function updateTr(data) {// data是否有数据，要判断！
             $($trrows[index]).find("td[name=edit]").attr("data-id",data[index]._id);
             $($trrows[index]).find("td[data-field=time]").text(new Date(data[index].startTime).pattern("yyyy-MM-dd hh:mm:ss") + "  至  " + new Date(data[index].endTime).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[data-field=eventName]").text(data[index].eventName);
-            $($trrows[index]).find("td[data-field=eventTypeId]").text(data[index].eventTypeId);
+            $($trrows[index]).find("td[data-field=eventTypeId]").text(eventType[data[index].eventTypeId]);
             $($trrows[index]).find("td[name=edit]").html('<a href="#">修改</a>');
             $($trrows[index]).find("td[name=detail]").html('<a href="#">事件详情</a>');
         }
@@ -182,13 +193,19 @@ $('div#chuhe-create').on('click', 'button#chuhe-finish', e => {
     let endTime = new Date(document.getElementById("endTime2").value);
     let eventName = document.getElementById("thingsName").value;
     let eventTypeId = [];
+    let changedId;
+    if ($('.chuhe-create-title').text() === '修改事件'){
+        changedId = changId;
+    } else {
+        changedId = undefined;
+    }
     $("input[type=checkbox]:checked").each(function(){
         eventTypeId.push($(this).val());
     });
-    // alert(eventTypeId.toString());
-    requestUtil.addNewEvents(startTime.toJSON(), endTime.toJSON(), eventName, eventTypeId.toString()).then((data) => {
+    requestUtil.addNewEvents(startTime.toJSON(), endTime.toJSON(), eventName, eventTypeId.toString(), changedId).then((data) => {
         $("div#chuhe-create").closeModal();
         e.preventDefault();
+        starta();
     });
 });
 
@@ -218,7 +235,6 @@ $(function() {
             localStorage.setItem('endData', endData);
             location.href="/analytics/specialdetail/index.html";
         });
-
     });
 });
 
@@ -229,20 +245,21 @@ $(function() {
     $("table > tbody > tr").each(function(){
         let btnId=$(this).children().eq(4);
         btnId.bind("click",function(){
-            let _id=btnId.parent().children("td[name=edit]").attr('data-id');
-            requestUtil.getchanged(_id).then((data)=>{
+            changId=btnId.parent().children("td[name=edit]").attr('data-id');
+            requestUtil.getchanged(changId).then((data)=>{
+                let start = new Date(data[0].startTime).pattern("yyyy-MM-dd hh:mm:ss");
+                let end = new Date(data[0].endTime).pattern("yyyy-MM-dd hh:mm:ss");
+                let name = data[0].eventName;
+                let typeId = data[0].eventTypeId;
 
-                let a = new Date();
-                let b = new Date();
-                let c = '特殊事件';
-                let d = 'SPET_003'
                 $("div#chuhe-create").openModal();
+
                 $('.chuhe-create-title').text('修改事件');
-                $('#beginTime2').val(a);
-                $('#endTime2').val(b);
-                $('#thingsName').val(c);
+                $('#beginTime2').val(start);
+                $('#endTime2').val(end);
+                $('#thingsName').val(name);
                 for (let i = 0; i < 3; i++) {
-                    if ($($('input[type=checkbox]')[i]).val() === d) {
+                    if ($($('input[type=checkbox]')[i]).val() === typeId) {
                         $($('input[type=checkbox]')[i]).attr('checked',"checked");
                     }
                 }

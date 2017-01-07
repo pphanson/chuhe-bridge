@@ -39,6 +39,7 @@ function selectSensorItem(item) {
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
+
 }
 
 $('input#clickid').on('click', e => {

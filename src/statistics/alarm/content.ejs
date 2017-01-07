@@ -3,24 +3,25 @@
         <div class="chuhe-alarm-name">报警列表</div>
         
         <div class="chuhe-alarmCondition-select">
-            <form action="">
-                <span class="chuhe-select-name">
-                    <span class="chuhe-titleName">报警类型:</span>
-                    <select name="selectAge" id="selectAge">
-                        <option value="">全部</option>
-                        <option value="">数值报警</option>
-                        <option value="">传感器报警</option>
-                    </select>
+            <div class="form">
+                <span class="chuhe-select-alarm-type">
+                    <span class="chuhe-type-name">报警类型：</span>
+                    <a class="chuhe-titleName dropdown-button btn" data-activates='alarmType'>全部</a>
+                    <ul id="alarmType" class='dropdown-content'>
+                        <li value="0" selected="selected"><b>全部</b></li>
+                        <li value="1">数值报警</li>
+                        <li value="2">传感器报警</li>
+                    </ul>
                 </span>
-
-                <span class="chuhe-select-name">
-                    <span class="chuhe-titleName">报警级别:</span>
-                    <select name="selectAge" id="selectAge">
-                        <option value=""><h3>全部</h3></option>
-                        <option value="">一级告警</option>
-                        <option value="">二级告警</option>
-                        <option value="">三级告警</option>
-                    </select>
+                <span class="chuhe-select-alarm-level">
+                    <span class="chuhe-type-name">报警级别：</span>
+                    <a class="chuhe-titleName dropdown-button btn" data-activates='alarmLevel'>全部</a>
+                    <ul id="alarmLevel" class='dropdown-content'>
+                        <li value="0" selected="selected"><b>全部</b></li>
+                        <li value="1">一级告警</li>
+                        <li value="2">二级告警</li>
+                        <li value="3">三级告警</li>
+                    </ul>
                 </span>
 
                 <span class="chehe-select-time">
@@ -35,7 +36,7 @@
                     <button class="waves-effect waves-light" id="searchBtn"><i class="mdi-action-search"></i></button>
 
                 </span>
-            </form>
+            </div>
         </div>
 
     </div>
@@ -55,4 +56,9 @@
         </table>
     </div>
 
+    <ul class="pagination right">
+        <li class="paginate_button chuhe-left"><a href="#!"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
+        <span></span>
+        <li class="paginate_button"><a href="#!"><i class="mdi-hardware-keyboard-arrow-right"></i></a></li>
+    </ul>
 </div>
