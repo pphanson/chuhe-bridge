@@ -6,8 +6,27 @@ const type = {
     1: "数值报警",
     2: "传感器报警"
 }
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+jQuery.datetimepicker.setLocale('zh');
+jQuery(function() {
+    jQuery('#beginTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ) {
+            this.setOptions({
+                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
+            })
+        },
+        timepicker: true,
+    });
+    jQuery('#endTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ){
+            this.setOptions({
+                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+            })
+        },
+        timepicker: true,
+    });
+});
 
 /**
  * 格式化时间
