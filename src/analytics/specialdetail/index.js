@@ -1,13 +1,17 @@
 require('./style.less');
 
 const requestUtil = require('../../monitor/common/remote');
+const {linechart, series} = require('./lineChart');
 const Meta = require('../../monitor/common/meta');
+const bridgeScene = require('./bridge');
 
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+let from = localStorage.getItem("startData");
+let to = localStorage.getItem("endData");
+$('input#beginTime').val(from);
+$('input#endTime').val(to);
 
 const names= {
-    'displacement' : '位移传感器',
+    'displacement': '位移传感器',
     'verticality': '垂直度传感器',
     'cableforce': '索力传感器',
     'corrosion': '腐蚀传感器',
@@ -59,11 +63,36 @@ function setSensor(type) {
             let li = $(`<li id="${item.id}"><a href='#'><span>${item.name}</span></a></li>`);
             li.data(item);
             sensora.append(li);
+            if(index === 0){
+                $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
+                $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
+            }
         })
         sensora.on("click", "li", function (e) {
             $(`ul#chuhue-sensors-dropdown li`).removeClass("sensorSelected");
             $(this).addClass("sensorSelected");
             $(`#chuhe-sensors-select`).html($(e.currentTarget).data().name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
         });
+        getSpecialData()
     });
 }
+
+function getSpecialData(){
+    let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
+    let sensorIds = [id];
+    bridgeScene.bridge.showSensors(sensorIds);
+    requestUtil.getSpecialDetail(from, to, id).then((data)=>{
+        for (let i=0;i<data.length;i++){
+            data[i][0] = new Date(data[i][0]);
+        }
+        series.data=data;
+        linechart.setData([series]);
+        linechart.setupGrid();
+        linechart.draw();
+     })
+}
+
+$('div.chuhe-detail-select').on('click', 'input#clickId', e => {
+    getSpecialData();
+});
+

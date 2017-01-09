@@ -1,19 +1,16 @@
 /**
  *傅里叶分析上方的时间序列
  */
-const seriesTime = {
+const downLeftChart = {
     color: 'white',
     fill: true,
     fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
+const downLeft = $(".chuhe-bar-chart3").plot([downLeftChart], {
     series: {
-        lines: {
+        bar: {
             show: true
-        },
-        points: {
-            show: false
         }
     },
     zoom: {
@@ -62,14 +59,14 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChartTime.resize();
-    lineChartTime.setupGrid();
-    lineChartTime.draw();
+    downLeft.resize();
+    downLeft.setupGrid();
+    downLeft.draw();
 });
 
 module.exports = {
-    linechartTime: lineChartTime,
-    seriesTime: seriesTime
+    downleft: downLeft,
+    downleftchart: downLeftChart
 }
 
 

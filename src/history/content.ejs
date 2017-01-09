@@ -5,37 +5,75 @@
 
             <div class="chuhe-history-time">时间选择</div>
             <div class="chuhue-historyTime-select">
-                <input id='beginTime' type="text" value="2016/11/01 08:00">
+                <input id='beginTime' type="text">
                 <span class='chuhe-cortime'>至:</span>
-                <input id='endTime' type="text" value="2016/12/01 08:00">
+                <input id='endTime' type="text">
             </div>
 
             <div class="chuhe-history-sensors">传感器选择</div>
             <div class="chuhe-sensors-select">
-                <p class="chuhe-historyType-select">
-                    <a id='sensor-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-dropdown' href="#">
+                <span class="chuhe-historyType-select">
+                    <a id='chuhe-detail-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='chuhe-sensorType-dropdown' href="#">
                         <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <ul id='sensorType-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
+                    <ul id='chuhe-sensorType-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
                     </ul>
-                </p>
+                </span>
 
-                <p class="chuhe-historySensors-select">
-                    <a id='sensors-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-dropdown' href="#">
+                <span class="chuhe-historySensors-select">
+                    <a id='chuhe-sensors-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='chuhue-sensors-dropdown' href="#">
                         <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
-                <ul id='sensors-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
+                <ul id='chuhue-sensors-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
                 </ul>
-                </p>
+                </span>
             </div>
 
             <input id="chuhe-history-submit" class="right" type="submit" name="submited" value="确定">
 
         </div>
 
-        <div class="chuhe-bridge-3d" id='chuhe-bridge'></div>
+        <div class="chuhe-bridge-3d">
+            <div id='chuhe-bridge'></div>
+        </div>
 
-        <div class="chuhe-history-card"></div>
+        <div class="chuhe-history-card">
+            <div class='chuhe-stats-card'>
+                <div class='card-title'>
+                    <span class="card-sensorname">统计值</span>
+                    <span class='card-unit'>(<%= unit %>)</span>
+                </div>
+                <div class='card-content'>
+                    <div class='card-item card-avg-item'>
+                        <div class='card-item-value'>
+                            <span>-</span>
+                        </div>
+                        <div class='card-item-name'>
+                            <span>平均值<span>
+                        </div>
+                    </div>
+                    <div class='card-item card-min-item'>
+                        <div class='card-item-value'>
+                            <span>-</span>
+                        </div>
+                        <div class='card-item-name'>
+                            <span>最小值<span>
+                        </div>
+                    </div>
+                    <div class='card-item card-max-item'>
+                        <div class='card-item-value'>
+                            <span>-</span>
+                        </div>
+                        <div class='card-item-name'>
+                            <span>最大值<span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="chuhe-history-down"></div>
+    <div class="chuhe-history-down">
+        <div class="chuhe-history-linechart"></div>
+    </div>
 </div>

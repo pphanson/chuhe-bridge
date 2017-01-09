@@ -58,6 +58,7 @@
             height:40px;
             background: #203656;
             margin-bottom: 0;
+            color: white;
           }
         }
       }
@@ -81,7 +82,7 @@
           > .chuhe-type-select
           {
             width:40%;
-            margin: 5px;
+            margin-top: 10px;
             > .btn-flat
             {
               color: white;
@@ -156,24 +157,34 @@
       {
         border: 0;
         height: 40px;
-        width: 40%;
+        width: 37%;
         margin-right: 20px;
         background: #203656;
+        margin-top: 10px;
       }
     }
 
-    > .chuhe-bridge
+    > .chuhe-bridge-3d
     {
       flex-grow: 1;
-      background: rebeccapurple;
       margin-left: 5px;
+      background: #192e46;
+      position: relative;
+      >div#chuhe-bridge
+      {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
     }
   }
 
   > .chuhe-detail-down
   {
     flex-grow: 1;
-    background: indianred;
+    background: #203656;
     margin: 5px 10px 10px 10px;
   }
 }

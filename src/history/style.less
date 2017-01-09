@@ -1,6 +1,6 @@
 
- .chuhe-history-container
- {
+.chuhe-history-container
+{
    height: 100%;
    width: 100%;
    color: white;
@@ -9,122 +9,209 @@
 
    > .chuhe-history-up
    {
-     flex-basis: 40%;
-     flex-grow: 0;
-     margin: 10px 10px 5px 10px;
-     display: flex;
-     flex-direction: row;
+       flex-basis: 40%;
+       flex-grow: 0;
+       margin: 10px 10px 5px 10px;
+       display: flex;
+       flex-direction: row;
 
-     > .chuhe-select
-     {
-       width: 30%;
-       background: #192e46;
-       margin-right: 10px;
-
-       > .chuhe-history-title
+       > .chuhe-select
        {
-         font-size: 24px;
-         margin-left: 10px;
-       }
-
-       > .chuhe-history-time, .chuhe-history-sensors
-       {
-         font-size: 18px;
-         margin-left: 10px;
-         margin-top: 5px;
-       }
-
-       > .chuhue-historyTime-select
-       {
-         display: flex;
-         flex-direction: row;
-         margin-left: 10px;
-         margin-top: 10px;
-
-         >input
-         {
            width: 40%;
-           height: 40px;
-           background: #203656;
-           margin-bottom: 5px;
-         }
+           background: #192e46;
+           margin-right: 10px;
 
-         > .chuhe-cortime
-         {
-           font-size: 18px;
-           margin-left: 17px;
-           margin-right: 17px;
-         }
-       }
-
-       > .chuhe-sensors-select
-       {
-         margin-left: 10px;
-         margin-top: 10px;
-         display: flex;
-         flex-direction: row;
-         justify-content: space-between;
-
-         > .chuhe-historyType-select
-         {
-           background: #203656;
-           color: white;
-           height: 40px;
-           width: 40%;
-           margin-top: 0px;
-           > .btn-flat
+           > .chuhe-history-title
            {
-             color: white;
+               font-size: 24px;
+               margin-left: 20px;
+           }
+
+           > .chuhe-history-time, .chuhe-history-sensors
+           {
+               font-size: 18px;
+               margin-left: 20px;
+               margin-top: 5px;
+           }
+
+           > .chuhue-historyTime-select
+           {
+               display: flex;
+               flex-direction: row;
+               margin-left: 20px;
+               margin-top: 10px;
+               margin-right: 20Px;
+               justify-content: space-between;
+
+               >input
+               {
+                   width: 40%;
+                   height:40px;
+                   background: #203656;
+                   margin-bottom: 5px;
+               }
+
+               > .chuhe-cortime
+               {
+                   font-size: 18px;
+                   margin-left: 17px;
+                   margin-right: 17px;
+               }
+           }
+
+           > .chuhe-sensors-select
+           {
+               display: flex;
+               flex-direction: row;
+               margin-left: 20px;
+               margin-top: 10px;
+               margin-right: 20Px;
+               justify-content: space-between;
+
+               > .chuhe-historyType-select
+               {
+                   background: #203656;
+                   color: white;
+                   height: 40px;
+                   width: 40%;
+                   margin-top: 0;
+                   > .btn-flat
+                   {
+                       color: white;
+                   }
+                   > .dropdown-content
+                   {
+                       width:14%;
+
+                   }
+                   > .dropdown-content li
+                   {
+                       text-align: left;
+                       > a
+                       {
+                           color: white;
+                           background: #203656;
+                           padding-left: 2px;
+                           padding-right: 0px;
+
+                           > span
+                           {
+                             font-size: 16px;
+                             margin-left: 30px;
+                           }
+                       }
+
+                   }
+               }
+
+              > .chuhe-historySensors-select
+               {
+                   background: #203656;
+                   color: white;
+                   height: 40px;
+                   width: 40%;
+                   margin-top: 0px;
+
+                   > .btn-flat
+                   {
+                      color: white;
+                   }
+                   > .dropdown-content
+                   {
+                      width: 14%;
+                   }
+
+                   >.dropdown-content li
+                   {
+                       text-align: left;
+                       > a
+                       {
+                           color: white;
+                           background: #203656;
+                           padding-left: 2px;
+                           padding-right: 0;
+                           >span
+                           {
+                             font-size: 16px;
+                             margin-left: 30px;
+                           }
+                       }
+                   }
+               }
+           }
+
+           >input#chuhe-history-submit
+           {
+               margin-right: 20px;
+               margin-top: 15px;
+               background: #203656;
+               width: 37.5%;
+               height: 40px;
+               border: 0;
+               padding: 0;
+           }
+
+       }
+
+       > .chuhe-bridge-3d
+       {
+           width: 40%;
+           background: #192e46;
+           margin-right: 10px;
+           position: relative;
+           >div#chuhe-bridge
+           {
+             position: absolute;
+             top: 0;
+             bottom: 0;
+             left: 0;
+             right: 0;
+           }
+       }
+
+       > .chuhe-history-card
+       {
+           width: 30%;
+           background: #192e46;
+           position: relative;
+
+         >.chuhe-stats-card
+         {
+           position: absolute;
+           height: 100%;
+           width: 100%;
+           > .card-title span
+           {
+             font-size: 24px;
+           }
+
+           > div.card-content > .card-item
+           {
+             > .card-item-name {
+               font-size: 18px;
+             }
+
+             > .card-item-value {
+               font-size: 30px;
+               color: #02C488;
+             }
            }
          }
-
-         > .chuhe-historySensors-select
-         {
-           background: #203656;
-           color: white;
-           height: 40px;
-           width: 40%;
-           margin-top: 0px;
-
-           > .btn-flat
-           {
-             color: white;
-           }
-         }
        }
-
-       >input#chuhe-history-submit
-       {
-         margin-right: 25px;
-         background: #203656;
-         width: 40%;
-         height: 40px;
-         border: 0px;
-         padding: 0px;
-       }
-
-     }
-
-     > .chuhe-bridge-3d
-     {
-       width: 40%;
-       background: #192e46;
-       margin-right: 10px;
-     }
-
-     > .chuhe-history-card
-     {
-       width: 40%;
-       background: #192e46;
-     }
 
    }
 
    > .chuhe-history-down
    {
-     flex-grow: 1;
-     background: #192e46;
-     margin: 5px 10px 10px 10px;
-
+       flex-grow: 1;
+       background: #192e46;
+       margin: 5px 10px 10px 10px;
+       position: relative;
+       > .chuhe-history-linechart
+       {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+       }
    }
- }
+}

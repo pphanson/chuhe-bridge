@@ -98,10 +98,10 @@ function fetchSensorStats(id, from, to)
     let ids;
     if ($.isArray(id))
     {
-      ids = id;
+        ids = id;
     }
     else {
-      ids = [id];
+        ids = [id];
     }
     return $.ajax({
         url: "http://localhost:3000/sensors/data/stats",
@@ -118,7 +118,7 @@ function fetchSensorStats(id, from, to)
 /**
  * 新建特殊事件
  */
-function addNewEvents(startTime, endTime, eventName, eventTypeId)
+function addNewEvents(startTime, endTime, eventName, eventTypeId, _id)
 {
     return $.ajax({
         url: 'http://localhost:3000/event/addevent',
@@ -127,30 +127,24 @@ function addNewEvents(startTime, endTime, eventName, eventTypeId)
             startTime: startTime,
             endTime: endTime,
             eventName: eventName,
-            eventTypeId: eventTypeId
+            eventTypeId: eventTypeId,
+            id:_id
         },
-        success:function (data, status) {//请求成功的回调函数
-            console.log(data);
-            if (data === "success") {
-                alert("插入成功");
-            } else if (data === "fail"){
-                alert("插入失败");
-            }
-        }
     });
 }
 
 /**
  * 获取所有特殊事件的列表
  */
-function getAllEvents(from, to, page)
+function getAllEvents(from, to, page, keywords)
 {
     return $.ajax({
         url: 'http://localhost:3000/event/allevent',
         data: {
             from: from,
             to: to,
-            page: page
+            page: page,
+            keywords:keywords
         }
     });
 }
@@ -172,6 +166,34 @@ function getSearchTable(from, to, page, keywords)
 }
 
 /**
+ * 事件详情
+ */
+function getSpecialDetail(from, to, id)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/eventdetail',
+        data: {
+            from: from,
+            to: to,
+            sensorId: id
+        }
+    });
+}
+
+/**
+ * 修改记录
+ */
+function getchanged(_id)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/event',
+        data: {
+            id:_id
+        }
+    });
+}
+
+/**
  * 获取传感器类型
  */
 function fetchSensorsMeta()
@@ -186,13 +208,16 @@ function fetchSensorsMeta()
 /**
  * 获取报警统计数据
  */
-function getAlarmDate(from, to)
+function getAlarmDate(from, to, page, level, alarmType)
 {
     return $.ajax({
         url: 'http://localhost:3000/sensors/alarm',
         data: {
             from: from,
             to: to,
+            page: page,
+            level: level,
+            alarmType:alarmType,
         }
     });
 }
@@ -211,7 +236,35 @@ function getAlarmStatistics(from, to, page)
     });
 }
 
+/**
+ * 获取单个传感器的历史数据
+ */
+function getHistoryDate(from, to, sensorId)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/sensors/history',
+        data: {
+            from: from,
+            to: to,
+            sensorId: sensorId,
+        }
+    });
+}
 
+/**
+ * 荷载数据
+ */
+function getTrafficLoad(from, to, sensorId)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/',
+        data: {
+            from: from,
+            to: to,
+            sensorId: sensorId,
+        }
+    });
+}
 
 module.exports = {
     fetchSensors,
@@ -226,5 +279,9 @@ module.exports = {
     getAllEvents,
     getSearchTable,
     getAlarmDate,
-    getAlarmStatistics
+    getAlarmStatistics,
+    getHistoryDate,
+    getSpecialDetail,
+    getchanged,
+    getTrafficLoad
 };

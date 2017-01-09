@@ -19,40 +19,40 @@
                <div class="chuhe-sensorSelect-input">
                    <div class="chuhe-coordinate-select">
                       <span class="chuhe-coordinate-direction">X轴:</span>
-                       <p class="chuhe-type-select">
+                       <span class="chuhe-type-select">
                            <a id='sensor-x-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-x-dropdown' href="#">
                                <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
                            <ul id='sensorType-x-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
                            </ul>
-                       </p>
+                       </span>
 
-                       <p class="chuhe-sensors-select">
+                       <span class="chuhe-sensors-select">
                            <a id='sensors-x-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-x-dropdown' href="#">
                                <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
                            <ul id='sensors-x-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
                            </ul>
-                       </p>
+                       </span>
 
                    </div>
 
                    <div class="chuhe-coordinate-select">
                        <span class="chuhe-coordinate-direction">Y轴:</span>
-                       <p class="chuhe-type-select">
+                       <span class="chuhe-type-select">
                            <a id='sensor-y-type' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensorType-y-dropdown' href="#">
                                <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
                            <ul id='sensorType-y-dropdown' class="dropdown-content active chuhe-sensrorDropdown-content">
                            </ul>
-                       </p>
+                       </span>
 
-                       <p class="chuhe-sensors-select">
+                       <span class="chuhe-sensors-select">
                            <a id='sensors-y-select' class="btn-flat dropdown-button waves-effect waves-light" data-activates='sensors-y-dropdown' href="#">
                                <%= title %><i class="mdi-navigation-arrow-drop-down right"></i></a>
                            <ul id='sensors-y-dropdown' class="dropdown-content active chuhe-sensrorsDropdown-content">
                            </ul>
-                       </p>
+                       </span>
                    </div>
                </div>
-               <p><button id="buttona" value="确定" class="right">确定</button></p>
+               <p ><button id="buttona" value="确定" class="right">确定</button></p>
            </div>
       </div>
 
@@ -64,8 +64,14 @@
     <div class='chuhe-correlationLine-title'>
       <div class='chuhe-correlationLine-name'><span>相关性分析</span></div>
     </div>
-    <div class='chuhe-correlationY-title'>挠度（mm）</div>
+    <div class='chuhe-correlationY-title'>
+        <span class="chuhe-y-name">位移</span>
+        <span class="chuhe-y-unit">(mm)</span>
+    </div>
     <div class='chuhe-correlationLineChart-contant'></div>
-    <div class='chuhe-correlationX-title right'>位移（mm）</div>
+    <div class='chuhe-correlationX-title right'>
+        <span class="chuhe-x-name">位移</span>
+        <span class="chuhe-x-unit">(mm)</span>
+    </div>
   </div>
 </div>

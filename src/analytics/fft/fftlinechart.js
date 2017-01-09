@@ -51,7 +51,7 @@ const lineChartFft = $(".chuhe-fft-linechart > .chuhe-linechart-content").plot([
         margin: {
             left: 15,
             right: 15,
-            top: 60,
+            top: 30,
             bottom: 5
         },
         borderColor: {

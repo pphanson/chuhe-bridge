@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require("webpack");
 
 
-const types = ['vibration', 'displacement', 'strain', 'cableforce', 'corrosion', 'verticality', 'trafficload', 'deflection']
+const types = ['temperature_humidity', 'vibration', 'displacement', 'strain', 'cableforce', 'corrosion', 'verticality', 'trafficload', 'deflection'];
 const dashboard = [
     'webpack-hot-middleware/client?reload=true',
     "./dashboard/index.js",

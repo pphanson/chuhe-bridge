@@ -1,13 +1,13 @@
 /**
- *傅里叶分析上方的时间序列
+ *事件详情的时间序列
  */
-const seriesTime = {
+const series = {
     color: 'white',
     fill: true,
     fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
 };
 
-const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
+const linechart = $(".chuhe-detail-down").plot([series], {
     series: {
         lines: {
             show: true
@@ -23,9 +23,9 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
         interactive: false
     },
     xaxis: {
+        mode: 'time',
         show: true,
-        zoomRange: false,
-        panRange: false,
+        timeformat: "%m/%d %H:%M",
         font: {
             color: 'white'
         }
@@ -62,14 +62,14 @@ const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot
 }).data('plot');
 
 $(window).on('resize', function() {
-    lineChartTime.resize();
-    lineChartTime.setupGrid();
-    lineChartTime.draw();
+    linechart.resize();
+    linechart.setupGrid();
+    linechart.draw();
 });
 
 module.exports = {
-    linechartTime: lineChartTime,
-    seriesTime: seriesTime
+    linechart: linechart,
+    series: series
 }
 
 
