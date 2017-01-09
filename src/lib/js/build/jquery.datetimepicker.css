@@ -258,6 +258,8 @@
 .xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option {
 	padding: 2px 10px 2px 5px;
 	text-decoration: none !important;
+	background: #0B2043;
+	color: #fff;
 }
 
 .xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
@@ -431,9 +433,9 @@
 	border-bottom: 1px solid #222;
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box >div >div {
-	background: #0a0a0a;
-	border-top: 1px solid #222;
-	color: #999;
+	background: #0B2043;
+	border-top: 1px solid #0B2043;
+	color: #fff;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label {
@@ -450,9 +452,9 @@
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
-	background: #cc5500;
-	box-shadow: #b03e00 0 1px 3px 0 inset;
-	color: #000;
+	background: #00c09e;
+	box-shadow: #00c09e 0 1px 3px 0 inset;
+	color: #fff;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label i,
@@ -464,17 +466,17 @@
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar th {
-	background: #0a0a0a;
-	border: 1px solid #222;
-	color: #999;
+	background: #0B2043;
+	border: 1px solid #04111c;
+	color: #fff;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar th {
-	background: #0e0e0e;
+	background: #0B2043;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_today {
-	color: #cc5500;
+	color: #00c09e;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_default {
@@ -491,19 +493,19 @@
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
-	background: #cc5500;
-	box-shadow: #b03e00 0 1px 3px 0 inset;
+	background: #00c09e;
+	box-shadow: #00c09e 0 1px 3px 0 inset;
 	color: #000;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td:hover,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box >div >div:hover {
-	color: #000 !important;
+	color: #fff !important;
 	background: #007fff !important;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar th {
-	color: #666;
+	color: #fff;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_copyright { color: #333 !important }

@@ -251,6 +251,20 @@ function getHistoryDate(from, to, sensorId)
     });
 }
 
+/**
+ * 荷载数据
+ */
+function getTrafficLoad(from, to, sensorId)
+{
+    return $.ajax({
+        url: 'http://localhost:3000/',
+        data: {
+            from: from,
+            to: to,
+            sensorId: sensorId,
+        }
+    });
+}
 
 module.exports = {
     fetchSensors,
@@ -268,5 +282,6 @@ module.exports = {
     getAlarmStatistics,
     getHistoryDate,
     getSpecialDetail,
-    getchanged
+    getchanged,
+    getTrafficLoad
 };

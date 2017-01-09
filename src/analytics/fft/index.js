@@ -6,10 +6,32 @@ const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
 const Meta = require('../../monitor/common/meta');
 
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+jQuery.datetimepicker.setLocale('zh');
+jQuery(function() {
+    jQuery('#beginTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ) {
+            this.setOptions({
+                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+    jQuery('#endTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ){
+            this.setOptions({
+                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+});
 
 let type = '06';
+let sensorIds = [];
 requestUtil.fetchSensors(type).then(data => {
     initSensorlist(data);
 });
@@ -30,8 +52,6 @@ function initSensorlist(data) {
 }
 
 function selectSensorItem(item) {
-    // const type = item.meta;
-    // const name = item.name;
     var $selectedSensorItem = $('ul#vibration-dropdown li.chuhe-sensor-item-selected');
     var $sensorItem = $(`ul#vibration-dropdown  li#${item.id}`);
     var $chardTitle = $("a#vibration-title");
@@ -39,6 +59,8 @@ function selectSensorItem(item) {
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
+    sensorIds = item.id;
+    bridgeScene.bridge.showSensors(sensorIds);
 
 }
 

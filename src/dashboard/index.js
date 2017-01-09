@@ -19,47 +19,47 @@ RequestUtil.fetchSensorsMeta().then(data => {
 
 
 const timeInterval = {
-  '04': 60 * 1000,
-  '01': 60 * 1000,
-  '03': 60 * 1000,
-  '02': 60 * 1000,
-  '06': 5 * 1000,
-  '05': 60 * 1000,
-  '08': 60 * 60 * 1000
+    '04': 60 * 1000,
+    '01': 60 * 1000,
+    '03': 60 * 1000,
+    '02': 60 * 1000,
+    '06': 5 * 1000,
+    '05': 60 * 1000,
+    '08': 60 * 60 * 1000
 };
 const now = new Date();
 
 const timeRange = {
-  '04': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  '01': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  '03': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  '02': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  '06': [new Date(now.getTime()), new Date(now.getTime() + 5 * 60 * 1000)],
-  '05': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
-  '08': [new Date(now.getTime()), new Date(now.getTime() + 60 * 60 * 1000 * 23)],
+    '04': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+    '01': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+    '03': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+    '02': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+    '06': [new Date(now.getTime()), new Date(now.getTime() + 5 * 60 * 1000)],
+    '05': [new Date(now.getTime()), new Date(now.getTime() + 59 * 60 * 1000)],
+    '08': [new Date(now.getTime()), new Date(now.getTime() + 60 * 60 * 1000 * 23)],
 };
 
 const collection = {
-  '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000}),
-  '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000}),
-  '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000}),
-  '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
-  '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
-  '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['cableforce'], 'interval': 60 * 1000}),
-  '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
+    '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000}),
+    '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000}),
+    '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000}),
+    '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
+    '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
+    '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['cableforce'], 'interval': 60 * 1000}),
+    '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
 };
 
 
 
 const lineCharts = {
-  '04': LineChart('strain', collection['04']),
-  '03': LineChart('displacement', collection['03']),
-  '01': LineChart('verticality', collection['01']),
-  '05': LineChart('cableforce', collection['05']),
-  '02': LineChart('deflection', collection['02']),
-  '09': LineChart('trafficload'),
-  '08': LineChart('corrosion', collection['08']),
-  '06': LineChart('vibration', collection['06'])
+    '04': LineChart('strain', collection['04']),
+    '03': LineChart('displacement', collection['03']),
+    '01': LineChart('verticality', collection['01']),
+    '05': LineChart('cableforce', collection['05']),
+    '02': LineChart('deflection', collection['02']),
+    '09': LineChart('trafficload'),
+    '08': LineChart('corrosion', collection['08']),
+    '06': LineChart('vibration', collection['06'])
 };
 
 
@@ -157,7 +157,7 @@ function fetchSensorData(sensor)
       sensor.id,
       historyTimeRange[0].toJSON(),
       historyTimeRange[1].toJSON()
-    ).then(data => {
+    ).then((data) => {
         refreshHistoryValue(sensor, data);
     });
 

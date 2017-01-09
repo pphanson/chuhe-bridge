@@ -11,7 +11,7 @@ $('input#beginTime').val(from);
 $('input#endTime').val(to);
 
 const names= {
-    'displacement' : '位移传感器',
+    'displacement': '位移传感器',
     'verticality': '垂直度传感器',
     'cableforce': '索力传感器',
     'corrosion': '腐蚀传感器',
@@ -79,6 +79,8 @@ function setSensor(type) {
 
 function getSpecialData(){
     let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
+    let sensorIds = [id];
+    bridgeScene.bridge.showSensors(sensorIds);
     requestUtil.getSpecialDetail(from, to, id).then((data)=>{
         for (let i=0;i<data.length;i++){
             data[i][0] = new Date(data[i][0]);

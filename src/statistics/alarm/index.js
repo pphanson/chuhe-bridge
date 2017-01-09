@@ -16,6 +16,7 @@ jQuery(function() {
             })
         },
         timepicker: true,
+        theme:'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
@@ -25,6 +26,7 @@ jQuery(function() {
             })
         },
         timepicker: true,
+        theme:'dark'
     });
 });
 

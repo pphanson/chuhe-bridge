@@ -4,8 +4,29 @@ require('./style.less');
 const requestUtil = require('../monitor/common/remote');
 const bridgeScene = require('./bridge');
 
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+jQuery.datetimepicker.setLocale('zh');
+jQuery(function() {
+    jQuery('#beginTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ) {
+            this.setOptions({
+                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+    jQuery('#endTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ){
+            this.setOptions({
+                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+});
 
 /**
  * 选择传感器的类型及确定某个传感器
@@ -77,7 +98,7 @@ function setSensor(type) {
             let li = $(`<li id="${item.id}"><a href='#'><span>${item.name}</span></a></li>`);
             li.data(item);
             sensora.append(li);
-            if (index === 0){
+            if (index === 0) {
                 $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
                 $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
                 $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-sensorname").html(item.name);
@@ -146,6 +167,8 @@ function fetchSensorData()
     let begintime = new Date(document.getElementById("beginTime").value);
     let endtime = new Date(document.getElementById("endTime").value);
     let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
+    let sensorIds = [id];
+    bridgeScene.bridge.showSensors(sensorIds);
     requestUtil.fetchSensorStats(id, begintime.toJSON(), endtime.toJSON()).then((data) => {
        // historyStats = data[id];
         refreshSensorStats(id, data);

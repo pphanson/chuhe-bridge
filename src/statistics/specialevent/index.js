@@ -1,11 +1,53 @@
 require('./style.less');
 const requestUtil = require('../../monitor/common/remote');
 
-jQuery('#beginTime').datetimepicker();
-jQuery('#endTime').datetimepicker();
+jQuery.datetimepicker.setLocale('zh');
+jQuery(function() {
+    jQuery('#beginTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ) {
+            this.setOptions({
+                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+    jQuery('#endTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ){
+            this.setOptions({
+                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+});
 
-jQuery('#beginTime2').datetimepicker();
-jQuery('#endTime2').datetimepicker();
+jQuery.datetimepicker.setLocale('zh');
+jQuery(function() {
+    jQuery('#beginTime2').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ) {
+            this.setOptions({
+                maxDate:jQuery('#endTime2').val()?jQuery('#endTime2').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+    jQuery('#endTime2').datetimepicker({
+        format: 'Y-m-d H:i',
+        onShow: function ( ct ){
+            this.setOptions({
+                minDate:jQuery('#beginTime2').val()?jQuery('#beginTime2').val():false
+            })
+        },
+        timepicker: true,
+        theme:'dark'
+    });
+});
 
 $('button#create-things').on("click", e =>{
     $("div#chuhe-create input#beginTime2").val("");
