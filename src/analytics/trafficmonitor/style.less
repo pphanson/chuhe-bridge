@@ -31,7 +31,7 @@ div.chuhe-traffic-monitor-container
     > .chuhe-traffic-up
     {
       height: 50%;
-      width: 100%;
+      width: 99.4%;
       flex-grow: 0;
       margin-bottom: 5px;
       display: flex;
@@ -95,7 +95,13 @@ div.chuhe-traffic-monitor-container
             margin-left: 10px;
             color: white;
             text-align: left;
-            height: 15%;
+            height: 10%;
+          }
+
+          > #chuhe-pie-chart
+          {
+            width:100%;
+            height: 87%;
           }
         }
       }
@@ -105,6 +111,80 @@ div.chuhe-traffic-monitor-container
         flex-grow: 1;
         background: #203656;
         margin-left: 5px;
+        margin-right: 10px;
+        position: relative;
+        display: flex;
+
+
+        > .chuhe-one-load
+        {
+          width: 50%;
+          height: 100%;
+          flex-grow: 0;
+          position: relative;
+          display: flex;
+
+          > .chuhe-one-title
+          {
+            width: 10%;
+            font-size: 18px;
+            color: white;
+            height: 100%;
+            word-wrap: break-word;
+            letter-spacing: 20px;
+            background: #122338;
+            text-align:-webkit-right;
+          }
+          >table
+          {
+            width: 90%;
+            height: 100%;
+            color: white;
+
+            tr.chuhe-row td
+            {
+              width: 33%;
+              padding: 0;
+              text-align: center;
+            }
+
+          }
+        }
+
+        > .chuhe-two-load
+        {
+          width: 50%;
+          height: 100%;
+          flex-grow: 1;
+          position: relative;
+          display: flex;
+
+          > .chuhe-two-title
+          {
+            width: 10%;
+            font-size: 18px;
+            color: white;
+            height: 100%;
+            word-wrap: break-word;
+            letter-spacing: 20px;
+            background: #122338;
+            text-align:-webkit-right;
+          }
+          >table
+          {
+            width: 90%;
+            height: 100%;
+            color: white;
+
+            tr.chuhe-row td
+            {
+              width: 33%;
+              padding: 0;
+              text-align: center;
+            }
+
+          }
+        }
       }
 
     }
@@ -112,9 +192,18 @@ div.chuhe-traffic-monitor-container
     > .chuhe-traffic-down
     {
       flex-grow: 1;
-      width: 100%;
-      background: #1F578D;
+      width: 98.8%;
       margin: 5px 10px 10px 10px;
+      >table
+      {
+        color: white;
+        >thead tr th
+        {
+          background: #1F578D;
+          font-family: "微软雅黑";
+
+        }
+      }
     }
 
   }

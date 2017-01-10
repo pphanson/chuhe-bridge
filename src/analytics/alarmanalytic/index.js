@@ -66,7 +66,7 @@ Date.prototype.pattern = function(fmt) {
 /**
  * 设置默认时间，从当前时间往前取一个月的时间
  */
-let from = new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate()-14).pattern("yyyy-MM-dd hh:mm:ss")
+let from = new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate() - 14).pattern("yyyy-MM-dd hh:mm:ss")
 let to = new Date().pattern("yyyy-MM-dd hh:mm:ss");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);
@@ -76,7 +76,7 @@ function getAlarm() {
     let endtime = new Date(document.getElementById("endTime").value);
 
     requestUtil.getAlarmStatistics(begintime.toJSON(), endtime.toJSON()).then((data) => {
-        let dataSet1=[];
+        let dataSet1 = [];
         let color1 = ['#2B6D52', '#24884C', '#40A98B', '#6BBEB6', '#5CE5BB']
         for (let i = 0; i < data.simpleSensor.length; i++) {
             dataSet1[i] = {
