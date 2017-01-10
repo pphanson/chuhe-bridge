@@ -196,7 +196,7 @@ function updateRows(result,sumPage)         // 更新数据
     }
 }
 
-function updateTr(data) {// data是否有数据，要判断！
+function updateTr(data) {
     let $tbody = $(".chuhe-specialEvent-table>table tbody");
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
@@ -268,14 +268,16 @@ $("button#searchBtn").on('click', e => {
  * 事件详情的点击事件
  */
 $(function() {
-    $("table > tbody > tr").each(function(){
-        let btn=$(this).children().eq(3);
-        btn.bind("click",function(){
-            let startData=btn.parent().children("td[name=detail]").attr('data-start');
-            let endData=btn.parent().children("td[name=detail]").attr('data-end');
+    let $tr = $("table > tbody > tr");
+    $tr.each(function(){
+        let btn = $(this).children().eq(3);
+        btn.bind("click", function() {
+            alert($(this).children().eq(3).text());
+            let startData = btn.parent().children("td[name=detail]").attr('data-start');
+            let endData = btn.parent().children("td[name=detail]").attr('data-end');
             localStorage.setItem('startData', startData);
             localStorage.setItem('endData', endData);
-            location.href="/analytics/specialdetail/index.html";
+            location.href = "/analytics/specialdetail/index.html";
         });
     });
 });

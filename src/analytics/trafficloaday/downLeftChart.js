@@ -9,9 +9,13 @@ const downLeftChart = {
 
 const downLeft = $(".chuhe-bar-chart3").plot([downLeftChart], {
     series: {
-        bar: {
+        bars: {
             show: true
         }
+    },
+    bars: {
+        align: "center",
+        barWidth: 0.5
     },
     zoom: {
         interactive: true

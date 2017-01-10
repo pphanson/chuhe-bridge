@@ -9,9 +9,13 @@ const upRightChart = {
 
 const upRight = $(".chuhe-bar-chart2").plot([upRightChart], {
     series: {
-        bar: {
+        bars: {
             show: true
         }
+    },
+    bars: {
+        align: "center",
+        barWidth: 0.5
     },
     zoom: {
         interactive: true
