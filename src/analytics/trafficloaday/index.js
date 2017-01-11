@@ -1,33 +1,35 @@
 require('./style.less');
 
-const {upleft, upleftchart} = require('./upLeftChart');
-const {upright, uprightchart} = require('./upRightChart');
-const {downleft, downleftchart} = require('./downLeftChart');
-const {downright, downrightchart} = require('./downRightChart');
+const {upleftchart, upleft} = require('./upLeftChart');
+const {uprightchart, upright} = require('./upRightChart');
+const {downleftchart, downleft} = require('./downLeftChart');
+const {downrightchart, downright} = require('./downRightChart');
 const requestUtil = require('../../monitor/common/remote');
 
+fetchTrafficData();
+function fetchTrafficData(){
+    let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    let to = new Date();
+    let sensorId = '0901';
+    requestUtil.getHistoryDate(from.toJSON(), to.toJSON(), sensorId).then((data) => {
+        upleftchart.data = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]];
+        upleft.setData([upleftchart]);
+        upleft.setupGrid();
+        upleft.draw();
 
-let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-let to = new Date();
-let sensorId = '0901';
-requestUtil.getHistoryDate(from.JSON(), to.JSON(), sensorId).then((data) => {
-    upleft.data = [[1,2],[2,3],[3,4],[4,5],[5,6]];
-    upleftchart.setData([upleft]);
-    upleftchart.setupGrid();
-    upleftchart.draw();
+        uprightchart.data = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]];
+        upright.setData([uprightchart]);
+        upright.setupGrid();
+        upright.draw();
 
-    upright.data = [[1,2],[2,3],[3,4],[4,5],[5,6]];
-    uprightchart.setData([upright]);
-    uprightchart.setupGrid();
-    uprightchart.draw();
+        downleftchart.data = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]];
+        downleft.setData([downleftchart]);
+        downleft.setupGrid();
+        downleft.draw();
 
-    downleft.data = [[1,2],[2,3],[3,4],[4,5],[5,6]];
-    downleftchart.setData([downleft]);
-    downleftchart.setupGrid();
-    downleftchart.draw();
-
-    downright.data = [[1,2],[2,3],[3,4],[4,5],[5,6]];
-    downrightchart.setData([downright]);
-    downrightchart.setupGrid();
-    downrightchart.draw();
-})
+        downrightchart.data = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]];
+        downright.setData([downrightchart]);
+        downright.setupGrid();
+        downright.draw();
+    })
+}

@@ -208,7 +208,7 @@ function fetchSensorsMeta()
 /**
  * 获取报警统计数据
  */
-function getAlarmDate(from, to, page, level, alarmType)
+function getAlarmDate(from, to, page, level, alarmType, keyword)
 {
     return $.ajax({
         url: 'http://localhost:3000/sensors/alarm',
@@ -217,7 +217,8 @@ function getAlarmDate(from, to, page, level, alarmType)
             to: to,
             page: page,
             level: level,
-            alarmType:alarmType,
+            alarmType: alarmType,
+            keyword: keyword
         }
     });
 }

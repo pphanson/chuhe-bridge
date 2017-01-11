@@ -196,7 +196,7 @@ function updateRows(result,sumPage)         // 更新数据
     }
 }
 
-function updateTr(data) {// data是否有数据，要判断！
+function updateTr(data) {
     let $tbody = $(".chuhe-specialEvent-table>table tbody");
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
@@ -247,7 +247,9 @@ $('div#chuhe-create').on('click', 'button#chuhe-finish', e => {
     requestUtil.addNewEvents(startTime.toJSON(), endTime.toJSON(), eventName, eventTypeId.toString(), changedId).then((data) => {
         $("div#chuhe-create").closeModal();
         e.preventDefault();
-        starta();
+        cache = [];
+        fetchData(start, end, page);
+        addSelected();
     });
 });
 
@@ -268,14 +270,17 @@ $("button#searchBtn").on('click', e => {
  * 事件详情的点击事件
  */
 $(function() {
-    $("table > tbody > tr").each(function(){
-        let btn=$(this).children().eq(3);
-        btn.bind("click",function(){
-            let startData=btn.parent().children("td[name=detail]").attr('data-start');
-            let endData=btn.parent().children("td[name=detail]").attr('data-end');
+    let $tr = $("table > tbody > tr");
+    $tr.each(function(){
+        let btn = $(this).children().eq(3);
+        btn.bind("click", function() {
+            let startData = btn.parent().children("td[name=detail]").attr('data-start');
+            let endData = btn.parent().children("td[name=detail]").attr('data-end');
             localStorage.setItem('startData', startData);
             localStorage.setItem('endData', endData);
-            location.href="/analytics/specialdetail/index.html";
+            if ($(this).html() !== "") {
+                location.href = "/analytics/specialdetail/index.html";
+            }
         });
     });
 });
@@ -293,8 +298,9 @@ $(function() {
                 let end = new Date(data[0].endTime).pattern("yyyy-MM-dd hh:mm:ss");
                 let name = data[0].eventName;
                 let typeId = data[0].eventTypeId;
-
-                $("div#chuhe-create").openModal();
+                if ($(this).html() !== "") {
+                    $("div#chuhe-create").openModal();
+                }
 
                 $('.chuhe-create-title').text('修改事件');
                 $('#beginTime2').val(start);
@@ -302,7 +308,7 @@ $(function() {
                 $('#thingsName').val(name);
                 for (let i = 0; i < 3; i++) {
                     if ($($('input[type=checkbox]')[i]).val() === typeId) {
-                        $($('input[type=checkbox]')[i]).attr('checked',"checked");
+                        $($('input[type=checkbox]')[i]).attr("checked", "checked");
                     }
                 }
             })

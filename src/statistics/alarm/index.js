@@ -102,14 +102,12 @@ function initRows(count = 10)
 
 }
 
-function fetchData(from, to, page, level, alarmType)
+function fetchData(from, to, page, level, alarmType, keyword)
 {
     if (cache[page]){
-        alert("aaa");
         getOldRows(page);
-    }
-    else{
-        requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType).then((resule) => {
+    } else {
+        requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType, keyword).then((resule) => {
             cache[page] = resule.docs;
             addTableNumber(resule.docs, resule.sumpage);
         });
@@ -171,16 +169,25 @@ function addSelected() {
 
 addClick("alarmLevel");
 addClick("alarmType");
+search();
 function addClick(alarm) {
     $(`#${alarm}`).on("click", "li", function (e) {
         $(this).parent().find("li").removeAttr("selected");
         $(this).attr("selected","selected");
         level = $("#alarmLevel li[selected]").val();
-        let Type = $("#alarmType li[selected]").text();
         $(".chuhe-select-alarm-level a").text($("#alarmLevel li[selected]").text());
         alarmType = type[$("#alarmType li[selected]").val()];
         $(".chuhe-select-alarm-type a").text(alarmType);
         cache[page] = undefined;
         fetchData(from, to, page, level, alarmType);
+    })
+}
+function search() {
+    $(".chuhe-select-content #searchBtn").on("click", function (e) {
+        alarmType = type[$("#alarmType li[selected]").val()];
+        level = $("#alarmLevel li[selected]").val();
+        let keyword = $(".chuhe-select-content input").val();
+        cache[page] = undefined;
+        fetchData(from, to, page, level, alarmType, keyword);
     })
 }

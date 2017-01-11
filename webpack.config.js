@@ -17,6 +17,10 @@ let entry = Object.assign({
         './resource/common.less',
     ],
     "dashboard": dashboard,
+    "trafficmonitor": [
+        'webpack-hot-middleware/client?reload=true',
+        './analytics/trafficmonitor/index.js',
+    ],
     "alarmanalytic": [
         'webpack-hot-middleware/client?reload=true',
         './analytics/alarmanalytic/index.js',
@@ -69,6 +73,11 @@ let plugins = [
         template: "./dashboard/html.js",
         filename: "./dashboard/index.html",
         chunks: ["vendor", "dashboard"],
+    }),
+    new HtmlWebpackPlugin({
+        template: './analytics/trafficmonitor/html.js',
+        filename: './analytics/trafficmonitor/index.html',
+        chunks: ['vendor', 'trafficmonitor'],
     }),
     new HtmlWebpackPlugin({
         template: './analytics/alarmanalytic/html.js',
