@@ -39,7 +39,9 @@ module.exports = function({from, to, interval, collection}) {
     const options = {
         lines: {
             show: true,
-            lineWidth: 2
+            lineWidth: 2,
+            fill: true,
+            fillColor: {colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']}
         },
         points: {
             show: true

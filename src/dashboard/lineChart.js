@@ -1,9 +1,10 @@
-module.exports = function(id, collection) {
+module.exports = function(id, collection, fillColor) {
     const options = {
         lines: {
             show: true,
             fill: true,
-            fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+            color: 'white',
+            fillColor: fillColor || {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
         },
         points: {
             show: false

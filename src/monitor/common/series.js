@@ -1,4 +1,4 @@
-module.exports = function ({from, to, values, interval})
+module.exports = function ({from, to, values, interval, color})
 {
     let collection = [];
 
@@ -8,11 +8,7 @@ module.exports = function ({from, to, values, interval})
         {
             let series = {
               data: [],
-              color: 'white',
-              lines: {
-                fill: true,
-                fillColor: {colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']}
-              }
+              color: color || 'white'
             };
             collection.push(series);
             collection[value] = series;
