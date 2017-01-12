@@ -120,13 +120,13 @@ function setSensor(type) {
  */
 Date.prototype.pattern = function(fmt) {
     let o = {
-        "M+": this.getMonth()+1, // 月份
+        "M+": this.getMonth() + 1, // 月份
         "d+": this.getDate(), // 日
-        "h+": this.getHours()%12 === 0 ? 12 : this.getHours()%12, // 小时
+        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
         "H+": this.getHours(), // 小时
         "m+": this.getMinutes(), // 分
         "s+": this.getSeconds(), // 秒
-        "q+": Math.floor((this.getMonth() + 3)/3), // 季度
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
         "S": this.getMilliseconds() // 毫秒
     };
     let week = {
@@ -153,10 +153,10 @@ Date.prototype.pattern = function(fmt) {
 }
 
 /**
- * 设置默认时间，从当前时间往前取一个星期的时间
+ * 设置默认时间，从当前时间往前取一个月的时间
  */
-let from = new Date(new Date().getFullYear(), new Date().getMonth()-2, new Date().getDate()).pattern("yyyy-MM-dd hh:mm:ss")
-let to = new Date().pattern("yyyy-MM-dd hh:mm:ss");
+let from = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate()).pattern("yyyy-MM-dd hh:mm")
+let to = new Date().pattern("yyyy-MM-dd hh:mm");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);
 
@@ -199,8 +199,11 @@ function refreshLineChart(data) {
         data[i][0] = new Date(data[i][0]);
     }
     let dataSet = {
-        data: data
-    };
+        data: data,
+        color: "white",
+        fill: true,
+        fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']},
+};
     var options = {
         series: {
             lines: {

@@ -33,7 +33,7 @@ jQuery(function() {
 /**
  * 格式化时间
  */
-Date.prototype.pattern=function(fmt) {
+Date.prototype.pattern = function(fmt) {
     var o = {
         "M+": this.getMonth() + 1, // 月份
         "d+": this.getDate(), // 日
@@ -56,7 +56,7 @@ Date.prototype.pattern=function(fmt) {
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
-    if (/(E+)/.test(fmt)){
+    if (/(E+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
     }
     for (var k in o) {
@@ -70,8 +70,12 @@ Date.prototype.pattern=function(fmt) {
 /**
  *实时获取当前数据
  */
-let from = new Date(new Date().getFullYear(),new Date().getMonth() - 2, new Date().getDate())
-let to = new Date();
+let from1 = new Date(new Date().getFullYear(), new Date().getMonth() - 2, new Date().getDate()).pattern("yyyy-MM-dd hh:mm");
+let to1 = new Date().pattern("yyyy-MM-dd hh:mm");
+let from = new Date(from1);
+let to = new Date(to1);
+$("input#beginTime").val(from1);
+$("input#endTime").val(to1);
 let alarmType = type[$("#alarmType li[selected]").val()];
 let level = $("#alarmLevel li[selected]").val();
 let page = 0;
@@ -105,7 +109,7 @@ function initRows(count = 10)
 
 function fetchData(from, to, page, level, alarmType, keyword)
 {
-    if (cache[page]){
+    if (cache[page]) {
         getOldRows(page);
     } else {
         requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType, keyword).then((result) => {
@@ -145,7 +149,7 @@ function updateTr(data) {// data是否有数据，要判断！
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
 
-    $trrows.each(function(index){
+    $trrows.each(function(index) {
         if (data.length !== 0) {
             $($trrows[index]).find("td[data-field=timestamp]").text(new Date(data[index].timestamp).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[data-field=alarm_type]").text(data[index].alarm_type);
@@ -160,7 +164,7 @@ function updateTr(data) {// data是否有数据，要判断！
 // 添加选中事件
 function addSelected() {
     let ul = $('ul.pagination span');
-    ul.on("click", 'li', e => {
+    ul.on("click", 'li', (e) => {
         let $nav = $(e.target);
         page = $nav.attr("data-dt-idx");
         ul.find('.active').removeClass('active');
@@ -196,7 +200,7 @@ search();
 function addClick(alarm) {
     $(`#${alarm}`).on("click", "li", function (e) {
         $(this).parent().find("li").removeAttr("selected");
-        $(this).attr("selected","selected");
+        $(this).attr("selected", "selected");
         level = $("#alarmLevel li[selected]").val();
         $(".chuhe-select-alarm-level a").text($("#alarmLevel li[selected]").text());
         alarmType = type[$("#alarmType li[selected]").val()];
