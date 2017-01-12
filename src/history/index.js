@@ -11,20 +11,20 @@ jQuery(function() {
         onShow: function ( ct ) {
             this.setOptions({
                 maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
         onShow: function ( ct ){
             this.setOptions({
                 minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
@@ -44,15 +44,15 @@ const names= {
 };
 
 const units={
-    '01':'(mm)',
-    '02':'(mm)',
-    '03':'(°)',
-    '04':'(MPa)',
-    '05':'(kN)',
-    '06':'(mm/s²)',
-    '07':'(kN)',
-    '08':'(mm/a)',
-    '09':'(℃)'
+    '01': '(mm)',
+    '02': '(mm)',
+    '03': '(°)',
+    '04': '(MPa)',
+    '05': '(kN)',
+    '06': '(mm/s²)',
+    '07': '(℃)',
+    '08': '(mm/a)',
+    '09': '(℃)'
 }
 
 requestUtil.fetchSensorsMeta().then((data) => {
@@ -71,13 +71,13 @@ function initTypeList(data, obj) {
         let li = $(`<li id=${item.type}><a href='#'><span>${names[item.name]}</span></a></li>`);
         li.data(item);
         sensorType.append(li);
-        if (index === 0){
+        if (index === 0) {
             setSensorType(item, obj);
         }
     });
     sensorType.on("click", "li", function (e) {
         setSensorType($(e.currentTarget).data());
-    })
+    });
 }
 
 function setSensorType(item) {
@@ -87,7 +87,7 @@ function setSensorType(item) {
     s.addClass("sensorTypeSelected");
     setSensor(item.type);
     $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-unit").html(units[item.type]);
-
+    $(".chuhe-history-down > .chuhe-y-unit").html(units[item.type]);
 }
 
 function setSensor(type) {
@@ -102,6 +102,7 @@ function setSensor(type) {
                 $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
                 $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
                 $(".chuhe-history-card > .chuhe-stats-card > .card-title > span.card-sensorname").html(item.name);
+                $(".chuhe-history-down > .chuhe-y-name").html(item.name);
             }
         })
         sensora.on("click", "li", function (e) {

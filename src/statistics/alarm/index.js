@@ -76,6 +76,7 @@ let alarmType = type[$("#alarmType li[selected]").val()];
 let level = $("#alarmLevel li[selected]").val();
 let page = 0;
 let cache = [];
+let sumPage;
 let initialLoad = false;
 starta();
 function starta() {
@@ -107,9 +108,10 @@ function fetchData(from, to, page, level, alarmType, keyword)
     if (cache[page]){
         getOldRows(page);
     } else {
-        requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType, keyword).then((resule) => {
-            cache[page] = resule.docs;
-            addTableNumber(resule.docs, resule.sumpage);
+        requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType, keyword).then((result) => {
+            cache[page] = result.docs;
+            sumPage = result.sumpage;
+            addTableNumber(result.docs, result.sumpage);
         });
     }
 }
@@ -157,14 +159,35 @@ function updateTr(data) {// data是否有数据，要判断！
 
 // 添加选中事件
 function addSelected() {
-    let ul = $('ul.pagination');
-    ul.on("click",'.paginate_button', e => {
+    let ul = $('ul.pagination span');
+    ul.on("click", 'li', e => {
         let $nav = $(e.target);
+        page = $nav.attr("data-dt-idx");
         ul.find('.active').removeClass('active');
         $nav.addClass('active');
-        page = $nav.attr("data-dt-idx") - 1;
+        page--;
         fetchData(from, to, page, level, alarmType);
     })
+    let left = $('ul.pagination li:first');
+    let right = $('ul.pagination li:last');
+    left.on("click", function () {
+        page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
+        if (page >= 1) {
+            page--;
+            ul.find('.active').removeClass('active');
+            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
+            fetchData(from, to, page, level, alarmType);
+        }
+    });
+    right.on("click", function () {
+        page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
+        if (page < (sumPage - 1)) {
+            page++;
+            ul.find('.active').removeClass('active');
+            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
+            fetchData(from, to, page, level, alarmType);
+        }
+    });
 }
 
 addClick("alarmLevel");

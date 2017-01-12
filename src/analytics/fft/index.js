@@ -4,7 +4,6 @@ const {linechartTime, seriesTime} = require('./timelinechart');
 const {linechartFft, seriesFft} = require('./fftlinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
-const Meta = require('../../monitor/common/meta');
 
 jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
@@ -13,20 +12,20 @@ jQuery(function() {
         onShow: function ( ct ) {
             this.setOptions({
                 maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function ( ct ) {
             this.setOptions({
                 minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
@@ -59,8 +58,6 @@ function selectSensorItem(item) {
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
     $selectedSensorItem.removeClass("chuhe-sensor-item-selected");
-    sensorIds = item.id;
-    bridgeScene.bridge.showSensors(sensorIds);
 
 }
 
@@ -69,8 +66,10 @@ $('input#clickid').on('click', e => {
     let from = new Date(document.getElementById("beginTime").value);
     let to = new Date(document.getElementById("endTime").value);
     let id = $("ul#vibration-dropdown li.chuhe-sensor-item-selected").attr("id");
+    sensorIds = id;
+    bridgeScene.bridge.showSensors(sensorIds);
 
-    requestUtil.getAnalytics(id, from.toJSON(), to.toJSON()).then(data => {
+    requestUtil.getAnalytics(id, from.toJSON(), to.toJSON()).then((data) => {
         seriesTime.data = data.timeArray;
         linechartTime.setData([seriesTime]);
         linechartTime.setupGrid();

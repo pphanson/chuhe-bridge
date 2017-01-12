@@ -9,20 +9,20 @@ jQuery(function() {
         onShow: function ( ct ) {
             this.setOptions({
                 maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function ( ct ) {
             this.setOptions({
                 minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
@@ -30,17 +30,17 @@ jQuery(function() {
  * 格式化时间
  */
 Date.prototype.pattern = function(fmt) {
-    var o = {
-        "M+": this.getMonth()+1, //月份
-        "d+": this.getDate(), //日
-        "h+": this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
-        "H+": this.getHours(), //小时
-        "m+": this.getMinutes(), //分
-        "s+": this.getSeconds(), //秒
-        "q+": Math.floor((this.getMonth()+3)/3), //季度
-        "S": this.getMilliseconds() //毫秒
+    let o = {
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
-    var week = {
+    let week = {
         "0": "/u65e5",
         "1": "/u4e00",
         "2": "/u4e8c",
@@ -50,14 +50,14 @@ Date.prototype.pattern = function(fmt) {
         "6": "/u516d"
     };
     if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
     if (/(E+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
     }
     for (var k in o) {
         if (new RegExp("(" + k + ")").test(fmt)){
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     }
     return fmt;
@@ -106,11 +106,11 @@ function getAlarm() {
             };
         }
 
-        var options = {
+        let options = {
             series: {
                 pie: {
                     show: true,
-                    innerRadius: 0.4,
+                    innerRadius: 0.55,
                     label: {
                         show: true,
                         radius: 180,
@@ -148,13 +148,13 @@ $.fn.showMemo = function (id) {
     $(this).bind("plothover", function (event, pos, item) {
         if (!item) { return; }
         console.log(item.series.data)
-        var html = [];
-        var percent = parseFloat(item.series.percent).toFixed(2);
+        let html = [];
+        let percent = parseFloat(item.series.percent).toFixed(2);
 
-        html.push("<div style=\"border:1px solid grey;background-color:",
+        html.push("<div style=\"height:50px;display:flex;justify-content:center;border:1px solid grey;background-color:",
             item.series.color,
             "\">",
-            "<span style=\"color:white\">",
+            "<span style=\"color:white;line-height:45px\">",
             item.series.label,
             " : ",
             item.series.data[0][1],
@@ -169,4 +169,3 @@ getAlarm();
 $("input#chuhe-alarmAnalytics-submit").on('click', e => {
     getAlarm();
 });
-

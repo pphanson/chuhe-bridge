@@ -51,8 +51,8 @@ function initTr(count = 8)
             '6': '七轴',
             '7': '八轴',
         }
-        let $row = $(`<tr data-row-index=${i}><td data-field="time">${axesname[i]}</td><td data-field="weight"><span class="chuhe-monitor-${i}">0</span>
-                <span>kg</span></td><td data-field="chuhe-speed-${i}"><span class="chuhe-monitor-value${i}">0</span><span>km/h</span></td></tr>`);
+        let $row = $(`<tr data-row-index=${i}><td data-field="time">${axesname[i]}</td><td data-field="chuhe-weight-${i}"><span class="chuhe-weight-value${i}">0</span>
+                <span>kg</span></td><td data-field="chuhe-speed-${i}"><span class="chuhe-speed-value${i}">0</span><span>km/h</span></td></tr>`);
 
         $tbody.append($row);
         $('tr:even').css('background', '#182D46');
@@ -78,5 +78,30 @@ function initRows(count = 7)
         $tbody.append($row);
         $('tr:even').css('background', '#103E6C');
         $('tr:odd').css('background', '#0E355C');
+    }
+}
+
+let id = '0901';
+
+requestUtil.startMonitor(id, (data) => {
+    updataTraffic(data);
+})
+
+function updataTraffic(data) {
+    if(data.value.lane === 1){
+        let $tbody = $(".chuhe-one-load table.chuhe-monitor-table");
+        let $trrows = $tbody.find("tr");
+        $trrows.each(function(index) {
+            $($trrows[index]).find(`td[data-field=chuhe-weight-${index}] span.chuhe-weight-value${index}`).text(data.value[`axesweight${index + 1}`]);
+            $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
+        });
+    } else {
+        alert(data.value.lane);
+        let $tbody = $(".chuhe-two-load table.chuhe-monitor-table");
+        let $trrows = $tbody.find("tr");
+        $trrows.each(function(index) {
+            $($trrows[index]).find(`td[data-field=chuhe-weight-${index}] span.chuhe-weight-value${index}`).text(data.value[`axesweight${index + 1}`]);
+            $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
+        });
     }
 }

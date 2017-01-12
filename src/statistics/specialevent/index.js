@@ -57,49 +57,49 @@ $('button#create-things').on("click", e =>{
     $("div#chuhe-create").openModal();
 });
 
-$('button#chuhe-close').on("click", e =>{
+$('button#chuhe-close').on("click", e => {
     $("div#chuhe-create").closeModal();
     e.preventDefault();
 });
 
 const eventType = {
-    'SPET_001':'大风事件',
-    'SPET_002':'船撞事件',
-    'SPET_003':'地震事件',
+    'SPET_001': '大风事件',
+    'SPET_002': '地震事件',
+    'SPET_003': '船撞事件',
 }
 
 /**
  * 格式化时间
  */
-Date.prototype.pattern=function(fmt) {
+Date.prototype.pattern = function(fmt) {
     let o = {
-        "M+" : this.getMonth()+1, //月份
-        "d+" : this.getDate(), //日
-        "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
-        "H+" : this.getHours(), //小时
-        "m+" : this.getMinutes(), //分
-        "s+" : this.getSeconds(), //秒
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度
-        "S" : this.getMilliseconds() //毫秒
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
     let week = {
-        "0" : "/u65e5",
-        "1" : "/u4e00",
-        "2" : "/u4e8c",
-        "3" : "/u4e09",
-        "4" : "/u56db",
-        "5" : "/u4e94",
-        "6" : "/u516d"
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
     };
-    if(/(y+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
-    if(/(E+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+    if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay()+""]);
     }
-    for(var k in o){
-        if(new RegExp("("+ k +")").test(fmt)){
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     }
     return fmt;
@@ -113,11 +113,6 @@ let to = new Date().pattern("yyyy-MM-dd hh:mm:ss");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);
 
-function loadFormData(data)
-{
-    $("div#chuhe-create").data(Object.assign({}, data));
-}
-
 /**
  *  生成表结构
  */
@@ -127,6 +122,7 @@ let start = new Date($("input#beginTime").val());
 let end = new Date($("input#endTime").val());
 let initialLoad = false;
 let changId;
+let sumPage;
 starta();
 function starta() {
     initRows();
@@ -165,7 +161,8 @@ function fetchData(start, end, page = 0, keywords)
         }else {
             requestUtil.getAllEvents(start.toJSON(), end.toJSON(), page).then((result) => {
                 cache[page] = result.allevent;
-                updateRows(result.allevent,result.sumpage);
+                sumPage = result.sumpage;
+                updateRows(result.allevent, result.sumpage);
             });
         }
 
@@ -181,7 +178,7 @@ function updateRows(result,sumPage)         // 更新数据
 {
     updateTr(result);
 
-    if (!initialLoad) { //生成分页器
+    if (!initialLoad) { // 生成分页器
         let $ul = $('ul.pagination> span');
         $ul.empty();
         for (let i=0; i<sumPage; i++){
@@ -216,16 +213,41 @@ function updateTr(data) {
 }
 // 添加选中事件
 function addSelected() {
-    let ul = $('ul.pagination');
-    ul.on("click",'.paginate_button', e => {
+    let ul = $('ul.pagination span');
+    ul.on("click", 'li', e => {
         let $nav = $(e.target);
+        page = $nav.attr("data-dt-idx");
         ul.find('.active').removeClass('active');
         $nav.addClass('active');
-        page = $nav.attr("data-dt-idx") - 1;
+        page--;
         let keywords = document.getElementById("keyWord").value;
         fetchData(start, end, page, keywords);
     })
+    let left = $('ul.pagination li:first');
+    let right = $('ul.pagination li:last');
+    left.on("click", function () {
+        page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
+        if (page >= 1) {
+            page--;
+            ul.find('.active').removeClass('active');
+            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
+            let keywords = document.getElementById("keyWord").value;
+            fetchData(start, end, page, keywords);
+        }
+
+    });
+    right.on("click", function () {
+        page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
+        if (page < (sumPage - 1)) {
+            page++;
+            ul.find('.active').removeClass('active');
+            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
+            let keywords = document.getElementById("keyWord").value;
+            fetchData(start, end, page, keywords);
+        }
+    });
 }
+
 
 /**
  * 新建特殊事件事件
@@ -298,6 +320,7 @@ $(function() {
                 let end = new Date(data[0].endTime).pattern("yyyy-MM-dd hh:mm:ss");
                 let name = data[0].eventName;
                 let typeId = data[0].eventTypeId;
+                alert(typeId);
                 if ($(this).html() !== "") {
                     $("div#chuhe-create").openModal();
                 }
