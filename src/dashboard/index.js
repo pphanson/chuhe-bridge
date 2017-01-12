@@ -11,7 +11,7 @@ const Meta = require('../monitor/common/meta');
 
 let sensorMeta;
 
-RequestUtil.fetchSensorsMeta().then(data => {
+RequestUtil.fetchSensorsMeta().then((data) => {
     sensorMeta = data;
 })
 
@@ -82,7 +82,7 @@ function initSensorlist(type, data) {
         }
     });
     $ul.on('click', 'li', function(e) {
-        selectSensorItem($(e.currentTarget).data(), true)
+        selectSensorItem($(e.currentTarget).data(), true);
     });
 }
 
@@ -206,12 +206,10 @@ function selectSensorItem(item, remote) {
 
 
 RequestUtil.fetchSensors().then((data) => {
-    for (let type in data) {
+    for(let type in data) {
         initSensorlist(type, data[type]);
-    };
+    }
 });
-
-
 
 ////////////////// switch //////////////////////////////
 $(".content a#chuhe-switch-button").on('click', e => {

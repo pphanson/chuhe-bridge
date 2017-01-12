@@ -10,58 +10,58 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+                maxDate:jQuery('#endTime').val()  ?jQuery('#endTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function (ct) {
             this.setOptions({
-                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+                minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
 /**
  * 格式化时间
  */
-Date.prototype.pattern=function(fmt) {
+Date.prototype.pattern = function(fmt) {
     var o = {
-        "M+" : this.getMonth()+1, //月份
-        "d+" : this.getDate(), //日
-        "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
-        "H+" : this.getHours(), //小时
-        "m+" : this.getMinutes(), //分
-        "s+" : this.getSeconds(), //秒
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度
-        "S" : this.getMilliseconds() //毫秒
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
     var week = {
-        "0" : "/u65e5",
-        "1" : "/u4e00",
-        "2" : "/u4e8c",
-        "3" : "/u4e09",
-        "4" : "/u56db",
-        "5" : "/u4e94",
-        "6" : "/u516d"
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
     };
-    if(/(y+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
-    if(/(E+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+    if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
     }
-    for(var k in o){
-        if(new RegExp("("+ k +")").test(fmt)){
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     }
     return fmt;
@@ -70,8 +70,12 @@ Date.prototype.pattern=function(fmt) {
 /**
  *实时获取当前数据
  */
-let from = new Date(new Date().getFullYear(),new Date().getMonth() - 2, new Date().getDate())
-let to = new Date();
+let from1 = new Date(new Date().getFullYear(), new Date().getMonth() - 2, new Date().getDate()).pattern("yyyy-MM-dd hh:mm");
+let to1 = new Date().pattern("yyyy-MM-dd hh:mm");
+let from = new Date(from1);
+let to = new Date(to1);
+$("input#beginTime").val(from1);
+$("input#endTime").val(to1);
 let alarmType = type[$("#alarmType li[selected]").val()];
 let level = $("#alarmLevel li[selected]").val();
 let page = 0;
@@ -105,7 +109,7 @@ function initRows(count = 10)
 
 function fetchData(from, to, page, level, alarmType, keyword)
 {
-    if (cache[page]){
+    if (cache[page]) {
         getOldRows(page);
     } else {
         requestUtil.getAlarmDate(from.toJSON(), to.toJSON(), page, level, alarmType, keyword).then((result) => {
@@ -125,13 +129,13 @@ function addTableNumber(result,sumPage)         // 更新数据
 {
     updateTr(result);
 
-    if (!initialLoad) { //生成分页器
+    if (!initialLoad) { // 生成分页器
         let $ul = $('ul.pagination> span');
         $ul.empty();
-        for (let i=0; i<sumPage; i++){
-            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i+1}">${i+1}</li>`);
+        for (let i = 0; i < sumPage; i++) {
+            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i + 1}">${i + 1}</li>`);
             $ul.append(li);
-            if (i === 0){
+            if (i === 0) {
                 li.addClass('active');
                 $('ul.pagination>li.chuhe-left').addClass('disabled');
             }
@@ -145,7 +149,7 @@ function updateTr(data) {// data是否有数据，要判断！
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
 
-    $trrows.each(function(index){
+    $trrows.each(function(index) {
         if (data.length !== 0) {
             $($trrows[index]).find("td[data-field=timestamp]").text(new Date(data[index].timestamp).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[data-field=alarm_type]").text(data[index].alarm_type);
@@ -160,7 +164,7 @@ function updateTr(data) {// data是否有数据，要判断！
 // 添加选中事件
 function addSelected() {
     let ul = $('ul.pagination span');
-    ul.on("click", 'li', e => {
+    ul.on("click", 'li', (e) => {
         let $nav = $(e.target);
         page = $nav.attr("data-dt-idx");
         ul.find('.active').removeClass('active');
@@ -196,14 +200,14 @@ search();
 function addClick(alarm) {
     $(`#${alarm}`).on("click", "li", function (e) {
         $(this).parent().find("li").removeAttr("selected");
-        $(this).attr("selected","selected");
+        $(this).attr("selected", "selected");
         level = $("#alarmLevel li[selected]").val();
         $(".chuhe-select-alarm-level a").text($("#alarmLevel li[selected]").text());
         alarmType = type[$("#alarmType li[selected]").val()];
         $(".chuhe-select-alarm-type a").text(alarmType);
         cache[page] = undefined;
         fetchData(from, to, page, level, alarmType);
-    })
+    });
 }
 function search() {
     $(".chuhe-select-content #searchBtn").on("click", function (e) {
@@ -212,5 +216,5 @@ function search() {
         let keyword = $(".chuhe-select-content input").val();
         cache[page] = undefined;
         fetchData(from, to, page, level, alarmType, keyword);
-    })
+    });
 }
