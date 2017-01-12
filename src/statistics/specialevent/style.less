@@ -1,12 +1,15 @@
 
 .chuhe-specialEvent-container
 {
-    height: 98%;
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     > .chuhe-specialEvent-title
     {
-        height: 20%;
+        height: 140px;
+        flex-grow: 0;
         background: #192e46;
         color: white;
         margin:10px 10px 5px 10px;
@@ -16,23 +19,19 @@
         > .chuhe-specialEvent-name
         {
             font-size: 30px;
-            position: absolute;
-            top: 10px;
-            margin-left: 10px;
-
-
+            margin-left: 20px;
+            margin-top: 20px;
         }
 
         > .chuhe-eventCondition-select
         {
             width: 100%;
-            position: absolute;
-            bottom: 5px;
             display: flex;
             flex-direction: row;
             align-items: baseline;
-            margin-left:10px;
+            margin-left:20px;
             margin-right: 20px;
+            margin-top: 20px;
 
             > .chehe-specialSelect-time
             {
@@ -96,8 +95,9 @@
     > .chuhe-specialEvent-table
     {
         color: white;
-        height:70%;
         margin: 5px 10px 5px 10px;
+        flex-grow: 0;
+        flex-shrink: 0;
         >table
         {
             >thead
@@ -107,7 +107,6 @@
                 {
                     padding:15px 10px!important;
                     text-align: center;
-
                 }
             }
             tbody
@@ -126,9 +125,15 @@
 
     > ul.pagination.right
     {
-        margin-top: 10px;
-        margin-right: 10px;
+        position: absolute;
+        width: 98.8%;
+        bottom: 0;
+        flex-grow: 1;
         color: white;
+        margin: 10px 10px 0 10px;
+        text-align: right;
+        background: #192e46;
+        height: 35px;
     }
 
 }
@@ -136,19 +141,23 @@
 div#chuhe-create
 {
     display:none;
-    background: #0E2535;
-    width: 35%;
-    height: 50%;
+    background: #1f415f;
+    width: 500px;
+    height: 337px;
     color: white;
     position: absolute;
-    top: 30%;
+    top: 40%;
     left: 30%;
+    border-radius: 10px;
 
     > .chuhe-create-title
     {
         font-size: 24px;
-        text-align: center;
+        margin-top: 10px;
         margin-bottom: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
     }
 
     > .chuhe-beginTime-select
@@ -159,11 +168,12 @@ div#chuhe-create
         >input
         {
             width: 70%;
-            background: #203656;
+            background: #486282;
+            border-bottom: 0;
         }
         > .chuhe-name
         {
-            margin-left: 10px;
+            margin-left: 20px;
             margin-right: 20px;
             font-size: 18px;
         }
@@ -177,11 +187,12 @@ div#chuhe-create
         >input
         {
             width: 70%;
-            background: #203656;
+            background: #486282;
+            border-bottom: 0;
         }
         > .chuhe-name
         {
-            margin-left: 10px;
+            margin-left: 20px;
             margin-right: 20px;
             font-size: 18px;
         }
@@ -195,12 +206,13 @@ div#chuhe-create
         >input
         {
             width: 70%;
-            background: #203656;
+            background: #486282;
+            border-bottom: 0;
 
         }
         > .chuhe-name
         {
-            margin-left: 10px;
+            margin-left: 20px;
             margin-right: 20px;
             font-size: 18px;
         }
@@ -213,7 +225,7 @@ div#chuhe-create
         align-items: baseline;
         > .chuhe-name
         {
-            margin-left: 10px;
+            margin-left: 20px;
             margin-right: 20px;
             font-size: 18px;
         }
@@ -235,14 +247,14 @@ div#chuhe-create
     > .chuhe-form-submint
     {
         height: 40px;
-        margin: 0 65px 0 100px;
         >button
         {
-            background: #203656;
+            background: #486282;
             border:0;
             padding: 0;
-            width: 40%;
+            width: 80px;
             height: 40px;
+            margin-right: 40px;
         }
     }
 

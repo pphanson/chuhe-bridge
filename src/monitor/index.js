@@ -33,7 +33,7 @@ function renderSensorList(data) {
         }
     }
     $list.on('click', 'li', e => {
-        selectSensor($(e.currentTarget))
+        selectSensor($(e.currentTarget));
     });
 }
 
@@ -41,13 +41,13 @@ function fetchSensorData()
 {
     const historyTimeRange = Meta.createHistoryTimeRange();
     // 获取昨日统计值
-    requestUtil.fetchSensorStats(id, historyTimeRange[0].toJSON(),  historyTimeRange[1].toJSON()).then(data => {
+    requestUtil.fetchSensorStats(id, historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then((data) => {
         historyStats = data[id];
         refreshSensorStats(id, data);
     });
 
     // 获取昨日同期监控数据
-    requestUtil.fetchSensorData(id,  historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then(data => {
+    requestUtil.fetchSensorData(id, historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then((data) => {
         // refreshLineChart(data);
     });
 
@@ -141,9 +141,9 @@ function updateRealTimeData(data) {
             let deprecatedCount = (timestamp - to)/interval + 1;
             collection[v].data.splice(0, deprecatedCount);
 
-            for (let t = to.getTime(); t < timestamp.getTime(); t += interval )
+            for (let t = to.getTime(); t < timestamp.getTime(); t += interval)
             {
-                  collection[v].data.push([timestamp.getTime(), null]);
+                collection[v].data.push([timestamp.getTime(), null]);
             }
             collection[v].data.push([timestamp.getTime(), data.value[v]]);
             to = new Date(timestamp.getTime() + interval) ;
