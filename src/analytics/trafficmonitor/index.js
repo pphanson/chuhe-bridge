@@ -2,36 +2,6 @@ require('./style.less');
 
 const requestUtil = require('../../monitor/common/remote');
 
-getTrafficData();
-function getTrafficData() {
-    let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    let to = new Date();
-
-    requestUtil.getAlarmStatistics(from.toJSON(), to.toJSON()).then((data) => {
-        let dataSet = [
-        {label: "超载", data: 145, color: "#3BFFD9" },
-        { label: "未超载", data: 250, color: "#5D7291" },
-        ];
-
-        var options = {
-            series: {
-                pie: {
-                    show: true,
-                    innerRadius: 0.55,
-                }
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                hoverable: true
-            }
-        };
-
-        $.plot($("#chuhe-pie-chart"), dataSet, options);
-    });
-};
-
 /**
  *  初始化监测实时数据（上方）
  */
@@ -72,9 +42,10 @@ function initRows(count = 7)
     for (let i = 0; i < count; i++)
     {
         let $row = $(`<tr data-row-index=${i}><td data-field="time">-</td><td data-field="licenseplate">-</td><td data-field="lane">-</td>
-            <td data-field="overline">-</td><td data-field="weight">-</td><td data-field="axesnumber">-</td><td data-field="overweight">-</td>
-            <td data-field="axesweight1">-</td><td data-field="axesweight2">-</td><td data-field="axesweight3">-</td><td data-field="axesweight4">-</td>
-            <td data-field="axesweight5">-</td><td data-field="axesweight6">-</td><td data-field="axesweight7">-</td><td data-field="axesweight8">-</td></tr>`);
+            <td data-field="acrosstag">-</td><td data-field="weight">-</td><td data-field="axesnumber">-</td><td data-field="overweighttag">-</td>
+            <td data-field="axesequivalentload1">-</td><td data-field="axesequivalentload2">-</td><td data-field="axesequivalentload3">-</td>
+            <td data-field="axesequivalentload4">-</td><td data-field="axesequivalentload5">-</td><td data-field="axesequivalentload6">-</td>
+            <td data-field="axesequivalentload7">-</td><td data-field="axesequivalentload8">-</td></tr>`);
 
         $tbody.append($row);
         $('tr:even').css('background', '#103E6C');
@@ -104,3 +75,67 @@ function updataTraffic(data) {
         });
     }
 }
+function getTableData() {
+    requestUtil.getTrafficLoad().then((data) => {
+        let count = data.count;
+        let overWeight = data.overWeightCount;
+        let noWeight = count - overWeight;
+        getTableDown(data.last);
+
+        $(".chuhe-data-statistics > .chuhe-number").html(overWeight);
+        $(".chuhe-data-statistics > .chuhe-totle").html(count);
+
+        let dataSet = [
+            {label: "超载", data: overWeight, color: "#3BFFD9" },
+            { label: "未超载", data: noWeight, color: "#5D7291" },
+        ];
+
+        var options = {
+            series: {
+                pie: {
+                    show: true,
+                    innerRadius: 0.55,
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                hoverable: true
+            }
+        };
+        let percent = (overWeight / count * 100).toFixed(2);
+        $.plot($("#chuhe-pie-chart"), dataSet, options);
+        $(".today-value > .flot-value").html(percent);
+    });
+
+    function getTableDown(data) {
+        const value = {
+            '0': "否",
+            '1': "是",
+        }
+
+        let $table = $(".chuhe-traffic-down > table >tbody");
+        let $rows = $table.find("tr");
+        $rows.each(function (index) {
+            $($rows[index]).find(`td[data-field=time]`).text(data[index].time);
+            $($rows[index]).find(`td[data-field=licenseplate]`).text(data[index].licenseplate);
+            $($rows[index]).find(`td[data-field=lane]`).text(data[index].lane);
+            $($rows[index]).find(`td[data-field=acrosstag]`).text(value[data[index].acrosstag]);
+            $($rows[index]).find(`td[data-field=weight]`).text(data[index].weight);
+            $($rows[index]).find(`td[data-field=axesnumber]`).text(data[index].axesnumber);
+            $($rows[index]).find(`td[data-field=overweighttag]`).text(value[data[index].overweighttag]);
+            $($rows[index]).find(`td[data-field=axesequivalentload1]`).text(data[index].axesequivalentload1);
+            $($rows[index]).find(`td[data-field=axesequivalentload2]`).text(data[index].axesequivalentload2);
+            $($rows[index]).find(`td[data-field=axesequivalentload3]`).text(data[index].axesequivalentload3);
+            $($rows[index]).find(`td[data-field=axesequivalentload4]`).text(data[index].axesequivalentload4);
+            $($rows[index]).find(`td[data-field=axesequivalentload5]`).text(data[index].axesequivalentload5);
+            $($rows[index]).find(`td[data-field=axesequivalentload6]`).text(data[index].axesequivalentload6);
+            $($rows[index]).find(`td[data-field=axesequivalentload7]`).text(data[index].axesequivalentload7);
+            $($rows[index]).find(`td[data-field=axesequivalentload8]`).text(data[index].axesequivalentload8);
+        });
+
+    }
+}
+getTableData();
+setInterval(getTableData, 1800000);

@@ -255,15 +255,11 @@ function getHistoryDate(from, to, sensorId)
 /**
  * 荷载数据
  */
-function getTrafficLoad(from, to, sensorId)
+function getTrafficLoad()
 {
     return $.ajax({
-        url: 'http://localhost:3000/',
-        data: {
-            from: from,
-            to: to,
-            sensorId: sensorId,
-        }
+        url: 'http://localhost:3000/event/traffic',
+        type: 'GET',
     });
 }
 
@@ -284,5 +280,5 @@ module.exports = {
     getHistoryDate,
     getSpecialDetail,
     getchanged,
-    getTrafficLoad
+    getTrafficLoad,
 };

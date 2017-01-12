@@ -159,7 +159,6 @@ function getAlarm() {
 $.fn.showMemo = function (id) {
     $(this).bind("plothover", function (event, pos, item) {
         if (!item) { return; }
-        console.log(item.series.data)
         let html = [];
         let percent = parseFloat(item.series.percent).toFixed(2);
 
