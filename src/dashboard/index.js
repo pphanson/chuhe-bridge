@@ -40,26 +40,26 @@ const timeRange = {
 };
 
 const collection = {
-    '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000}),
-    '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000}),
-    '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000}),
-    '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000}),
-    '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000}),
-    '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['cableforce'], 'interval': 60 * 1000}),
-    '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60})
+    '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000, 'color': '#6da3f7'}),
+    '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000, 'color': '#36fff9'}),
+    '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000, 'color': '#ff39b8'}),
+    '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000, 'color': '#00c3ff'}),
+    '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000, 'color': '#43ff8f'}),
+    '05': series({'from': timeRange['05'][0], 'to': timeRange['05'][1], 'values': ['cableforce'], 'interval': 60 * 1000, 'color': '#1fd5ff'}),
+    '08': series({'from': timeRange['08'][0], 'to': timeRange['08'][1], 'values': ['corrosion'], 'interval': 1000 * 60 * 60, 'color': '#80b4ff'})
 };
 
 
 
 const lineCharts = {
-    '04': LineChart('strain', collection['04']),
-    '03': LineChart('displacement', collection['03']),
-    '01': LineChart('verticality', collection['01']),
-    '05': LineChart('cableforce', collection['05']),
-    '02': LineChart('deflection', collection['02']),
-    '09': LineChart('trafficload'),
-    '08': LineChart('corrosion', collection['08']),
-    '06': LineChart('vibration', collection['06'])
+    '04': LineChart('strain', collection['04'], {colors: ['rgb(85, 158, 238)', 'rgba(85, 158, 238, 0.1)']}),
+    '03': LineChart('displacement', collection['03'], {colors: ['rgb(255, 10, 255)', 'rgba(255, 10, 255, 0.1)']}),
+    '01': LineChart('verticality', collection['01'], {colors: ['rgb(0, 218, 148)', 'rgba(0, 218, 148, 0.1)']}),
+    '05': LineChart('cableforce', collection['05'], {colors: ['rgb(86, 174, 254)', 'rgba(86, 174, 254, 0.1)']}),
+    '02': LineChart('deflection', collection['02'], {colors: ['rgb(0, 193, 186)', 'rgba(0, 193, 186, 0.1)']}),
+    '09': LineChart('trafficload', null,  {colors: ['rgb(255, 83, 138)', 'rgba(255, 83, 138, 0.1)']}),
+    '08': LineChart('corrosion', collection['08'], {colors: ['rgb(125, 186, 198)', 'rgba(125, 186, 198, 0.1)']}),
+    '06': LineChart('vibration', collection['06'],  {colors: ['rgb(131, 266, 149)', 'rgba(131, 266, 149, 0.1)']})
 };
 
 
@@ -95,13 +95,15 @@ function refreshRealValue(sensor, data)
 
     if (type === '07')
     {
-        if (sensor.id === '0701')
-        {
-            $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
-            $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
-        }
-        return;
+      $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
+      $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
+      return;
     }
+    else if (type === '04')
+    {
+        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value['strain'].toFixed(2));
+    }
+
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
     const lineChart = lineCharts[type];
     const col = collection[type];
