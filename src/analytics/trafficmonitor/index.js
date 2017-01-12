@@ -17,6 +17,7 @@ function getTrafficData() {
             series: {
                 pie: {
                     show: true,
+                    innerRadius: 0.55,
                 }
             },
             legend: {
@@ -82,7 +83,6 @@ function initRows(count = 7)
 }
 
 let id = '0901';
-
 requestUtil.startMonitor(id, (data) => {
     updataTraffic(data);
 })
@@ -96,7 +96,6 @@ function updataTraffic(data) {
             $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
         });
     } else {
-        alert(data.value.lane);
         let $tbody = $(".chuhe-two-load table.chuhe-monitor-table");
         let $trrows = $tbody.find("tr");
         $trrows.each(function(index) {

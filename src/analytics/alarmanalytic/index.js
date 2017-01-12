@@ -26,6 +26,18 @@ jQuery(function() {
     });
 });
 
+const names = {
+    'displacement': '位移传感器',
+    'verticality': '垂直度传感器',
+    'cableforce': '索力传感器',
+    'corrosion': '腐蚀传感器',
+    'strain': '应变传感器',
+    'trafficload': '交通荷载传感器',
+    'deflection': '挠度传感器',
+    'vibration': '振动传感器',
+    'temperature and humidity': '温湿度传感器'
+};
+
 /**
  * 格式化时间
  */
@@ -90,7 +102,7 @@ function getAlarm() {
         let color2 = ['#654BB9', '#4654B5', '#6374DE', '#4D6DBA']
         for (let i = 0; i < data.sensorType.length; i++) {
             dataSet2[i] = {
-                label: data.sensorType[i]._id,
+                label: names[data.sensorType[i]._id],
                 data: data.sensorType[i].count,
                 color: color2[i]
             };
@@ -110,7 +122,7 @@ function getAlarm() {
             series: {
                 pie: {
                     show: true,
-                    innerRadius: 0.55,
+                    innerRadius: 0.5,
                     label: {
                         show: true,
                         radius: 180,
