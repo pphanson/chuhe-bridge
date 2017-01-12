@@ -8,9 +8,9 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
+                maxDate:jQuery('#endTime').val() ? jQuery('#endTime').val() : false
             });
         },
         timepicker: true,
@@ -18,9 +18,9 @@ jQuery(function() {
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function (ct){
             this.setOptions({
-                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+                minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
             });
         },
         timepicker: true,
@@ -139,14 +139,14 @@ Date.prototype.pattern = function(fmt) {
         "6": "/u516d"
     };
     if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
     if (/(E+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
     }
     for (let k in o) {
         if (new RegExp("(" + k + ")").test(fmt)){
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     }
     return fmt;
@@ -195,11 +195,11 @@ function refreshSensorStats(id, data) {
 }
 
 function refreshLineChart(data) {
-    for (let i=0;i<data.length;i++){
+    for (let i = 0;i < data.length;i++) {
         data[i][0] = new Date(data[i][0]);
     }
     let dataSet = {
-        data:data
+        data: data
     };
     var options = {
         series: {

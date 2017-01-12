@@ -6,7 +6,7 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
                 maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
             });
@@ -16,9 +16,9 @@ jQuery(function() {
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
+                minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
             });
         },
         timepicker: true,

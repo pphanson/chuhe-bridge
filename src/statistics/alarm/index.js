@@ -10,23 +10,23 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+                maxDate:jQuery('#endTime').val()  ?jQuery('#endTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function (ct) {
             this.setOptions({
-                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+                minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
@@ -35,33 +35,33 @@ jQuery(function() {
  */
 Date.prototype.pattern=function(fmt) {
     var o = {
-        "M+" : this.getMonth()+1, //月份
-        "d+" : this.getDate(), //日
-        "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
-        "H+" : this.getHours(), //小时
-        "m+" : this.getMinutes(), //分
-        "s+" : this.getSeconds(), //秒
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度
-        "S" : this.getMilliseconds() //毫秒
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
     var week = {
-        "0" : "/u65e5",
-        "1" : "/u4e00",
-        "2" : "/u4e8c",
-        "3" : "/u4e09",
-        "4" : "/u56db",
-        "5" : "/u4e94",
-        "6" : "/u516d"
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
     };
-    if(/(y+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
-    if(/(E+)/.test(fmt)){
-        fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]);
+    if (/(E+)/.test(fmt)){
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay() + ""]);
     }
-    for(var k in o){
-        if(new RegExp("("+ k +")").test(fmt)){
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     }
     return fmt;
@@ -125,13 +125,13 @@ function addTableNumber(result,sumPage)         // 更新数据
 {
     updateTr(result);
 
-    if (!initialLoad) { //生成分页器
+    if (!initialLoad) { // 生成分页器
         let $ul = $('ul.pagination> span');
         $ul.empty();
-        for (let i=0; i<sumPage; i++){
-            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i+1}">${i+1}</li>`);
+        for (let i = 0; i < sumPage; i++) {
+            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i + 1}">${i + 1}</li>`);
             $ul.append(li);
-            if (i === 0){
+            if (i === 0) {
                 li.addClass('active');
                 $('ul.pagination>li.chuhe-left').addClass('disabled');
             }
@@ -203,7 +203,7 @@ function addClick(alarm) {
         $(".chuhe-select-alarm-type a").text(alarmType);
         cache[page] = undefined;
         fetchData(from, to, page, level, alarmType);
-    })
+    });
 }
 function search() {
     $(".chuhe-select-content #searchBtn").on("click", function (e) {
@@ -212,5 +212,5 @@ function search() {
         let keyword = $(".chuhe-select-content input").val();
         cache[page] = undefined;
         fetchData(from, to, page, level, alarmType, keyword);
-    })
+    });
 }

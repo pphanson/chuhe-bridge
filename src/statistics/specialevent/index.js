@@ -5,23 +5,23 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false
-            })
+                maxDate:jQuery('#endTime').val() ? jQuery('#endTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function (ct) {
             this.setOptions({
-                minDate:jQuery('#beginTime').val()?jQuery('#beginTime').val():false
-            })
+                minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
@@ -29,27 +29,27 @@ jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
     jQuery('#beginTime2').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ) {
+        onShow: function (ct) {
             this.setOptions({
-                maxDate:jQuery('#endTime2').val()?jQuery('#endTime2').val():false
-            })
+                maxDate:jQuery('#endTime2').val() ? jQuery('#endTime2').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
     jQuery('#endTime2').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function ( ct ){
+        onShow: function ( ct ) {
             this.setOptions({
-                minDate:jQuery('#beginTime2').val()?jQuery('#beginTime2').val():false
-            })
+                minDate:jQuery('#beginTime2').val() ? jQuery('#beginTime2').val() : false
+            });
         },
         timepicker: true,
-        theme:'dark'
+        theme: 'dark'
     });
 });
 
-$('button#create-things').on("click", e =>{
+$('button#create-things').on("click", e => {
     $("div#chuhe-create input#beginTime2").val("");
     $("div#chuhe-create input#endTime2").val("");
     $("div#chuhe-create input#thingsName").val("");
@@ -149,7 +149,7 @@ function initRows(count = 10)
  */
 function fetchData(start, end, page = 0, keywords)
 {
-    if (cache[page]){
+    if (cache[page]) {
         getOldRows(page);
     }
     else{
@@ -181,10 +181,10 @@ function updateRows(result,sumPage)         // 更新数据
     if (!initialLoad) { // 生成分页器
         let $ul = $('ul.pagination> span');
         $ul.empty();
-        for (let i=0; i<sumPage; i++){
-            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i+1}">${i+1}</li>`);
+        for (let i = 0; i < sumPage; i++) {
+            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i + 1}">${i + 1}</li>`);
             $ul.append(li);
-            if (i === 0){
+            if (i === 0) {
                 li.addClass('active');
                 $('ul.pagination>li.chuhe-left').addClass('disabled');
             }
@@ -198,7 +198,7 @@ function updateTr(data) {
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
 
-    $trrows.each(function(index){
+    $trrows.each(function(index) {
         if (data.length !== 0) {
             $($trrows[index]).find("td[name=detail]").attr("data-start",new Date(data[index].startTime).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[name=detail]").attr("data-end",new Date(data[index].endTime).pattern("yyyy-MM-dd hh:mm:ss"));
@@ -263,7 +263,7 @@ $('div#chuhe-create').on('click', 'button#chuhe-finish', e => {
     } else {
         changedId = undefined;
     }
-    $("input[type=checkbox]:checked").each(function(){
+    $("input[type=checkbox]:checked").each(function() {
         eventTypeId.push($(this).val());
     });
     requestUtil.addNewEvents(startTime.toJSON(), endTime.toJSON(), eventName, eventTypeId.toString(), changedId).then((data) => {
@@ -293,7 +293,7 @@ $("button#searchBtn").on('click', e => {
  */
 $(function() {
     let $tr = $("table > tbody > tr");
-    $tr.each(function(){
+    $tr.each(function() {
         let btn = $(this).children().eq(3);
         btn.bind("click", function() {
             let startData = btn.parent().children("td[name=detail]").attr('data-start');
@@ -311,11 +311,11 @@ $(function() {
  * 修改的点击事件
  */
 $(function() {
-    $("table > tbody > tr").each(function(){
-        let btnId=$(this).children().eq(4);
-        btnId.bind("click",function(){
-            changId=btnId.parent().children("td[name=edit]").attr('data-id');
-            requestUtil.getchanged(changId).then((data)=>{
+    $("table > tbody > tr").each(function() {
+        let btnId = $(this).children().eq(4);
+        btnId.bind("click", function(){
+            changId = btnId.parent().children("td[name=edit]").attr('data-id');
+            requestUtil.getchanged(changId).then((data) => {
                 let start = new Date(data[0].startTime).pattern("yyyy-MM-dd hh:mm:ss");
                 let end = new Date(data[0].endTime).pattern("yyyy-MM-dd hh:mm:ss");
                 let name = data[0].eventName;
@@ -334,7 +334,7 @@ $(function() {
                         $($('input[type=checkbox]')[i]).attr("checked", "checked");
                     }
                 }
-            })
+            });
         });
 
     });

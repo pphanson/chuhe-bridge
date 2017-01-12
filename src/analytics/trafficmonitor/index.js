@@ -7,7 +7,7 @@ function getTrafficData() {
     let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     let to = new Date();
 
-    requestUtil.getAlarmStatistics(from.toJSON(), to.toJSON()).then((data) =>{
+    requestUtil.getAlarmStatistics(from.toJSON(), to.toJSON()).then((data) => {
         let dataSet = [
         {label: "超载", data: 145, color: "#3BFFD9" },
         { label: "未超载", data: 250, color: "#5D7291" },
@@ -88,7 +88,7 @@ requestUtil.startMonitor(id, (data) => {
 })
 
 function updataTraffic(data) {
-    if(data.value.lane === 1){
+    if (data.value.lane === 1) {
         let $tbody = $(".chuhe-one-load table.chuhe-monitor-table");
         let $trrows = $tbody.find("tr");
         $trrows.each(function(index) {

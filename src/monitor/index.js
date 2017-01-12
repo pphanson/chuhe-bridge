@@ -138,7 +138,7 @@ function updateRealTimeData(data) {
                 collection[v].data[timeslot][1] = data.value[v];
             }
         } else {
-            let deprecatedCount = (timestamp - to)/interval + 1;
+            let deprecatedCount = (timestamp - to) / interval + 1;
             collection[v].data.splice(0, deprecatedCount);
 
             for (let t = to.getTime(); t < timestamp.getTime(); t += interval)
@@ -207,8 +207,8 @@ module.exports = function(options) {
             return d.id;
         });
         setTimeout(() => {
-          bridgeScene.bridge.showSensors(ids);
-          bridgeScene.bridge.focusOnSensor(bridgeScene.bridge.sensors[`sensor#${id}`]);
+            bridgeScene.bridge.showSensors(ids);
+            bridgeScene.bridge.focusOnSensor(bridgeScene.bridge.sensors[`sensor#${id}`]);
         }, 500);
 
     });
