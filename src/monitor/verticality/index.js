@@ -8,5 +8,5 @@ const { id, lineChart, gauge, bridgeScene } = monitor({
     max: 180,
     unit: '°',
     value: 'verticality',
-    interval: 60 * 1000
+    interval: 60 * 1000,
 });

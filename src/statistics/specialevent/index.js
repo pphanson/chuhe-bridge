@@ -124,10 +124,10 @@ let initialLoad = false;
 let changId;
 let sumPage;
 starta();
-function starta() {
+function starta () {
     initRows();
 }
-function initRows(count = 10)
+function initRows (count = 10)
 {
     const $tbody = $('table > tbody');
 
@@ -147,7 +147,7 @@ function initRows(count = 10)
 /**
  *  向后台请求数据
  */
-function fetchData(start, end, page = 0, keywords)
+function fetchData (start, end, page = 0, keywords)
 {
     if (cache[page]) {
         getOldRows(page);
@@ -168,12 +168,12 @@ function fetchData(start, end, page = 0, keywords)
     }
 }
 
-function getOldRows(page) {
+function getOldRows (page) {
     let data = cache[page];
     updateTr(data);
 }
 
-function updateRows(result,sumPage)         // 更新数据
+function updateRows (result,sumPage)         // 更新数据
 {
     updateTr(result);
 
@@ -192,7 +192,7 @@ function updateRows(result,sumPage)         // 更新数据
     }
 }
 
-function updateTr(data) {
+function updateTr (data) {
     let $tbody = $(".chuhe-specialEvent-table>table tbody");
     $tbody.find("td").html("");
     let $trrows = $tbody.find("tr");
@@ -210,8 +210,9 @@ function updateTr(data) {
         }
     });
 }
+
 // 添加选中事件
-function addSelected() {
+function addSelected () {
     let ul = $('ul.pagination span');
     ul.on("click", 'li', (e) => {
         let $nav = $(e.target);
@@ -224,29 +225,29 @@ function addSelected() {
     })
     let left = $('ul.pagination li:first');
     let right = $('ul.pagination li:last');
+
     left.on("click", function () {
         page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
         if (page >= 1) {
             page--;
-            ul.find('.active').removeClass('active');
-            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
-            let keywords = document.getElementById("keyWord").value;
-            fetchData(start, end, page, keywords);
+            addActive(ul, page);
         }
-
     });
     right.on("click", function () {
         page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
         if (page < (sumPage - 1)) {
             page++;
-            ul.find('.active').removeClass('active');
-            $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
-            let keywords = document.getElementById("keyWord").value;
-            fetchData(start, end, page, keywords);
+            addActive(ul, page);
         }
     });
 }
 
+function addActive (ul, page) {
+    ul.find('.active').removeClass('active');
+    $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
+    let keywords = document.getElementById("keyWord").value;
+    fetchData(start, end, page, keywords);
+}
 
 /**
  * 新建特殊事件事件

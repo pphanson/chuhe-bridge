@@ -41,7 +41,7 @@ const timeRange = {
 
 const collection = {
     '04': series({'from': timeRange['04'][0], 'to': timeRange['04'][1], 'values': ['strain'], 'interval': 60 * 1000, 'color': '#6da3f7'}),
-    '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval':60 * 1000, 'color': '#36fff9'}),
+    '01': series({'from': timeRange['01'][0], 'to': timeRange['01'][1], 'values': ['displacement'], 'interval': 60 * 1000, 'color': '#36fff9'}),
     '03': series({'from': timeRange['03'][0], 'to': timeRange['03'][1], 'values': ['verticality'], 'interval': 60 * 1000, 'color': '#ff39b8'}),
     '02': series({'from': timeRange['02'][0], 'to': timeRange['02'][1], 'values': ['deflection'], 'interval': 60 * 1000, 'color': '#00c3ff'}),
     '06': series({'from': timeRange['06'][0], 'to': timeRange['06'][1], 'values': ['x', 'y', 'z'], 'interval': 5 * 1000, 'color': '#43ff8f'}),
