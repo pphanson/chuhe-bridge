@@ -161,6 +161,8 @@ function updateRealTimeData(data) {
 module.exports = function(options) {
     type = options.type;
     const unit = options.unit;
+    const min = options.min;
+    const max = options.max;
     value = options.value;
     values = options.values ? options.values: [options.value];
     interval = Meta.getSensorMonitorInterval(type);
@@ -183,7 +185,9 @@ module.exports = function(options) {
     to = timeRange[1];
 
     gauge = Gauge({
-        unit
+        unit,
+        min,
+        max,
     });
 
     collection = series({

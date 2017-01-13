@@ -7,8 +7,8 @@ module.exports = function ({from, to, values, interval, color})
         for (let value of values)
         {
             let series = {
-              data: [],
-              color: color || 'white'
+                data: [],
+                color: color || 'white',
             };
             collection.push(series);
             collection[value] = series;
