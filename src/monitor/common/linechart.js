@@ -4,11 +4,11 @@ function getTickSize()
 {
     if (iInterval === 60 * 1000)
     {
-        return [1, 'minute']
+        return [1, 'minute'];
     }
     else if (iInterval === 5 * 1000)
     {
-        return [5, 'second']
+        return [5, 'second'];
     }
     else if (iInterval === 60 * 60 * 1000)
     {
@@ -70,7 +70,7 @@ module.exports = function({from, to, interval, collection}) {
         yaxis: {
             show: true,
             zoomRange: false,
-				    panRange: false,
+			panRange: false,
             font: {
                 color: 'white'
             }

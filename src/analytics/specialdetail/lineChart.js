@@ -3,40 +3,43 @@
  */
 const series = {
     color: 'white',
-    fill: true,
-    fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+    lines: {
+        show: true,
+        fill: true,
+        fillColor: {colors: ['rgb(11, 104, 174)', 'rgb(35, 68, 122)']},
+    },
+};
+const series1 = {
+    color: 'rgb(126, 123, 108)',
+    lines: {show: true, fill: false },
+};
+const series2 = {
+    color: 'rgb(126, 123, 108)',
+    lines: {show: true, fill: false },
 };
 
-const linechart = $(".chuhe-detail-down").plot([series], {
-    series: {
-        lines: {
-            show: true
-        },
-        points: {
-            show: false
-        }
-    },
+const linechart = $(".chuhe-detail-down").plot([series, series1, series2], {
     zoom: {
-        interactive: true
+        interactive: true,
     },
     pan: {
-        interactive: false
+        interactive: false,
     },
     xaxis: {
         mode: 'time',
         show: true,
         timeformat: "%m/%d %H:%M",
         font: {
-            color: 'white'
-        }
+            color: '#9b99ff',
+        },
     },
     yaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#9b99ff',
+        },
     },
     grid: {
         show: true,
@@ -56,9 +59,9 @@ const linechart = $(".chuhe-detail-down").plot([series], {
         },
         borderColor: {
             left: '#9b99ff',
-            bottom: '#9b99ff'
-        }
-    }
+            bottom: '#9b99ff',
+        },
+    },
 }).data('plot');
 
 $(window).on('resize', function() {
@@ -69,7 +72,9 @@ $(window).on('resize', function() {
 
 module.exports = {
     linechart: linechart,
-    series: series
-}
+    series: series,
+    series1: series1,
+    series2: series2,
+};
 
 

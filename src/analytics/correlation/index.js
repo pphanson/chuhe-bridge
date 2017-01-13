@@ -3,7 +3,6 @@ require('./style.less');
 const {linechart, series1, series2} = require('./timelinechart');
 const bridgeScene = require('./bridge');
 const requestUtil = require('../../monitor/common/remote');
-const Meta = require('../../monitor/common/meta');
 
 jQuery.datetimepicker.setLocale('zh');
 jQuery(function() {
@@ -15,7 +14,7 @@ jQuery(function() {
             });
         },
         timepicker: true,
-        theme: 'dark'
+        theme: 'dark',
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
@@ -25,7 +24,7 @@ jQuery(function() {
             });
         },
         timepicker: true,
-        theme: 'dark'
+        theme: 'dark',
     });
 });
 
@@ -41,7 +40,7 @@ Date.prototype.pattern = function(fmt) {
         "m+": this.getMinutes(), // 分
         "s+": this.getSeconds(), // 秒
         "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
-        "S": this.getMilliseconds() // 毫秒
+        "S": this.getMilliseconds(), // 毫秒
     };
     let week = {
         "0": "/u65e5",
@@ -164,11 +163,15 @@ $("#buttona").on('click', e => {
     let to = new Date(document.getElementById("endTime").value);
     let x = $("#sensors-x-dropdown li.sensorSelected").attr("id");
     let y = $("#sensors-y-dropdown li.sensorSelected").attr("id");
-    let sensorIds = [x,y];
+    let sensorIds = [x, y];
     bridgeScene.bridge.showSensors(sensorIds);
     requestUtil.getCorrelation(x, y, from.toJSON(), to.toJSON()).then(data => {
         series1.data = data.result;
-        series2.data = [[data.min_X, data.startPointY], [data.max_X, data.endPointY]];
+        if (Math.abs(data.Correlation) >= 0.6) {
+            series2.data = [[data.min_X, data.startPointY], [data.max_X, data.endPointY]];
+        } else {
+            series2.data = null;
+        }
         linechart.setData([series1, series2]);
         linechart.setupGrid();
         linechart.draw();

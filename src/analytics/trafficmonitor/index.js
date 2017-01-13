@@ -6,7 +6,7 @@ const requestUtil = require('../../monitor/common/remote');
  *  初始化监测实时数据（上方）
  */
 initTr();
-function initTr(count = 8)
+function initTr (count = 8)
 {
     const $tbody = $('table.chuhe-monitor-table');
 
@@ -21,7 +21,7 @@ function initTr(count = 8)
             '5': '六轴',
             '6': '七轴',
             '7': '八轴',
-        }
+        };
         let $row = $(`<tr data-row-index=${i}><td data-field="time">${axesname[i]}</td><td data-field="chuhe-weight-${i}"><span class="chuhe-weight-value${i}">0</span>
                 <span>kg</span></td><td data-field="chuhe-speed-${i}"><span class="chuhe-speed-value${i}">0</span><span>km/h</span></td></tr>`);
 
@@ -35,7 +35,7 @@ function initTr(count = 8)
  *  初始化所有信息的表结构（下方的）
  */
 initRows(7);
-function initRows(count = 7)
+function initRows (count = 7)
 {
     const $tbody = $('.chuhe-traffic-down > table > tbody');
 
@@ -56,26 +56,27 @@ function initRows(count = 7)
 let id = '0901';
 requestUtil.startMonitor(id, (data) => {
     updataTraffic(data);
-})
+});
 
-function updataTraffic(data) {
+function updataTraffic (data) {
     if (data.value.lane === 1) {
         let $tbody = $(".chuhe-one-load table.chuhe-monitor-table");
-        let $trrows = $tbody.find("tr");
-        $trrows.each(function(index) {
-            $($trrows[index]).find(`td[data-field=chuhe-weight-${index}] span.chuhe-weight-value${index}`).text(data.value[`axesweight${index + 1}`]);
-            $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
-        });
+        tableFlotDate(data, $tbody);
     } else {
         let $tbody = $(".chuhe-two-load table.chuhe-monitor-table");
-        let $trrows = $tbody.find("tr");
-        $trrows.each(function(index) {
-            $($trrows[index]).find(`td[data-field=chuhe-weight-${index}] span.chuhe-weight-value${index}`).text(data.value[`axesweight${index + 1}`]);
-            $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
-        });
+        tableFlotDate(data, $tbody);
     }
 }
-function getTableData() {
+
+function tableFlotDate (data, $tbody) {
+    let $trrows = $tbody.find("tr");
+    $trrows.each(function (index) {
+        $($trrows[index]).find(`td[data-field=chuhe-weight-${index}] span.chuhe-weight-value${index}`).text(data.value[`axesweight${index + 1}`]);
+        $($trrows[index]).find(`td[data-field=chuhe-speed-${index}] span.chuhe-speed-value${index}`).text(data.value[`axesvelocity${index + 1}`]);
+    });
+}
+
+function getTableData () {
     requestUtil.getTrafficLoad().then((data) => {
         let count = data.count;
         let overWeight = data.overWeightCount;
@@ -90,30 +91,30 @@ function getTableData() {
             { label: "未超载", data: noWeight, color: "#5D7291" },
         ];
 
-        var options = {
+        let options = {
             series: {
                 pie: {
                     show: true,
                     innerRadius: 0.55,
-                }
+                },
             },
             legend: {
-                show: false
+                show: false,
             },
             grid: {
-                hoverable: true
-            }
+                hoverable: true,
+            },
         };
-        let percent = (overWeight / count * 100).toFixed(2);
+        let percent = (overWeight / count * 100).toFixed(1);
         $.plot($("#chuhe-pie-chart"), dataSet, options);
         $(".today-value > .flot-value").html(percent);
     });
 
-    function getTableDown(data) {
+    function getTableDown (data) {
         const value = {
             '0': "否",
             '1': "是",
-        }
+        };
 
         let $table = $(".chuhe-traffic-down > table >tbody");
         let $rows = $table.find("tr");
