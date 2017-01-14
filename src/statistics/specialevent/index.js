@@ -320,7 +320,6 @@ $(function() {
                 let end = new Date(data[0].endTime).pattern("yyyy-MM-dd hh:mm:ss");
                 let name = data[0].eventName;
                 let typeId = data[0].eventTypeId;
-                alert(typeId);
                 if ($(this).html() !== "") {
                     $("div#chuhe-create").openModal();
                 }

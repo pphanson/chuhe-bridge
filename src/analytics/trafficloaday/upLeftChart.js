@@ -1,41 +1,38 @@
 /**
- *傅里叶分析上方的时间序列
+ *日车流量统计
  */
 const upLeftChart = {
     color: 'white',
-    fill: true,
-    fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+    lines: {
+        show: true,
+        fill: true,
+        fillColor: {colors: ['#115165', '#118792']},
+    }
 };
 
 const upLeft = $(".chuhe-bar-chart1").plot([upLeftChart], {
-    series: {
-        lines: {
-            show: true
-        },
-        points: {
-            show: false
-        }
-    },
     zoom: {
-        interactive: true
+        interactive: true,
     },
     pan: {
-        interactive: false
+        interactive: false,
     },
     xaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
+        mode: 'time',
+        timeformat: "%m/%d",
         font: {
-            color: 'white'
-        }
+            color: '#507A7F',
+        },
     },
     yaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
+            color: '#507A7F'
         }
     },
     grid: {

@@ -3,18 +3,14 @@
  */
 const seriesTime = {
     color: 'white',
+    lines: {
+        show: true,
+        fill: true,
+        fillcolor:{colors: ['rgb(58, 26, 153)', 'rgb(39, 41, 98)']},
+    },
 };
 
 const lineChartTime = $(".chuhe-time-linechart > .chuhe-linechart-content").plot([seriesTime], {
-    series: {
-        lines: {
-            show: true,
-
-        },
-        points: {
-            show: false,
-        },
-    },
     zoom: {
         interactive: true,
     },
