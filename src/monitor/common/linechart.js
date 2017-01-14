@@ -22,7 +22,7 @@ function getTickSize() {
         {
             return [1, 'second'];
         }
-    } else if (iInterval < 60 * 60 * 1000  === 0 ) {
+    } else if (iInterval < 60 * 60 * 1000) {
       if (iInterval % 30 *  60 * 1000)
       {
           return [30, 'minute'];
