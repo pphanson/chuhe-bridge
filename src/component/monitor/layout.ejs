@@ -38,7 +38,7 @@
                     <div class="chuhe-linechart-interaction">
                         <ul class='chuhe-linechart-value-switch'>
                             <% values.forEach(function(value){ %>
-                                <li id='<%= value %>' class='chuhe-linechart-item'><span><%= value %></span></li>
+                                <li id='<%= value.name||value %>' class='chuhe-linechart-item'><span><%= value.text || value %></span></li>
                                 <% }) %>
                         </ul>
                     </div>

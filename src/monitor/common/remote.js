@@ -263,6 +263,14 @@ function getTrafficLoad()
     });
 }
 
+function getSensorCurrentValue(id)
+{
+    return $.ajax({
+      url: `http://localhost:3000/api/sensor/${id}/value`,
+      dataType: 'json'
+    });
+}
+
 module.exports = {
     fetchSensors,
     fetchSensorStats,
@@ -281,4 +289,5 @@ module.exports = {
     getSpecialDetail,
     getchanged,
     getTrafficLoad,
+    getSensorCurrentValue
 };
