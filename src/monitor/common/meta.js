@@ -44,6 +44,17 @@ function createHistoryTimeRange()
 }
 
 
+function normalizeTimestamp(date, interval)
+{
+    if (interval <=0 || interval > 1000 * 60 * 60 || 1000 * 60 * 60 % interval !== 0)
+    {
+        throw new Error('无效的采集频率');
+    }
+
+    const  d = date.getTime() % interval;
+    return new Date(date.getTime() - d);
+}
+
 /**
  * 根据传感器类型 ID 获取监测时间范围
  */
@@ -51,58 +62,16 @@ function createCurrentTimeRange(sensorType)
 {
     const interval = getSensorMonitorInterval(sensorType);
     const now = new Date();
-    if (interval === 60 * 1000) // 1 minutes
+    if (interval > 1000 * 60 * 60 || 1000 * 60 * 60 % interval !== 0)
     {
-        return [
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours()
-            ),
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours() + 1,
-            )
-        ];
+        throw new Error(`${sensorType} 类型传感器采集频率数值无效`);
     }
-    else if (interval === 60 * 60 * 1000) // 1 hours
-    {
-        return [
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate()
-            ),
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate() + 1
-            )
-        ];
-    }
-    else if (interval === 5 * 1000) // 5 seconds
-    {
-        return [
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes()
-            ),
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes() + 5
-            )
-        ];
-    }
-}
+
+    const from = normalizeTimestamp(now, interval);
+    const to = new Date(from.getTime() + interval * 60);
+    return [from, to];
+  }
+
 
 /**
  * 获取时间戳
@@ -121,11 +90,18 @@ function getSensorValues(sensorType)
     return Object.keys(values)
 }
 
+
+function getTypes()
+{
+    return Object.keys(meta);
+}
+
 module.exports = {
     getSensorMetaName,
     getSensorMonitorInterval,
     createCurrentTimeRange,
     createHistoryTimeRange,
     getTimestamp,
-    getSensorValues
+    getSensorValues,
+    getTypes
 };

@@ -1,47 +1,80 @@
 let iInterval;
 
-function getTickSize()
-{
-    if (iInterval === 60 * 1000)
-    {
-        return [1, 'minute'];
-    }
-    else if (iInterval === 5 * 1000)
-    {
-        return [5, 'second'];
-    }
-    else if (iInterval === 60 * 60 * 1000)
-    {
+function getTickSize() {
+    if (iInterval < 60 * 1000) {
+        if (iInterval % 30 * 1000 === 0 )
+        {
+            return [30, 'second'];
+        }
+        else if (iInterval % 10 * 1000  === 0 )
+        {
+            return [10, 'second'];
+        }
+        else if (iInterval % 5 * 1000  === 0 )
+        {
+            return [5, 'second'];
+        }
+        else if (iInterval % 2 * 1000  === 0 )
+        {
+            return [2, 'second'];
+        }
+        else
+        {
+            return [1, 'second'];
+        }
+    } else if (iInterval < 60 * 60 * 1000) {
+      if (iInterval % 30 *  60 * 1000)
+      {
+          return [30, 'minute'];
+      }
+      else if (iInterval % 10 *  60 * 1000  === 0 )
+      {
+          return [10, 'minute'];
+      }
+      else if (iInterval % 5 *  60 * 1000  === 0 )
+      {
+          return [5, 'minute'];
+      }
+      else if (iInterval % 2 *  60 * 1000  === 0 )
+      {
+          return [2, 'minute'];
+      }
+      else
+      {
+          return [1, 'minute'];
+      }
+    } else if (iInterval === 60 * 60 * 1000) {
         return [1, 'hour'];
     }
 }
 
 
-function tickFormatter(value, axis)
-{
+function tickFormatter(value, axis) {
     let d = new Date(value);
 
-    if (iInterval === 60 * 1000)
-    {
-        return d.getMinutes();
-    }
-    else if (iInterval === 5 * 1000)
-    {
+    if (iInterval < 60 * 1000) {
         return d.getSeconds();
-    }
-    else if (iInterval === 60 * 60 * 1000)
-    {
+    } else if (iInterval < 60 * 60 * 1000) {
+        return d.getMinutes();
+    } else if (iInterval === 60 * 60 * 1000) {
         return d.getHours();
     }
 }
 
-module.exports = function({from, to, interval, collection}) {
+module.exports = function({
+    from,
+    to,
+    interval,
+    collection
+}) {
     const options = {
         lines: {
             show: true,
             lineWidth: 2,
             fill: true,
-            fillColor: {colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']}
+            fillColor: {
+                colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']
+            }
         },
         points: {
             show: true
@@ -70,7 +103,7 @@ module.exports = function({from, to, interval, collection}) {
         yaxis: {
             show: true,
             zoomRange: false,
-			panRange: false,
+            panRange: false,
             font: {
                 color: 'white'
             }

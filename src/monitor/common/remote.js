@@ -263,17 +263,6 @@ function getTrafficLoad()
     });
 }
 
-/**
- * 荷载数据
- */
-function getTrafficMonth()
-{
-    return $.ajax({
-        url: 'http://localhost:3000/event/traffic',
-        type: 'GET',
-    });
-}
-
 module.exports = {
     fetchSensors,
     fetchSensorStats,
@@ -292,5 +281,4 @@ module.exports = {
     getSpecialDetail,
     getchanged,
     getTrafficLoad,
-    getTrafficMonth,
 };
