@@ -3,7 +3,7 @@ import server from "./lib/server";
 import sensors from "./lib/sensors";
 import storage from "./lib/storage";
 import config from "./config";
-import flow from "./lib/flow/flow";
+import flow from "./lib/analytics/flow/flow";
 
 async function startup()
 {
