@@ -1,10 +1,8 @@
 /**
- *傅里叶分析上方的时间序列
+ *日平均小时过桥车辆总重统计
  */
 const downLeftChart = {
-    color: 'white',
-    fill: true,
-    fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+    color: '#7250b9',
 };
 
 const downLeft = $(".chuhe-bar-chart3").plot([downLeftChart], {
@@ -15,29 +13,29 @@ const downLeft = $(".chuhe-bar-chart3").plot([downLeftChart], {
     },
     bars: {
         align: "center",
-        barWidth: 0.5
+        barWidth: 0.5,
     },
     zoom: {
-        interactive: true
+        interactive: true,
     },
     pan: {
-        interactive: false
+        interactive: false,
     },
     xaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#545B82',
+        },
     },
     yaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#545B82',
+        },
     },
     grid: {
         show: true,

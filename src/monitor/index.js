@@ -32,7 +32,7 @@ function renderSensorList(data) {
             $('div.chuhe-monitor a#chuhe-sensor-title').html(`${item.name}<i class="mdi-navigation-arrow-drop-down right">`);
         }
     }
-    $list.on('click', 'li', e => {
+    $list.on('click', 'li', (e) => {
         selectSensor($(e.currentTarget));
     });
 }
@@ -161,6 +161,8 @@ function updateRealTimeData(data) {
 module.exports = function(options) {
     type = options.type;
     const unit = options.unit;
+    const min = options.min;
+    const max = options.max;
     value = options.value;
     values = options.values ? options.values: [options.value];
     interval = Meta.getSensorMonitorInterval(type);
@@ -183,7 +185,9 @@ module.exports = function(options) {
     to = timeRange[1];
 
     gauge = Gauge({
-        unit
+        unit,
+        min,
+        max,
     });
 
     collection = series({
@@ -200,6 +204,10 @@ module.exports = function(options) {
         collection
     });
 
+    if (id !== null && id !== undefined)
+    {
+        fetchSensorData();
+    }
     // 获取指定类型传感器列表
     requestUtil.fetchSensors(type).then((data) => {
         renderSensorList(data);
@@ -208,12 +216,25 @@ module.exports = function(options) {
         });
         setTimeout(() => {
             bridgeScene.bridge.showSensors(ids);
-            bridgeScene.bridge.focusOnSensor(bridgeScene.bridge.sensors[`sensor#${id}`]);
+            //bridgeScene.bridge.focusOnSensor(bridgeScene.bridge.sensors[`sensor#${id}`]);
         }, 500);
 
+        if (id === null || id === undefined || id === '')
+        {
+            id = ids.length > 0 ? ids[0]: null;
+            if (id)
+            {
+                fetchSensorData();
+                let selectedSensor = data.filter(function(d){
+                  return d.id === id;
+                });
+
+                $('div.chuhe-monitor a#chuhe-sensor-title').html(`${selectedSensor[0].name}<i class="mdi-navigation-arrow-drop-down right">`);
+                window.location.hash = id;
+            }
+        }
     });
 
-    fetchSensorData();
 
     return {
         id,

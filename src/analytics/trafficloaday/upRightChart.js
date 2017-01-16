@@ -1,10 +1,8 @@
 /**
- *傅里叶分析上方的时间序列
+ *日平均小时交通量
  */
 const upRightChart = {
-    color: 'white',
-    fill: true,
-    fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+    color: '#1d91d3',
 };
 
 const upRight = $(".chuhe-bar-chart2").plot([upRightChart], {
@@ -15,29 +13,30 @@ const upRight = $(".chuhe-bar-chart2").plot([upRightChart], {
     },
     bars: {
         align: "center",
-        barWidth: 0.5
+        barWidth: 0.5,
     },
     zoom: {
-        interactive: true
+        interactive: true,
     },
     pan: {
-        interactive: false
+        interactive: false,
     },
     xaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#8FACC1',
+        },
+        max: 25,
     },
     yaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#8FACC1',
+        },
     },
     grid: {
         show: true,

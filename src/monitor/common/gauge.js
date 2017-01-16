@@ -1,8 +1,8 @@
 module.exports = function(options) {
     const g = new JustGage({
         id: 'chuhe-realtime',
-        min: 0,
-        max: 100,
+        min: options.min,
+        max: options.max,
         title: "当前",
         label: options.unit,
         valueFontColor: 'white',

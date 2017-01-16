@@ -3,10 +3,12 @@ import server from "./lib/server";
 import sensors from "./lib/sensors";
 import storage from "./lib/storage";
 import config from "./config";
+import flow from "./lib/flow/flow";
 
 async function startup()
 {
     printStarLine();
+    flow();
     console.log('* Hello from ZXCloudPlatform *');
     printStarLine();
     console.log(' ZXCloudPlatform server is now starting... ');

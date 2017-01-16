@@ -14,17 +14,17 @@ jQuery(function() {
             });
         },
         timepicker: true,
-        theme: 'dark'
+        theme: 'dark',
     });
     jQuery('#endTime').datetimepicker({
         format: 'Y-m-d H:i',
-        onShow: function (ct){
+        onShow: function (ct) {
             this.setOptions({
                 minDate:jQuery('#beginTime').val() ? jQuery('#beginTime').val() : false
             });
         },
         timepicker: true,
-        theme: 'dark'
+        theme: 'dark',
     });
 });
 
@@ -40,7 +40,7 @@ const names= {
     'trafficload': '交通荷载传感器',
     'deflection': '挠度传感器',
     'vibration': '振动传感器',
-    'temperature and humidity': '温湿度传感器'
+    'temperature and humidity': '温湿度传感器',
 };
 
 const units={
@@ -52,7 +52,7 @@ const units={
     '06': '(mm/s²)',
     '07': '(℃)',
     '08': '(mm/a)',
-    '09': '(℃)'
+    '09': '(℃)',
 }
 
 requestUtil.fetchSensorsMeta().then((data) => {
@@ -65,7 +65,7 @@ requestUtil.fetchSensorsMeta().then((data) => {
     initTypeList(s);
 });
 
-function initTypeList(data, obj) {
+function initTypeList (data, obj) {
     let sensorType = $('#chuhe-sensorType-dropdown');
     data.forEach((item, index) => {
         let li = $(`<li id=${item.type}><a href='#'><span>${names[item.name]}</span></a></li>`);
@@ -80,7 +80,7 @@ function initTypeList(data, obj) {
     });
 }
 
-function setSensorType(item) {
+function setSensorType (item) {
     $('#chuhe-detail-type').html(names[item.name] + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     let s = $(`ul#chuhe-sensorType-dropdown li#${item.type}`);
     $('ul#chuhe-sensorType-dropdown li').removeClass("sensorTypeSelected");
@@ -90,7 +90,7 @@ function setSensorType(item) {
     $(".chuhe-history-down > .chuhe-y-unit").html(units[item.type]);
 }
 
-function setSensor(type) {
+function setSensor (type) {
     let sensora = $(`#chuhue-sensors-dropdown`);
     sensora.empty();
     requestUtil.fetchSensors(type).then((data) => {
@@ -118,7 +118,7 @@ function setSensor(type) {
 /**
  * 格式化时间
  */
-Date.prototype.pattern = function(fmt) {
+Date.prototype.pattern = function (fmt) {
     let o = {
         "M+": this.getMonth() + 1, // 月份
         "d+": this.getDate(), // 日
@@ -127,7 +127,7 @@ Date.prototype.pattern = function(fmt) {
         "m+": this.getMinutes(), // 分
         "s+": this.getSeconds(), // 秒
         "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
-        "S": this.getMilliseconds() // 毫秒
+        "S": this.getMilliseconds(), // 毫秒
     };
     let week = {
         "0": "/u65e5",
@@ -136,7 +136,7 @@ Date.prototype.pattern = function(fmt) {
         "3": "/u4e09",
         "4": "/u56db",
         "5": "/u4e94",
-        "6": "/u516d"
+        "6": "/u516d",
     };
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -201,39 +201,39 @@ function refreshLineChart(data) {
     let dataSet = {
         data: data,
         color: "white",
-        fill: true,
-        fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']},
-};
-    var options = {
+    };
+    let options = {
         series: {
             lines: {
-                show: true
+                show: true,
+                fill: true,
+                fillColor: {colors: ['rgb(58, 26, 153)', 'rgb(39, 41, 98)']},
             },
             points: {
-                show: false
-            }
+                show: false,
+            },
         },
         zoom: {
-            interactive: false
+            interactive: false,
         },
         pan: {
-            interactive: false
+            interactive: false,
         },
         xaxis: {
             mode: 'time',
             show: true,
             timeformat: "%m/%d %H:%M",
             font: {
-                color: 'white'
-            }
+                color: 'rgb(157, 162, 243)',
+            },
         },
         yaxis: {
             show: true,
             zoomRange: false,
             panRange: false,
             font: {
-                color: 'white'
-            }
+                color: 'rgb(157, 162, 243)',
+            },
         },
         grid: {
             show: true,
@@ -243,23 +243,23 @@ function refreshLineChart(data) {
                 left: 1,
                 bottom: 1,
                 top: 0,
-                right: 0
+                right: 0,
             },
             margin: {
                 left: 15,
                 right: 15,
                 top: 20,
-                bottom: 5
+                bottom: 5,
             },
             borderColor: {
                 left: '#9b99ff',
-                bottom: '#9b99ff'
-            }
-        }
-    }
+                bottom: '#9b99ff',
+            },
+        },
+    };
     $("div.chuhe-history-down > .chuhe-history-linechart").plot([dataSet], options);
 }
 
-$('div.chuhe-select').on('click', 'input#chuhe-history-submit', e => {
+$('div.chuhe-select').on('click', 'input#chuhe-history-submit', (e) => {
     fetchSensorData();
 });

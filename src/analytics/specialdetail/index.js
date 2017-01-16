@@ -1,8 +1,7 @@
 require('./style.less');
 
 const requestUtil = require('../../monitor/common/remote');
-const {linechart, series} = require('./lineChart');
-const Meta = require('../../monitor/common/meta');
+const {linechart, series, series1, series2} = require('./lineChart');
 const bridgeScene = require('./bridge');
 
 let from = localStorage.getItem("startData");
@@ -32,7 +31,7 @@ requestUtil.fetchSensorsMeta().then((data) => {
     initTypeList(s);
 });
 
-function initTypeList(data, obj) {
+function initTypeList (data, obj) {
     let sensorType = $('#chuhe-sensorType-dropdown');
     data.forEach((item, index) => {
         let li = $(`<li id=${item.type}><a href='#'><span>${names[item.name]}</span></a></li>`);
@@ -47,7 +46,7 @@ function initTypeList(data, obj) {
     })
 }
 
-function setSensorType(item) {
+function setSensorType (item) {
     $('#chuhe-detail-type').html(names[item.name] + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     let s = $(`ul#chuhe-sensorType-dropdown li#${item.type}`);
     $('ul#chuhe-sensorType-dropdown li').removeClass("sensorTypeSelected");
@@ -55,7 +54,7 @@ function setSensorType(item) {
     setSensor(item.type);
 }
 
-function setSensor(type) {
+function setSensor (type) {
     let sensora = $(`#chuhue-sensors-dropdown`);
     sensora.empty();
     requestUtil.fetchSensors(type).then((data) => {
@@ -63,7 +62,7 @@ function setSensor(type) {
             let li = $(`<li id="${item.id}"><a href='#'><span>${item.name}</span></a></li>`);
             li.data(item);
             sensora.append(li);
-            if(index === 0){
+            if (index === 0) {
                 $(`ul#chuhue-sensors-dropdown li`).addClass("sensorSelected");
                 $(`#chuhe-sensors-select`).html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
             }
@@ -73,26 +72,34 @@ function setSensor(type) {
             $(this).addClass("sensorSelected");
             $(`#chuhe-sensors-select`).html($(e.currentTarget).data().name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
         });
-        getSpecialData()
+        getSpecialData();
     });
 }
 
-function getSpecialData(){
+function getSpecialData () {
     let id = $("ul#chuhue-sensors-dropdown li.sensorSelected").attr("id");
     let sensorIds = [id];
     bridgeScene.bridge.showSensors(sensorIds);
-    requestUtil.getSpecialDetail(from, to, id).then((data)=>{
-        for (let i=0;i<data.length;i++){
+    requestUtil.getSpecialDetail(from, to, id).then((data) => {
+        let alldata = [];
+        for (let i = 0;i < data.length;i++) {
             data[i][0] = new Date(data[i][0]);
+            if (data[i][1] !== null && data[i][1] !== undefined && data[i][1] !== '') {
+                alldata.push(data[i][1]);
+            }
         }
-        series.data=data;
-        linechart.setData([series]);
+        let min = Math.min(Math.min(...alldata) * 0.8, 0);
+        let max = Math.max(...alldata) * 1.2;
+        series.data = data;
+        series1.data = [[new Date(from), min], [new Date(from), max]];
+        series2.data = [[new Date(to), min], [new Date(to), max]];
+        linechart.setData([series, series1, series2]);
         linechart.setupGrid();
         linechart.draw();
-     })
+    });
 }
 
-$('div.chuhe-detail-select').on('click', 'input#clickId', e => {
+$('div.chuhe-detail-select').on('click', 'input#clickId', (e) => {
     getSpecialData();
 });
 

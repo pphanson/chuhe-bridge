@@ -42,7 +42,7 @@ module.exports = layout.generate(content({
       title: "垂直度传感器",
       className: 'chuhe-verticality-card',
       name: "垂直度",
-      unit: ""
+      unit: "°"
   }),
   "strainSensor": card({
       id: "strain-card",
@@ -70,7 +70,7 @@ module.exports = layout.generate(content({
       title: "荷载传感器",
       className: 'chuhe-trafficload-card',
       name: "荷载",
-      unit: "kN"
+      unit: "kg"
   }),
   "corrosionSensor": card({
       id: "corrosion-card",
