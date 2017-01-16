@@ -89,7 +89,7 @@ function getSpecialData () {
             }
         }
         let min = Math.min(Math.min(...alldata) * 0.8, 0);
-        let max = Math.min(...alldata) * 1.2;
+        let max = Math.max(...alldata) * 1.2;
         series.data = data;
         series1.data = [[new Date(from), min], [new Date(from), max]];
         series2.data = [[new Date(to), min], [new Date(to), max]];
