@@ -53,9 +53,9 @@ const upLeft = $(".chuhe-bar-chart1").plot([upLeftChart], {
         },
         borderColor: {
             left: '#9b99ff',
-            bottom: '#9b99ff'
-        }
-    }
+            bottom: '#9b99ff',
+        },
+    },
 }).data('plot');
 
 $(window).on('resize', function() {
@@ -66,7 +66,7 @@ $(window).on('resize', function() {
 
 module.exports = {
     upleft: upLeft,
-    upleftchart: upLeftChart
-}
+    upleftchart: upLeftChart,
+};
 
 

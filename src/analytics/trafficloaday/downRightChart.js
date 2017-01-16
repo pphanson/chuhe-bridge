@@ -4,7 +4,9 @@
 const downRightChart = {
     color: '#6386a1',
 };
-
+let ticks = [
+    [0, "(0,10]"], [1, "(10,20]"], [2, "(20,30]"], [3, "(30,40]"], [4, "(40,50]"], [5, "(50,55]"], [6, "(55,60]"], [7, "(60,70]"], [8, "70+"],
+];
 const downRight = $(".chuhe-bar-chart4").plot([downRightChart], {
     series: {
         bars: {
@@ -25,6 +27,7 @@ const downRight = $(".chuhe-bar-chart4").plot([downRightChart], {
         show: true,
         zoomRange: false,
         panRange: false,
+        ticks: ticks,
         font: {
             color: '#62727A',
         },

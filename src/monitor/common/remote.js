@@ -263,6 +263,17 @@ function getTrafficLoad()
     });
 }
 
+/**
+ * 荷载分析数据
+ */
+function getTrafficAnalytic()
+{
+    return $.ajax({
+        url: 'http://localhost:3000/event/getflow',
+        type: 'GET',
+    });
+}
+
 module.exports = {
     fetchSensors,
     fetchSensorStats,
@@ -281,4 +292,5 @@ module.exports = {
     getSpecialDetail,
     getchanged,
     getTrafficLoad,
+    getTrafficAnalytic,
 };
