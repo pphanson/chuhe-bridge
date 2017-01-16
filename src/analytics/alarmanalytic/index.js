@@ -134,17 +134,17 @@ function getAlarm() {
                         },
                         background: {
                             opacity: 0.8,
-                            color: '#000'
-                        }
-                    }
-                }
+                            color: '#1F5780',
+                        },
+                    },
+                },
             },
             legend: {
-                show: false
+                show: false,
             },
             grid: {
-                hoverable: true
-            }
+                hoverable: true,
+            },
         };
 
         $.plot($("#chuhe-sensorSingle"), dataSet1, options);

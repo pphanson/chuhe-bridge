@@ -32,7 +32,7 @@ function renderSensorList(data) {
             $('div.chuhe-monitor a#chuhe-sensor-title').html(`${item.name}<i class="mdi-navigation-arrow-drop-down right">`);
         }
     }
-    $list.on('click', 'li', e => {
+    $list.on('click', 'li', (e) => {
         selectSensor($(e.currentTarget));
     });
 }
