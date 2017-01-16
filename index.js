@@ -8,7 +8,6 @@ import flow from "./lib/flow/flow";
 async function startup()
 {
     printStarLine();
-    flow();
     console.log('* Hello from ZXCloudPlatform *');
     printStarLine();
     console.log(' ZXCloudPlatform server is now starting... ');
@@ -17,6 +16,7 @@ async function startup()
 
     printStarLine();
     logger.info('Congratulations! ZXCloudPlatform server is now running.')
+    flow();
 }
 
 async function perpare()
