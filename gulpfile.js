@@ -3,6 +3,7 @@ const gulp = require("gulp");
 const del = require("del");
 const assetPath = "./public/**/*";
 const webpackConfig = require("./webpack.config.js");
+const webpackProductionConfig = require("./webpack.config.dist.js");
 const runSequence = require("run-sequence");
 const express = require('express');
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -15,7 +16,7 @@ gulp.task('clean', cb => {
 
 
 gulp.task('build-app', cb => {
-    webpack(webpackConfig, (err, stats) => {
+    webpack(webpackProductionConfig, (err, stats) => {
         cb();
     });
 });
