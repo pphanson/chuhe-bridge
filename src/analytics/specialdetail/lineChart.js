@@ -6,7 +6,7 @@ const series = {
     lines: {
         show: true,
         fill: true,
-        fillColor: {colors: ['rgb(11, 104, 174)', 'rgb(35, 68, 122)']},
+        fillColor: {colors: ['rgb(35, 68, 122)', 'rgb(11, 104, 174)']},
     },
 };
 const series1 = {
@@ -18,7 +18,7 @@ const series2 = {
     lines: {show: true, fill: false },
 };
 
-const linechart = $(".chuhe-detail-down").plot([series, series1, series2], {
+const linechart = $(".chuhe-special-detail").plot([series, series1, series2], {
     zoom: {
         interactive: true,
     },
