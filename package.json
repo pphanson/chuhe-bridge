@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/nodemon index.js"
+    "dev": "./node_modules/.bin/nodemon index.js",
+    "build": "NODE_ENV=production gulp build",
+    "start": "babel-node index.js"
   },
   "author": "",
   "license": "ISC",

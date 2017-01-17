@@ -1,11 +1,12 @@
 const io = require('socket.io-client');
+const host = process.env['NODE_ENV'] === 'production' ? '' : 'http://localhost:3000'
 let client = {};
 
 function startMonitor(id, value, stats)
 {
     if (!client[id])
     {
-        client[id] = io('http://localhost:3000/api/sensor/' + id);
+        client[id] = io(`${host}/api/sensor/${id}`);
         if ($.isFunction(value))
         {
             client[id].on("value", value);
@@ -65,7 +66,7 @@ function getAnalytics(id, from, to)
 function getCorrelation(sensorId1, sensorId2, from, to)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/analytics/',
+        url: `${host}/sensors/analytics`,
         dataType: 'json',
         data: {
             sensorId1: sensorId1,
@@ -82,7 +83,7 @@ function getCorrelation(sensorId1, sensorId2, from, to)
 function fetchSensors(type)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/data',
+        url: `${host}/sensors/data`,
         dataType: 'json',
         data: {
             type: type
@@ -139,7 +140,7 @@ function addNewEvents(startTime, endTime, eventName, eventTypeId, _id)
 function getAllEvents(from, to, page, keywords)
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/allevent',
+        url: `${host}/event/allevent`,
         data: {
             from: from,
             to: to,
@@ -155,7 +156,7 @@ function getAllEvents(from, to, page, keywords)
 function getSearchTable(from, to, page, keywords)
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/allevent',
+        url: `${host}/event/allevent`,
         data: {
             from: from,
             to: to,
@@ -171,7 +172,7 @@ function getSearchTable(from, to, page, keywords)
 function getSpecialDetail(from, to, id)
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/eventdetail',
+        url: `${host}/event/eventdetail`,
         data: {
             from: from,
             to: to,
@@ -186,7 +187,7 @@ function getSpecialDetail(from, to, id)
 function getchanged(_id)
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/event',
+        url: `${host}/event/event`,
         data: {
             id:_id
         }
@@ -199,7 +200,7 @@ function getchanged(_id)
 function fetchSensorsMeta()
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/meta',
+        url: `${host}/sensors/meta`,
         dataType: 'json',
         async: false
     });
@@ -211,7 +212,7 @@ function fetchSensorsMeta()
 function getAlarmDate(from, to, page, level, alarmType, keyword)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/alarm',
+        url: `${host}/sensors/alarm`,
         data: {
             from: from,
             to: to,
@@ -243,7 +244,7 @@ function getAlarmStatistics(from, to, page)
 function getHistoryDate(from, to, sensorId)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/history',
+        url: `${host}/sensors/history`,
         data: {
             from: from,
             to: to,
@@ -258,8 +259,16 @@ function getHistoryDate(from, to, sensorId)
 function getTrafficLoad()
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/traffic',
+        url: `${host}/event/traffic`,
         type: 'GET',
+    });
+}
+
+function getSensorCurrentValue(id)
+{
+    return $.ajax({
+      url: `${host}/api/sensor/${id}/value`,
+      dataType: 'json'
     });
 }
 
@@ -269,10 +278,11 @@ function getTrafficLoad()
 function getTrafficAnalytic()
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/getflow',
+        url: `${host}/event/getflow`,
         type: 'GET',
     });
 }
+
 
 module.exports = {
     fetchSensors,
@@ -292,5 +302,6 @@ module.exports = {
     getSpecialDetail,
     getchanged,
     getTrafficLoad,
+    getSensorCurrentValue,
     getTrafficAnalytic,
 };
