@@ -1,12 +1,13 @@
 /**
- *傅里叶分析上方的时间序列
+ *日平均小时交通量
  */
 const upRightChart = {
-    color: 'white',
-    fill: true,
-    fillColor: {colors: ['rgb(41, 176, 146)', 'rgb(64, 112, 138)']}
+    color: '#1d91d3',
 };
-
+let ticks = [
+    [0, "1"], [1, "2"], [2, "3"], [3, "4"], [4, "5"], [5, "6"], [6, "7"], [7, "8"], [8, "9"], [9, "10"], [10, "11"], [11, "12"],
+    [12, "13"], [13, "14"], [14, "15"], [15, "16"], [16, "17"], [17, "18"], [18, "19"], [19, "20"], [20, "21"], [21, "22"], [22, "23"], [23, "24"],
+];
 const upRight = $(".chuhe-bar-chart2").plot([upRightChart], {
     series: {
         bars: {
@@ -15,29 +16,30 @@ const upRight = $(".chuhe-bar-chart2").plot([upRightChart], {
     },
     bars: {
         align: "center",
-        barWidth: 0.5
+        barWidth: 0.5,
     },
     zoom: {
-        interactive: true
+        interactive: true,
     },
     pan: {
-        interactive: false
+        interactive: false,
     },
     xaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
+        ticks: ticks,
         font: {
-            color: 'white'
-        }
+            color: '#8FACC1',
+        },
     },
     yaxis: {
         show: true,
         zoomRange: false,
         panRange: false,
         font: {
-            color: 'white'
-        }
+            color: '#8FACC1',
+        },
     },
     grid: {
         show: true,

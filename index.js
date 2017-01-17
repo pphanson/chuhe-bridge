@@ -3,6 +3,7 @@ import server from "./lib/server";
 import sensors from "./lib/sensors";
 import storage from "./lib/storage";
 import config from "./config";
+import flow from "./lib/analytics/flow/flow";
 
 async function startup()
 {
@@ -15,6 +16,7 @@ async function startup()
 
     printStarLine();
     logger.info('Congratulations! ZXCloudPlatform server is now running.')
+    flow();
 }
 
 async function perpare()

@@ -35,7 +35,7 @@ function stopMonitor(id)
  function fetchSensorData(id, from, to)
  {
     return $.ajax({
-        url: `${host}/api/sensor/${id}/data`,
+        url: 'http://localhost:3000/api/sensor/' + id + '/data',
         dataType: 'json',
         data: {
             from: from,
@@ -50,7 +50,7 @@ function stopMonitor(id)
 function getAnalytics(id, from, to)
 {
     return $.ajax({
-        url: `${host}/sensors/fft/`,
+        url: 'http://localhost:3000/sensors/fft/',
         dataType: 'json',
         data: {
             sensorId: id,
@@ -105,7 +105,7 @@ function fetchSensorStats(id, from, to)
         ids = [id];
     }
     return $.ajax({
-        url: `${host}/sensors/data/stats`,
+        url: "http://localhost:3000/sensors/data/stats",
         dataType: 'json',
         type: 'POST',
         data: {
@@ -122,7 +122,7 @@ function fetchSensorStats(id, from, to)
 function addNewEvents(startTime, endTime, eventName, eventTypeId, _id)
 {
     return $.ajax({
-        url: `${host}/event/addevent`,
+        url: 'http://localhost:3000/event/addevent',
         type: 'POST',
         data: {
             startTime: startTime,
@@ -230,7 +230,7 @@ function getAlarmDate(from, to, page, level, alarmType, keyword)
 function getAlarmStatistics(from, to, page)
 {
     return $.ajax({
-        url: `${host}/sensors/alarmstatistics`,
+        url: 'http://localhost:3000/sensors/alarmstatistics',
         data: {
             from: from,
             to: to,
@@ -272,6 +272,18 @@ function getSensorCurrentValue(id)
     });
 }
 
+/**
+ * 荷载分析数据
+ */
+function getTrafficAnalytic()
+{
+    return $.ajax({
+        url: `${host}/event/getflow`,
+        type: 'GET',
+    });
+}
+
+
 module.exports = {
     fetchSensors,
     fetchSensorStats,
@@ -290,5 +302,6 @@ module.exports = {
     getSpecialDetail,
     getchanged,
     getTrafficLoad,
-    getSensorCurrentValue
+    getSensorCurrentValue,
+    getTrafficAnalytic,
 };
