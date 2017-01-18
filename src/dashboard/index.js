@@ -88,7 +88,6 @@ function refreshRealValue(sensor, data)
 
     if (type === '07')
     {
-        alert(data);
         $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
         $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
         return;

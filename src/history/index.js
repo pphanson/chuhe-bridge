@@ -122,7 +122,7 @@ Date.prototype.pattern = function (fmt) {
     let o = {
         "M+": this.getMonth() + 1, // 月份
         "d+": this.getDate(), // 日
-        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "h+": this.getHours() % 24 === 0 ? 24 : this.getHours() % 24, // 小时
         "H+": this.getHours(), // 小时
         "m+": this.getMinutes(), // 分
         "s+": this.getSeconds(), // 秒
@@ -196,7 +196,7 @@ function refreshSensorStats(id, data) {
 
 function refreshLineChart(data) {
     for (let i = 0;i < data.length;i++) {
-        data[i][0] = new Date(data[i][0]);
+        data[i][0] = new Date(data[i][0] + 1000 * 60 * 60 * 8);
     }
     let dataSet = {
         data: data,
