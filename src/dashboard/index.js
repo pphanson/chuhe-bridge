@@ -52,7 +52,7 @@ for (let type of sensorTypes)
 {
     if (!excludeSensorTypes.includes(type))
     {
-        lineCharts[type] =  LineChart(Meta.getSensorMetaName(type), collection[type], {colors: fills[type]})
+        lineCharts[type] = LineChart(Meta.getSensorMetaName(type), collection[type], {colors: fills[type]});
     }
 }
 
@@ -88,13 +88,13 @@ function refreshRealValue(sensor, data)
 
     if (type === '07')
     {
-      $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
-      $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
-      return;
+        $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
+        $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
+        return;
     }
     else if (type === '04')
     {
-        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value['strain'].toFixed(2));
+        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value["strain"].toFixed(2));
     }
 
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
@@ -118,9 +118,9 @@ function refreshRealValue(sensor, data)
         let deprecatedCount = (timestamp - timeRange[type][1]) / Meta.getSensorMonitorInterval(type) + 1;
         col[v].data.splice(0, deprecatedCount);
 
-        for (let t = timeRange[type][1].getTime(); t < timestamp.getTime(); t +=  Meta.getSensorMonitorInterval(type) )
+        for (let t = timeRange[type][1].getTime(); t < timestamp.getTime(); t += Meta.getSensorMonitorInterval(type) )
         {
-              col[v].data.push([timestamp.getTime(), null]);
+            col[v].data.push([timestamp.getTime(), null]);
         }
         col[v].data.push([timestamp.getTime(), data.value[v]]);
         timeRange[type][1] = new Date(timestamp.getTime() + Meta.getSensorMonitorInterval(type));
@@ -144,7 +144,7 @@ function refreshHistoryValue(sensor, data)
     }
     else {
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-history-number`);
-        $card.html(data[id] && data[id][value]&& data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
+        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
     }
 }
 
@@ -162,13 +162,13 @@ function fetchSensorData(sensor)
         refreshHistoryValue(sensor, data);
     });
 
-    RequestUtil.getSensorCurrentValue(sensor.id).then(data => {
+    RequestUtil.getSensorCurrentValue(sensor.id).then((data) => {
         const v = Meta.getSensorValues(type)[0];
         if (type === '07')
         {
-          $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.temperature);
-          $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.humidity);
-          return;
+            $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.temperature);
+            $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.humidity);
+            return;
         }
         else if (type === '04')
         {
@@ -178,7 +178,7 @@ function fetchSensorData(sensor)
         $card.text(data[v].toFixed(2));
     })
 
-    RequestUtil.startMonitor(sensor.id, data => {
+    RequestUtil.startMonitor(sensor.id, (data) => {
         refreshRealValue(sensor, data);
     });
 }
