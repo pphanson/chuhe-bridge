@@ -221,7 +221,7 @@ module.exports = function(options) {
 
         if (id === null || id === undefined || id === '')
         {
-            id = ids.length > 0 ? ids[0]: null;
+            id = ids.length > 0 ? ids[0] : null;
             if (id)
             {
                 fetchSensorData();

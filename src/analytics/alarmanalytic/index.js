@@ -127,14 +127,14 @@ function getAlarm() {
                         show: true,
                         radius: 180,
                         formatter: function (label, series) {
-                            return '<div style="border:1px solid grey;font-size:10pt;text-align:center;padding:5px;color:white;">' +
+                            return '<div style="border:0;font-size:12pt;text-align:center;padding:5px;color:white;">' +
                                 label + ' : ' +
                                 Math.round(series.percent) +
                                 '%</div>';
                         },
                         background: {
-                            opacity: 0.8,
-                            color: '#1F5780',
+                            opacity: 0.6,
+                            color: '#000',
                         },
                     },
                 },
@@ -165,7 +165,7 @@ $.fn.showMemo = function (id) {
         html.push("<div style=\"height:50px;display:flex;justify-content:center;border:1px solid grey;background-color:",
             item.series.color,
             "\">",
-            "<span style=\"color:white;line-height:45px\">",
+            "<span style=\"color:white;line-height:45px;font-size:18px\">",
             item.series.label,
             " : ",
             item.series.data[0][1],

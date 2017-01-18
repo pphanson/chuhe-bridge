@@ -73,12 +73,12 @@ module.exports = function({
             lineWidth: 2,
             fill: true,
             fillColor: {
-                colors: ['rgba(64, 24, 185, 1)', 'rgba(64, 24, 185, 0.2)']
-            }
+                colors: ['rgba(64, 24, 185, 0.2)','rgba(64, 24, 185, 1)'],
+            },
         },
         points: {
-            show: true
-        }
+            show: true,
+        },
     };
 
     iInterval = interval;

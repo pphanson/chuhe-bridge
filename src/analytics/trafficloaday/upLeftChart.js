@@ -55,6 +55,7 @@ const upLeft = $(".chuhe-bar-chart1").plot([upLeftChart], {
             left: '#9b99ff',
             bottom: '#9b99ff',
         },
+        hoverable: true,
     },
 }).data('plot');
 

@@ -3,7 +3,7 @@ let meta;
 /**
  * 获取传感器元数据
  */
-requestUtil.fetchSensorsMeta().then(data => {
+requestUtil.fetchSensorsMeta().then((data) => {
     meta = data;
 });
 
@@ -46,7 +46,7 @@ function createHistoryTimeRange()
 
 function normalizeTimestamp(date, interval)
 {
-    if (interval <=0 || interval > 1000 * 60 * 60 || 1000 * 60 * 60 % interval !== 0)
+    if (interval <= 0 || interval > 1000 * 60 * 60 || 1000 * 60 * 60 % interval !== 0)
     {
         throw new Error('无效的采集频率');
     }
