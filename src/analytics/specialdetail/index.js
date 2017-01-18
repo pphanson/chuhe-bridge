@@ -98,7 +98,7 @@ function getSpecialData () {
     requestUtil.getSpecialDetail(from, to, id).then((data) => {
         let alldata = [];
         for (let i = 0;i < data.length;i++) {
-            data[i][0] = new Date(data[i][0]);
+            data[i][0] = new Date(data[i][0] + 1000 * 60 * 60 * 8);
             if (data[i][1] !== null && data[i][1] !== undefined && data[i][1] !== '') {
                 alldata.push(data[i][1]);
             }
@@ -106,8 +106,8 @@ function getSpecialData () {
         let min = Math.min(Math.min(...alldata) * 0.8, 0);
         let max = Math.max(...alldata) * 1.2;
         series.data = data;
-        series1.data = [[new Date(from), min], [new Date(from), max]];
-        series2.data = [[new Date(to), min], [new Date(to), max]];
+        series1.data = [[new Date(new Date(from).getTime() + 1000 * 60 * 60 * 8), min], [new Date(new Date(from).getTime() + 1000 * 60 * 60 * 8), max]];
+        series2.data = [[new Date(new Date(to).getTime() + 1000 * 60 * 60 * 8), min], [new Date(new Date(to).getTime() + 1000 * 60 * 60 * 8), max]];
         linechart.setData([series, series1, series2]);
         linechart.setupGrid();
         linechart.draw();
