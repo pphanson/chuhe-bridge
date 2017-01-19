@@ -198,6 +198,12 @@ function fetchSensorData(sensor)
 
     RequestUtil.startMonitor(sensor.id, (data) => {
         refreshRealValue(sensor, data);
+    }, (data) => {
+        const type = sensor.meta;
+        if (type === '09')
+        {
+          $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(data['weight']['total'] ? data['weight']['total']: '');
+        }
     });
 }
 
