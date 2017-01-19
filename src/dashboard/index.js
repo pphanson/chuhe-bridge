@@ -187,7 +187,10 @@ function updateSensorNavigation(item)
 {
     const type = item.meta;
     const name = Meta.getSensorMetaName(type);
-    $(`aside#left-sidebar-nav li#${name}-link > a`).attr('href', `/monitor/${name}/index.html#${item.id}`);
+    if (type !== '09')
+    {
+        $(`aside#left-sidebar-nav li#${name}-link > a`).attr('href', `/monitor/${name}/index.html#${item.id}`);
+    }
 }
 
 function selectSensorItem(item, remote) {
@@ -198,12 +201,12 @@ function selectSensorItem(item, remote) {
     const $chardTitle = $(`div#${name}-card a#${name}-card-title`);
     const $chardMonitorLink = $(`div#${name}-card div.chuhe-card-name > a.chuhe-monitor-link`);
 
-    if (!excludeSensorTypes.includes(type))
+    if (type !== '09')
     {
-        $chardMonitorLink.attr('href', `/monitor/${name}/index.html#${item.id}`);
+        $chardMonitorLink.attr('href', `javascript:window.open('/monitor/${name}/index.html#${item.id}')`);
     }
     else {
-        $chardMonitorLink.attr('href', `/analytics/trafficmonitor/index.html#${item.id}`);
+        $chardMonitorLink.attr('href', `javascript:window.open('/analytics/trafficmonitor/index.html#${item.id}')`);
     }
     $chardTitle.html(item.name + "<i class='mdi-navigation-arrow-drop-down right'></i>");
     $sensorItem.addClass("chuhe-sensor-item-selected");
