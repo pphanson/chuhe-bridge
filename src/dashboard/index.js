@@ -12,6 +12,7 @@ const excludeSensorTypes = ['09', '07'];
 const timeRange = {};
 const collection = {};
 const lineCharts = {};
+
 const colors = {
     '04': '#6da3f7',
     '01': '#36fff9',
@@ -96,19 +97,23 @@ function refreshRealValue(sensor, data)
     {
         $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value["strain"].toFixed(2));
     }
-
-    let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
-    const lineChart = lineCharts[type];
-    const col = collection[type];
+    else  if (type === '09')
+    {
+        $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(parseInt(data.value["weight"]));
+    }
 
 
     let $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
-    $card.text(data.value[v].toFixed(2));
+    $card.text(type === '09'? parseInt(data.value['weight']): data.value[v].toFixed(2));
 
     if (type === '09')
     {
         return;
     }
+
+    let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
+    const lineChart = lineCharts[type];
+    const col = collection[type];
     if (timestamp < timeRange[type][1]) {
         let timeslot = Math.floor((timestamp - timeRange[type][0]) / Meta.getSensorMonitorInterval(type));
         if (col[v].data[timeslot][1] === null) {
@@ -174,8 +179,12 @@ function fetchSensorData(sensor)
         {
             $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data[v].toFixed(2));
         }
+        else if (type === '09')
+        {
+            $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(parseInt(data["weight"]));
+        }
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
-        $card.text(data[v].toFixed(2));
+        $card.text(type === '09'? parseInt(data['weight']): data[v].toFixed(2));
     })
 
     RequestUtil.startMonitor(sensor.id, (data) => {
