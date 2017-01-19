@@ -100,6 +100,7 @@ function refreshRealValue(sensor, data)
     else  if (type === '09')
     {
         $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(parseInt(data.value["weight"]));
+        // $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(parseInt(data.stats["total"]));
     }
 
 
@@ -177,14 +178,22 @@ function fetchSensorData(sensor)
         }
         else if (type === '04')
         {
-            $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data[v].toFixed(2));
+            $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data[v] ? data[v].toFixed(2): '');
         }
         else if (type === '09')
         {
-            $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(parseInt(data["weight"]));
+            $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(data["weight"] ? parseInt(data["weight"]): '');
         }
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
-        $card.text(type === '09'? parseInt(data['weight']): data[v].toFixed(2));
+        if (type === '09')
+        {
+          $card.text(data['weight']? parseInt(data['weight']):'');
+
+        }
+        else {
+          $card.text(data[v]? data[v].toFixed(2) : '');
+
+        }
     })
 
     RequestUtil.startMonitor(sensor.id, (data) => {
