@@ -40,21 +40,20 @@ function renderSensorList(data) {
 function fetchSensorData()
 {
     const historyTimeRange = Meta.createHistoryTimeRange();
+    const timeRange = Meta.createCurrentTimeRange(type);
     // 获取昨日统计值
     requestUtil.fetchSensorStats(id, historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then((data) => {
         historyStats = data[id];
         refreshSensorStats(id, data);
     });
 
-    // 获取昨日同期监控数据
-    requestUtil.fetchSensorData(id, historyTimeRange[0].toJSON(), historyTimeRange[1].toJSON()).then((data) => {
-        // refreshLineChart(data);
-    });
-
-    requestUtil.startMonitor(id, (data) => {
-        updateRealTimeData(data);
-    }, (data) => {
-        refreshSensorStats(id, data, 'current');
+    requestUtil.fetchSensorData(id, timeRange[0].toJSON(), timeRange[1].toJSON()).then((data) => {
+        refreshLineChart(data);
+        requestUtil.startMonitor(id, (data) => {
+            updateRealTimeData(data);
+        }, (data) => {
+            refreshSensorStats(id, data, 'current');
+        });
     });
 }
 
@@ -100,12 +99,12 @@ function refreshSensorStats(id, data, classify = 'history') {
 
 function refreshLineChart(data) {
     data.forEach(function(item, index) {
-        for (let series of seriesCollection) {
-            let key = series.value;
-            series.data.push([index, item[key] === Number.MIN_SAFE_INTEGER ? 2 : item[key]]);
+        for (let key in item)
+        {
+            collection[key].data[index] = [from.getTime() + interval * index, item[key] === Number.MIN_SAFE_INTEGER ? null : item[key]]
         }
     });
-    lineChart.setData(seriesCollection);
+    lineChart.setData([collection[value]]);
     lineChart.setupGrid();
     lineChart.draw();
 }

@@ -67,8 +67,8 @@ function createCurrentTimeRange(sensorType)
         throw new Error(`${sensorType} 类型传感器采集频率数值无效`);
     }
 
-    const from = normalizeTimestamp(now, interval);
-    const to = new Date(from.getTime() + interval * 60);
+    const to = normalizeTimestamp(now, interval);
+    const from = new Date(to.getTime() - interval * 60);
     return [from, to];
   }
 
