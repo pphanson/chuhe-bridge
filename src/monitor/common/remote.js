@@ -35,7 +35,7 @@ function stopMonitor(id)
  function fetchSensorData(id, from, to)
  {
     return $.ajax({
-        url: 'http://localhost:3000/api/sensor/' + id + '/data',
+        url: host + '/api/sensor/' + id + '/data',
         dataType: 'json',
         data: {
             from: from,
@@ -50,7 +50,7 @@ function stopMonitor(id)
 function getAnalytics(id, from, to)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/fft/',
+        url: host + '/sensors/fft/',
         dataType: 'json',
         data: {
             sensorId: id,
@@ -105,7 +105,7 @@ function fetchSensorStats(id, from, to)
         ids = [id];
     }
     return $.ajax({
-        url: "http://localhost:3000/sensors/data/stats",
+        url: host + "/sensors/data/stats",
         dataType: 'json',
         type: 'POST',
         data: {
@@ -122,7 +122,7 @@ function fetchSensorStats(id, from, to)
 function addNewEvents(startTime, endTime, eventName, eventTypeId, _id)
 {
     return $.ajax({
-        url: 'http://localhost:3000/event/addevent',
+        url: host + '/event/addevent',
         type: 'POST',
         data: {
             startTime: startTime,
@@ -230,7 +230,7 @@ function getAlarmDate(from, to, page, level, alarmType, keyword)
 function getAlarmStatistics(from, to, page)
 {
     return $.ajax({
-        url: 'http://localhost:3000/sensors/alarmstatistics',
+        url:  host + '/sensors/alarmstatistics',
         data: {
             from: from,
             to: to,

@@ -15,7 +15,7 @@ module.exports = layout.generate(content({
         title: '流量'
       },{
         name: 'trafficload',
-        unit: 'kN',
+        unit: 'kg',
         title: '荷载'
       },{
         name: 'strain',
