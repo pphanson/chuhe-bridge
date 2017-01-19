@@ -25,7 +25,7 @@ module.exports = layout.generate(content({
   }),
   "deflectionSensor": card({
       id: 'deflection-card',
-      title: "绕度传感器",
+      title: "挠度传感器",
       className: "chuhe-deflection-card",
       name: "挠度",
       unit: "mm"

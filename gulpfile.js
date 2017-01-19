@@ -14,7 +14,6 @@ gulp.task('clean', cb => {
     del(`${assetPath}`).then(() => cb(), reason => cb(reason));
 });
 
-
 gulp.task('build-app', cb => {
     webpack(webpackProductionConfig, (err, stats) => {
         cb();
