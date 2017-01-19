@@ -49,19 +49,19 @@ const downLeft = $(".chuhe-bar-chart3").plot([downLeftChart], {
             left: 1,
             bottom: 1,
             top: 0,
-            right: 0
+            right: 0,
         },
         margin: {
             left: 15,
             right: 15,
             top: 30,
-            bottom: 5
+            bottom: 5,
         },
         borderColor: {
             left: '#9b99ff',
-            bottom: '#9b99ff'
-        }
-    }
+            bottom: '#9b99ff',
+        },
+    },
 }).data('plot');
 
 $(window).on('resize', function() {
@@ -72,7 +72,5 @@ $(window).on('resize', function() {
 
 module.exports = {
     downleft: downLeft,
-    downleftchart: downLeftChart
-}
-
-
+    downleftchart: downLeftChart,
+};

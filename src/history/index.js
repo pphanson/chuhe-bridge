@@ -31,7 +31,7 @@ jQuery(function() {
 /**
  * 选择传感器的类型及确定某个传感器
  */
-const names= {
+const names = {
     'displacement': '位移传感器',
     'verticality': '垂直度传感器',
     'cableforce': '索力传感器',
@@ -43,7 +43,7 @@ const names= {
     'temperature and humidity': '温湿度传感器',
 };
 
-const units={
+const units = {
     '01': '(mm)',
     '02': '(mm)',
     '03': '(°)',
@@ -52,8 +52,8 @@ const units={
     '06': '(mm/s²)',
     '07': '(℃)',
     '08': '(mm/a)',
-    '09': '(℃)',
-}
+    '09': '(kg)',
+};
 
 requestUtil.fetchSensorsMeta().then((data) => {
     let s = [];
@@ -122,7 +122,7 @@ Date.prototype.pattern = function (fmt) {
     let o = {
         "M+": this.getMonth() + 1, // 月份
         "d+": this.getDate(), // 日
-        "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12, // 小时
+        "h+": this.getHours() % 24 === 1 ? 0 : this.getHours() % 24, // 小时
         "H+": this.getHours(), // 小时
         "m+": this.getMinutes(), // 分
         "s+": this.getSeconds(), // 秒
@@ -183,7 +183,7 @@ function fetchSensorData()
 
 function refreshSensorStats(id, data) {
     const stats = data[id] ? data[id] : data;
-    let value = Object.keys(stats);
+    let value = Object.keys(stats)[0];
     let $card = $('div.chuhe-history-card > div.chuhe-stats-card');
     if (value !== null && value !== undefined && stats !== null && stats !== undefined && stats[value] !== null && stats[value] !== undefined) {
         $card.find("div.card-avg-item > div.card-item-value > span").text(stats[value].avg.toFixed(2));
@@ -196,7 +196,7 @@ function refreshSensorStats(id, data) {
 
 function refreshLineChart(data) {
     for (let i = 0;i < data.length;i++) {
-        data[i][0] = new Date(data[i][0]);
+        data[i][0] = new Date(data[i][0] + 1000 * 60 * 60 * 8);
     }
     let dataSet = {
         data: data,
@@ -207,7 +207,7 @@ function refreshLineChart(data) {
             lines: {
                 show: true,
                 fill: true,
-                fillColor: {colors: ['rgb(58, 26, 153)', 'rgb(39, 41, 98)']},
+                fillColor: {colors: ['rgb(39, 41, 98)', 'rgb(58, 26, 153)']},
             },
             points: {
                 show: false,

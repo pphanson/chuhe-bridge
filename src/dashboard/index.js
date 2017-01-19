@@ -13,22 +13,22 @@ const timeRange = {};
 const collection = {};
 const lineCharts = {};
 const colors = {
-  '04': '#6da3f7',
-  '01': '#36fff9',
-  '03': '#ff39b8',
-  '02': '#00c3ff',
-  '06': '#43ff8f',
-  '05': '#1fd5ff',
-  '08': '#80b4ff',
+    '04': '#6da3f7',
+    '01': '#36fff9',
+    '03': '#ff39b8',
+    '02': '#00c3ff',
+    '06': '#43ff8f',
+    '05': '#1fd5ff',
+    '08': '#80b4ff',
 };
 const fills = {
-  '04':  ['rgb(85, 158, 238)', 'rgba(85, 158, 238, 0.1)'],
-  '01':  ['rgb(0, 218, 148)', 'rgba(0, 218, 148, 0.1)'],
-  '03':  ['rgb(255, 10, 255)', 'rgba(255, 10, 255, 0.1)'],
-  '02':  ['rgb(0, 193, 186)', 'rgba(0, 193, 186, 0.1)'],
-  '06':  ['rgb(131, 266, 149)', 'rgba(131, 266, 149, 0.1)'],
-  '05':  ['rgb(86, 174, 254)', 'rgba(86, 174, 254, 0.1)'],
-  '08':  ['rgb(125, 186, 198)', 'rgba(125, 186, 198, 0.1)']
+    '04': ['rgba(85, 158, 238, 0.1)', 'rgb(85, 158, 238)'],
+    '01': ['rgba(0, 218, 148, 0.1)', 'rgb(0, 218, 148)'],
+    '03': ['rgba(255, 10, 255, 0.1)', 'rgb(255, 10, 255)'],
+    '02': ['rgba(0, 193, 186, 0.1)', 'rgb(0, 193, 186)'],
+    '06': ['rgba(131, 266, 149, 0.1)', 'rgb(131, 266, 149)'],
+    '05': ['rgba(86, 174, 254, 0.1)', 'rgb(86, 174, 254)'],
+    '08': ['rgba(125, 186, 198, 0.1)', 'rgb(125, 186, 198)'],
 }
 
 for (let type of sensorTypes)
@@ -52,7 +52,7 @@ for (let type of sensorTypes)
 {
     if (!excludeSensorTypes.includes(type))
     {
-        lineCharts[type] =  LineChart(Meta.getSensorMetaName(type), collection[type], {colors: fills[type]})
+        lineCharts[type] = LineChart(Meta.getSensorMetaName(type), collection[type], {colors: fills[type]});
     }
 }
 
@@ -88,13 +88,13 @@ function refreshRealValue(sensor, data)
 
     if (type === '07')
     {
-      $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
-      $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
-      return;
+        $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.value.temperature);
+        $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
+        return;
     }
     else if (type === '04')
     {
-        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value['strain'].toFixed(2));
+        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value["strain"].toFixed(2));
     }
 
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
@@ -118,9 +118,9 @@ function refreshRealValue(sensor, data)
         let deprecatedCount = (timestamp - timeRange[type][1]) / Meta.getSensorMonitorInterval(type) + 1;
         col[v].data.splice(0, deprecatedCount);
 
-        for (let t = timeRange[type][1].getTime(); t < timestamp.getTime(); t +=  Meta.getSensorMonitorInterval(type) )
+        for (let t = timeRange[type][1].getTime(); t < timestamp.getTime(); t += Meta.getSensorMonitorInterval(type) )
         {
-              col[v].data.push([timestamp.getTime(), null]);
+            col[v].data.push([timestamp.getTime(), null]);
         }
         col[v].data.push([timestamp.getTime(), data.value[v]]);
         timeRange[type][1] = new Date(timestamp.getTime() + Meta.getSensorMonitorInterval(type));
@@ -144,7 +144,7 @@ function refreshHistoryValue(sensor, data)
     }
     else {
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-history-number`);
-        $card.html(data[id] && data[id][value]&& data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
+        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
     }
 }
 
@@ -162,13 +162,13 @@ function fetchSensorData(sensor)
         refreshHistoryValue(sensor, data);
     });
 
-    RequestUtil.getSensorCurrentValue(sensor.id).then(data => {
+    RequestUtil.getSensorCurrentValue(sensor.id).then((data) => {
         const v = Meta.getSensorValues(type)[0];
         if (type === '07')
         {
-          $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.temperature);
-          $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.humidity);
-          return;
+            $('div.chuhe-temperature > div.chuhe-th-value > span:first-child').text(data.temperature);
+            $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.humidity);
+            return;
         }
         else if (type === '04')
         {
@@ -178,7 +178,7 @@ function fetchSensorData(sensor)
         $card.text(data[v].toFixed(2));
     })
 
-    RequestUtil.startMonitor(sensor.id, data => {
+    RequestUtil.startMonitor(sensor.id, (data) => {
         refreshRealValue(sensor, data);
     });
 }
