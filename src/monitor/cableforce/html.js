@@ -4,7 +4,7 @@ const monitor = require("../../component/monitor/html.js");
 
 module.exports = layout.generate(content({
   monitor: monitor({
-    name: '索利',
+    name: '索力',
     unit: 'kN',
     values: ['baseband']
   })
