@@ -71,7 +71,7 @@ function initTypeList (data, obj) {
         let li = $(`<li id=${item.type}><a href='#'><span>${names[item.name]}</span></a></li>`);
         li.data(item);
         sensorType.append(li);
-        if (index === 0) {
+        if (item.type === '01') {
             setSensorType(item, obj);
         }
     });
@@ -155,7 +155,7 @@ Date.prototype.pattern = function (fmt) {
 /**
  * 设置默认时间，从当前时间往前取一个月的时间
  */
-let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1).pattern("yyyy-MM-dd hh:mm")
+let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).pattern("yyyy-MM-dd hh:mm")
 let to = new Date().pattern("yyyy-MM-dd hh:mm");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);

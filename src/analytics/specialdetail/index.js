@@ -49,7 +49,7 @@ function initTypeList (data, obj) {
         let li = $(`<li id=${item.type}><a href='#'><span>${names[item.name]}</span></a></li>`);
         li.data(item);
         sensorType.append(li);
-        if (index === 0) {
+        if (item.type === '01') {
             setSensorType(item, obj);
         }
     });

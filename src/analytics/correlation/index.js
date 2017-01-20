@@ -68,7 +68,7 @@ Date.prototype.pattern = function(fmt) {
 /**
  *生成初始时间
  */
-let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).pattern("yyyy-MM-dd hh:mm");
+let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 2).pattern("yyyy-MM-dd hh:mm");
 let to = new Date().pattern("yyyy-MM-dd hh:mm");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);
@@ -167,11 +167,7 @@ $("#buttona").on('click', e => {
     bridgeScene.bridge.showSensors(sensorIds);
     requestUtil.getCorrelation(x, y, from.toJSON(), to.toJSON()).then(data => {
         series1.data = data.result;
-        if (Math.abs(data.Correlation) >= 0.6) {
-            series2.data = [[data.min_X, data.startPointY], [data.max_X, data.endPointY]];
-        } else {
-            series2.data = null;
-        }
+        series2.data = [[data.min_X, data.startPointY], [data.max_X, data.endPointY]];
         linechart.setData([series1, series2]);
         linechart.setupGrid();
         linechart.draw();

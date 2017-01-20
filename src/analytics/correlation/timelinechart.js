@@ -5,7 +5,8 @@ const series1 = {
 
 const series2 = {
     color: 'rgb(26, 188, 167)',
-    lines: {show: true, fill: false },
+    lines: {show: true, fill: false, },
+
 };
 
 const lineChart = $(".chuhe-correlationLineChart-contant").plot([series1, series2], {

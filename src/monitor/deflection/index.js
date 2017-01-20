@@ -7,6 +7,6 @@ const { id, lineChart, gauge, bridgeScene } = monitor({
     min: 0,
     max: 300,
     unit: 'mm',
-    value: 'displacement',
+    value: 'deflection',
     interval: 60 * 1000
 });
