@@ -93,14 +93,14 @@ function refreshRealValue(sensor, data) {
         $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.value.humidity);
         return;
     } else if (type === '04') {
-        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value["strain"].toFixed(2));
+        $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data.value["strain"]);
     } else if (type === '09') {
         $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(parseInt(data.value["weight"]));
     }
 
 
     let $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
-    $card.text(type === '09' ? parseInt(data.value['weight']) : data.value[v].toFixed(2));
+    $card.text(type === '09' ? parseInt(data.value['weight']) : data.value[v]);
 
     if (type === '09') {
         return;
@@ -140,7 +140,7 @@ function refreshHistoryValue(sensor, data) {
         return;
     } else {
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-history-number`);
-        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
+        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max : '&ndash;');
     }
 }
 
@@ -164,7 +164,7 @@ function fetchSensorData(sensor) {
             $('div.chuhe-humidity > div.chuhe-th-value > span:first-child').text(data.humidity);
             return;
         } else if (type === '04') {
-            $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data[v] ? data[v].toFixed(2) : '');
+            $(`div.chuhe-value > div.chuhe-value-item.strain > span`).text(data[v] ? data[v] : '');
         } else if (type === '09') {
             $(`div.chuhe-value > div.chuhe-value-item.trafficload > span`).text(data["weight"] ? parseInt(data["weight"]) : '');
         }
@@ -173,7 +173,7 @@ function fetchSensorData(sensor) {
             $card.text(data['weight'] ? parseInt(data['weight']) : '');
 
         } else {
-            $card.text(data[v] ? data[v].toFixed(2) : '');
+            $card.text(data[v] ? data[v] : '');
 
         }
     });

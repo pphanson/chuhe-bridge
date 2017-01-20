@@ -69,7 +69,7 @@ Date.prototype.pattern = function(fmt) {
 /**
  *生成初始时间
  */
-let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).pattern("yyyy-MM-dd hh:mm")
+let from = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours()-1).pattern("yyyy-MM-dd hh:mm")
 let to = new Date().pattern("yyyy-MM-dd hh:mm");
 $("input#beginTime").val(from);
 $("input#endTime").val(to);

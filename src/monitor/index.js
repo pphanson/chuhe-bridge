@@ -87,9 +87,10 @@ function refreshSensorStats(id, data, classify = 'history') {
     const stats = data[id] ? data[id] : data;
     let $card = $(`div.chuhe-monitor  div.chuhe-${classify}-stats > div.chuhe-stats-card`);
     if (value !== null && value !== undefined && stats !== null && stats !== undefined && stats[value] !== null && stats[value] !== undefined) {
-        $card.find("div.card-avg-item > div.card-item-value > span").text(stats[value].avg.toFixed(2));
+
         $card.find("div.card-max-item > div.card-item-value > span").text(stats[value].max.toFixed(2));
         $card.find("div.card-min-item > div.card-item-value > span").text(stats[value].min.toFixed(2));
+        $card.find("div.card-avg-item > div.card-item-value > span").text(stats[value].avg.toFixed(2));
     } else {
         $card.find("div.card-item > div.card-item-value > span").text("-");
     }

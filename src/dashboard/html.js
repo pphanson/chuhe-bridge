@@ -11,7 +11,7 @@ module.exports = layout.generate(content({
   "indicator": indicator({
       items: [{
         name: 'flow',
-        unit: 'veh/15min',
+        unit: 'veh/day',
         title: '流量'
       },{
         name: 'trafficload',

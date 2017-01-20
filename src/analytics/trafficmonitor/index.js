@@ -3,6 +3,43 @@ require('./style.less');
 const requestUtil = require('../../monitor/common/remote');
 
 /**
+ * 格式化时间
+ */
+Date.prototype.pattern = function(fmt) {
+    let o = {
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 24 === 1 ? 0 : this.getHours() % 24, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
+    };
+    let week = {
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
+    };
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") : "") + week[this.getDay()+""]);
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        }
+    }
+    return fmt;
+}
+
+/**
  *  初始化监测实时数据（上方）
  */
 initTr();
@@ -41,7 +78,7 @@ function initRows (count = 7)
 
     for (let i = 0; i < count; i++)
     {
-        let $row = $(`<tr data-row-index=${i}><td data-field="time">-</td><td data-field="licenseplate">-</td><td data-field="lane">-</td>
+        let $row = $(`<tr data-row-index=${i}><td data-field="lastUpdatedTime">-</td><td data-field="licenseplate">-</td><td data-field="lane">-</td>
             <td data-field="acrosstag">-</td><td data-field="weight">-</td><td data-field="axesnumber">-</td><td data-field="overweighttag">-</td>
             <td data-field="axesequivalentload1">-</td><td data-field="axesequivalentload2">-</td><td data-field="axesequivalentload3">-</td>
             <td data-field="axesequivalentload4">-</td><td data-field="axesequivalentload5">-</td><td data-field="axesequivalentload6">-</td>
@@ -118,8 +155,11 @@ function getTableData () {
 
         let $table = $(".chuhe-traffic-down > table >tbody");
         let $rows = $table.find("tr");
+        let currentTime = [new Date(new Date().getTime()-5000), new Date(new Date().getTime()-10000),new Date(new Date().getTime()-15000),
+            new Date(new Date().getTime()-20000), new Date(new Date().getTime()-25000), new Date(new Date().getTime()-30000),
+            new Date(new Date().getTime()-35000)]
         $rows.each(function (index) {
-            $($rows[index]).find(`td[data-field=time]`).text(data[index].time);
+            $($rows[index]).find(`td[data-field=lastUpdatedTime]`).text(currentTime[index].pattern("hh:mm:ss"));
             $($rows[index]).find(`td[data-field=licenseplate]`).text(data[index].licenseplate);
             $($rows[index]).find(`td[data-field=lane]`).text(data[index].lane);
             $($rows[index]).find(`td[data-field=acrosstag]`).text(value[data[index].acrosstag]);
