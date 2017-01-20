@@ -140,7 +140,7 @@ function refreshHistoryValue(sensor, data) {
         return;
     } else {
         const $card = $(`div#${name}-card.chuhe-card #${name}-card-history-number`);
-        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max : '&ndash;');
+        $card.html(data[id] && data[id][value] && data[id][value].max ? data[id][value].max.toFixed(2) : '&ndash;');
     }
 }
 
