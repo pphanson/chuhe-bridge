@@ -148,10 +148,13 @@ function getAlarm() {
         };
 
         $.plot($("#chuhe-sensorSingle"), dataSet1, options);
+        firstShow("#flot-memo", dataSet1);
         $("#chuhe-sensorSingle").showMemo("#flot-memo");
         $.plot($("#chuhe-sensor-type"), dataSet2, options);
+        firstShow("#flot-memo1", dataSet2);
         $("#chuhe-sensor-type").showMemo("#flot-memo1");
         $.plot($("#chuhe-position"), dataSet3, options);
+        firstShow("#flot-memo2", dataSet3);
         $("#chuhe-position").showMemo("#flot-memo2");
     });
 }
@@ -161,7 +164,6 @@ $.fn.showMemo = function (id) {
         if (!item) { return; }
         let html = [];
         let percent = parseFloat(item.series.percent).toFixed(2);
-
         html.push("<div style=\"height:50px;display:flex;justify-content:center;border:1px solid grey;background-color:",
             item.series.color,
             "\">",
@@ -176,6 +178,25 @@ $.fn.showMemo = function (id) {
     });
 }
 
+function firstShow(id, item) {
+    if (!item) { return; }
+    let sum = 0;
+    for (let i = 0; i < item.length; i++) {
+        sum += item[i].data;
+    }
+    let html = [];
+    html.push("<div style=\"height:50px;display:flex;justify-content:center;border:1px solid grey;background-color:",
+        item[0].color,
+        "\">",
+        "<span style=\"color:white;line-height:45px;font-size:18px\">",
+        item[0].label,
+        " : ",
+        item[0].data,
+        " (", Math.round(item[0].data / sum * 100).toFixed(2), "%)",
+        "</span>",
+        "</div>");
+    $(id).html(html.join(''));
+}
 getAlarm();
 $("input#chuhe-alarmAnalytics-submit").on('click', e => {
     getAlarm();
