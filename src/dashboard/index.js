@@ -8,7 +8,7 @@ const RequestUtil = require('../monitor/common/remote');
 const Meta = require('../monitor/common/meta');
 const now = new Date();
 const sensorTypes = Meta.getTypes();
-const excludeSensorTypes = ['09', '07'];
+const excludeSensorTypes = ['07'];
 const timeRange = {};
 const collection = {};
 const lineCharts = {};
@@ -21,6 +21,7 @@ const colors = {
     '06': '#43ff8f',
     '05': '#1fd5ff',
     '08': '#80b4ff',
+    '09': '#80b4ff',
 };
 const fills = {
     '04': ['rgba(85, 158, 238, 0.1)', 'rgb(85, 158, 238)'],
@@ -30,6 +31,7 @@ const fills = {
     '06': ['rgba(131, 266, 149, 0.1)', 'rgb(131, 266, 149)'],
     '05': ['rgba(86, 174, 254, 0.1)', 'rgb(86, 174, 254)'],
     '08': ['rgba(125, 186, 198, 0.1)', 'rgb(125, 186, 198)'],
+    '09': ['rgba(125, 186, 198, 0.1)', 'rgb(125, 186, 198)']
 }
 
 for (let type of sensorTypes) {
@@ -101,10 +103,6 @@ function refreshRealValue(sensor, data) {
 
     let $card = $(`div#${name}-card.chuhe-card #${name}-card-current-number`);
     $card.text(type === '09' ? parseInt(data.value['weight']) : data.value[v]);
-
-    if (type === '09') {
-        return;
-    }
 
     let timestamp = Meta.getTimestamp(new Date(data.lastUpdatedTime), timeRange[type][0], type);
     const lineChart = lineCharts[type];
@@ -181,17 +179,17 @@ function fetchSensorData(sensor) {
     if (excludeSensorTypes.includes(type)) {
         RequestUtil.startMonitor(sensor.id, (data) => {
             refreshRealValue(sensor, data);
-        }, (data) => {
-            const type = sensor.meta;
-            if (type === '09') {
-                $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(data['weight']['total'] ? data['weight']['total'] : '');
-            }
         });
     } else {
         RequestUtil.fetchSensorData(sensor.id, timeRange[type][0].toJSON(), timeRange[type][1].toJSON()).then((data) => {
             refreshLineChart(sensor, data);
             RequestUtil.startMonitor(sensor.id, (data) => {
                 refreshRealValue(sensor, data);
+            }, (data) => {
+                const type = sensor.meta;
+                if (type === '09') {
+                    $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(data['weight']['total'] ? data['weight']['total'] : '');
+                }
             });
         });
     }
