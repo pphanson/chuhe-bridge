@@ -8328,6 +8328,7 @@ button.btn-floating {
   display: block;
   line-height: 22px;
   padding: 6.5px 16px;
+  margin-bottom: -1px;
 }
 
 .dropdown-content li > span > label {
