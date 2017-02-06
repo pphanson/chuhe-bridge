@@ -128,7 +128,7 @@ function getOldRows(page) {
 function addTableNumber(result,sumPage)         // 更新数据
 {
     updateTr(result);
-    if(!initialLoad) {
+    if(!initialLoad) {  // 增加初始化判断
         $.jqPaginator('#pagination2', {
             totalPages: sumPage,
             visiblePages: 5,
