@@ -103,7 +103,7 @@ function initRows(count = 10)
         $('tr:odd').css('background', '#1f3653');
     }
     fetchData(from, to, page, level, alarmType);
-    addSelected();
+    //addSelected(sumPage);
 
 }
 
@@ -116,7 +116,6 @@ function fetchData(from, to, page, level, alarmType, keyword)
             cache[page] = result.docs;
             sumPage = result.sumpage;
             addTableNumber(result.docs, result.sumpage);
-            addSelected(sumPage);
         });
     }
 }
@@ -129,39 +128,23 @@ function getOldRows(page) {
 function addTableNumber(result,sumPage)         // 更新数据
 {
     updateTr(result);
-    alert("aaa");
-
-    /*if (!initialLoad) { // 生成分页器
-        let $ul = $('ul.pagination> span');
-        $ul.empty();
-        for (let i = 0; i < sumPage; i++) {
-            let li = $(`<li class="paginate_button waves-effect" aria-controls="data-table-simple" data-dt-idx="${i + 1}">${i + 1}</li>`);
-            $ul.append(li);
-            if (i === 0) {
-                li.addClass('active');
-                $('ul.pagination>li.chuhe-left').addClass('disabled');
+    if(!initialLoad) {
+        $.jqPaginator('#pagination2', {
+            totalPages: sumPage,
+            visiblePages: 5,
+            currentPage: 1,
+            first: '<li class="first"><a href="javascript:;">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+            next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            last: '<li class="first"><a href="javascript:;">末页</a></li>',
+            onPageChange: function (page, type) {
+                fetchData(from, to, page, level, alarmType);
             }
-        }
+        });
         initialLoad = true;
-    }*/
+    }
 }
-function addSelected(sumPage){
-    $.jqPaginator('#pagination2', {
-        totalPages: sumPage,
-        visiblePages: 4,
-        currentPage: 1,
-        first: '<li class="first"><a href="javascript:;">首页</a></li>',
-        prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
-        next: '<li class="next"><a href="javascript:;">下一页</a></li>',
-        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-        last: '<li class="first"><a href="javascript:;">末页</a></li>',
-        onPageChange: function (page, type) {
-            alert(type);
-            fetchData(from, to, page, level, alarmType);
-        }
-    });
-}
-
 
 function updateTr(data) {// data是否有数据，要判断！
     let $tbody = $(".chuhe-alarm-table>table tbody");
@@ -179,39 +162,6 @@ function updateTr(data) {// data是否有数据，要判断！
         }
     });
 }
-
-// 添加选中事件
-// function addSelected() {
-//     let ul = $('ul.pagination span');
-//     ul.on("click", 'li', (e) => {
-//         let $nav = $(e.target);
-//         page = $nav.attr("data-dt-idx");
-//         ul.find('.active').removeClass('active');
-//         $nav.addClass('active');
-//         page--;
-//         fetchData(from, to, page, level, alarmType);
-//     })
-//     let left = $('ul.pagination li:first');
-//     let right = $('ul.pagination li:last');
-//     left.on("click", function () {
-//         page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
-//         if (page >= 1) {
-//             page--;
-//             ul.find('.active').removeClass('active');
-//             $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
-//             fetchData(from, to, page, level, alarmType);
-//         }
-//     });
-//     right.on("click", function () {
-//         page = $('ul.pagination li.active').attr("data-dt-idx") - 1;
-//         if (page < (sumPage - 1)) {
-//             page++;
-//             ul.find('.active').removeClass('active');
-//             $(`ul.pagination li[data-dt-idx='${page + 1}']`).addClass('active');
-//             fetchData(from, to, page, level, alarmType);
-//         }
-//     });
-// }
 
 addClick("alarmLevel");
 addClick("alarmType");
