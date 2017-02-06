@@ -133,7 +133,7 @@ function initRows (count = 10)
 
     for (let i = 0; i < count; i++)
     {
-        let $row = $(`<tr data-row-index=${i}><td data-field="time"></td><td data-field="eventName"></td>
+        let $row = $(`<tr data-row-index=${i}><td data-field="starttime"></td><td data-field="endtime"></td><td data-field="eventName"></td>
 <td data-field="eventTypeId"></td><td name="detail"></td><td name="edit"></td></tr>`);
 
         $tbody.append($row);
@@ -202,7 +202,8 @@ function updateTr (data) {
             $($trrows[index]).find("td[name=detail]").attr("data-start",new Date(data[index].startTime).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[name=detail]").attr("data-end",new Date(data[index].endTime).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[name=edit]").attr("data-id",data[index]._id);
-            $($trrows[index]).find("td[data-field=time]").text(new Date(data[index].startTime).pattern("yyyy-MM-dd hh:mm:ss") + "  至  " + new Date(data[index].endTime).pattern("yyyy-MM-dd hh:mm:ss"));
+            $($trrows[index]).find("td[data-field=starttime]").text(new Date(data[index].startTime).pattern("yyyy-MM-dd hh:mm:ss"));
+            $($trrows[index]).find("td[data-field=endtime]").text(new Date(data[index].endTime).pattern("yyyy-MM-dd hh:mm:ss"));
             $($trrows[index]).find("td[data-field=eventName]").text(data[index].eventName);
             $($trrows[index]).find("td[data-field=eventTypeId]").text(eventType[data[index].eventTypeId]);
             $($trrows[index]).find("td[name=edit]").html('<a href="#">修改</a>');
