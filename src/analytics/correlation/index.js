@@ -166,6 +166,7 @@ $("#buttona").on('click', e => {
     let sensorIds = [x, y];
     bridgeScene.bridge.showSensors(sensorIds);
     requestUtil.getCorrelation(x, y, from.toJSON(), to.toJSON()).then(data => {
+        $("div.chuhe-correlationY-title span.chuhe-R-number").html(data.Correlation);
         series1.data = data.result;
         series2.data = [[data.min_X, data.startPointY], [data.max_X, data.endPointY]];
         linechart.setData([series1, series2]);
