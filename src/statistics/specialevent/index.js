@@ -295,7 +295,7 @@ $("button#searchBtn").on('click', e => {
 $(function() {
     let $tr = $("table > tbody > tr");
     $tr.each(function() {
-        let btn = $(this).children().eq(3);
+        let btn = $(this).children().eq(4);
         btn.bind("click", function() {
             let startData = btn.parent().children("td[name=detail]").attr('data-start');
             let endData = btn.parent().children("td[name=detail]").attr('data-end');
@@ -313,7 +313,7 @@ $(function() {
  */
 $(function() {
     $("table > tbody > tr").each(function() {
-        let btnId = $(this).children().eq(4);
+        let btnId = $(this).children().eq(5);
         btnId.bind("click", function() {
             changId = btnId.parent().children("td[name=edit]").attr('data-id');
             requestUtil.getchanged(changId).then((data) => {
