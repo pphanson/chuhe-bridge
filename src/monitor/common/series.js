@@ -26,7 +26,6 @@ module.exports = function ({from, to, values, interval, color})
                 null
             ]);
         }
-
     }
 
     return collection;

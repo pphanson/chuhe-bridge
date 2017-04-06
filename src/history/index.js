@@ -194,6 +194,61 @@ function refreshSensorStats(id, data) {
     }
 }
 
+// function refreshLineChart(data) {
+//
+//     for (let i = 0;i < data.length;i++) {
+//         data[i][0] = new Date(data[i][0] + 1000 * 60 * 60 * 8).getTime();
+//     }
+//
+//     let chart7 = echarts.init(document.getElementById('ChinaChart_06'), 'macarons');
+//     let option7 = {
+//         // backgroundColor: "#ffffff ",
+//         tooltip : {
+//             trigger: 'axis',
+//             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+//                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+//             }
+//         },
+//         legend: {
+//             data:['桥总数','每类桥数量'],
+//             y : 'bottom'
+//         },
+//         grid: {
+//             left: '3%',
+//             right: '4%',
+//             bottom: '10%',
+//             containLabel: true
+//         },
+//         xAxis : [
+//             {
+//                 type : 'time',
+//             }
+//         ],
+//         yAxis : [
+//             {
+//                 type : 'value',
+//                 color : 'white',
+//             }
+//         ],
+//         series : [
+//             {
+//                 name:'每类桥数量',
+//                 type:'line',
+//                 // barWidth : '50%',
+//                 itemStyle: {
+//                             normal: {
+//                                 color: '#dd5d38'
+//                             }
+//                         },
+//                 data:data,
+//
+//             }
+//         ]
+//     };
+//     chart7.setOption(option7);
+//     window.onresize = chart7.resize;
+// }
+
 function refreshLineChart(data) {
     for (let i = 0;i < data.length;i++) {
         data[i][0] = new Date(data[i][0] + 1000 * 60 * 60 * 8);

@@ -48,7 +48,6 @@ function getTickSize() {
     }
 }
 
-
 function tickFormatter(value, axis) {
     let d = new Date(value);
 
@@ -67,6 +66,7 @@ module.exports = function({
     interval,
     collection
 }) {
+
     const options = {
         lines: {
             show: true,

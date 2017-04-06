@@ -43,7 +43,6 @@ function createHistoryTimeRange()
     ];
 }
 
-
 function normalizeTimestamp(date, interval)
 {
     if (interval <= 0 || interval > 1000 * 60 * 60 || 1000 * 60 * 60 % interval !== 0)
@@ -89,7 +88,6 @@ function getSensorValues(sensorType)
     const values = sensorMeta.values;
     return Object.keys(values)
 }
-
 
 function getTypes()
 {
