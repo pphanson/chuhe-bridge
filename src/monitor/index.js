@@ -1,6 +1,6 @@
 const BridgeScene = require('./common/bridge');
 const Gauge = require('./common/gauge');
-const LineChart = require('./common/lineChart');
+const LineChart = require('./common/linechart');
 const requestUtil = require('./common/remote');
 const series = require('./common/series');
 const Meta = require('./common/meta');
