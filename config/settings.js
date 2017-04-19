@@ -4,7 +4,7 @@ export default {
         connections: {
             "zhixingdb_chuhedq": {
                 provider: "mongo",
-                url: "mongodb://test:mima@218.94.73.108:5670/zhixingdb_chuhedq"
+                url: "mongodb://test:chuhedaqiao@218.94.73.108:5670/zhixingdb_chuhedq"
             }
         }
     }
