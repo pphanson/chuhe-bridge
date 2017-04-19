@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require("webpack");
 
 
-const types = ['vibration', 'displacement', 'strain', 'cableforce', 'corrosion', 'verticality', 'deflection', 'temperature_humidity'];
+const types = ['vibration', 'displacement', 'crack', 'strain', 'cableforce', 'corrosion', 'verticality', 'deflection', 'temperature_humidity'];
 const dashboard = [
     "./dashboard/index.js",
 ];

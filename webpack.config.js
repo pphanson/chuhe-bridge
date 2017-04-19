@@ -53,6 +53,7 @@ let entry = Object.assign({
         'webpack-hot-middleware/client?reload=true',
         './history/index.js',
     ],
+
 }, initMonitorEntry());
 
 function initMonitorEntry() {
