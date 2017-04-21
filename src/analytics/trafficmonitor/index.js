@@ -155,17 +155,14 @@ function getTableData () {
 
         let $table = $(".chuhe-traffic-down > table >tbody");
         let $rows = $table.find("tr");
-        let currentTime = [new Date(new Date().getTime()-5000), new Date(new Date().getTime()-10000),new Date(new Date().getTime()-15000),
-            new Date(new Date().getTime()-20000), new Date(new Date().getTime()-25000), new Date(new Date().getTime()-30000),
-            new Date(new Date().getTime()-35000)]
         $rows.each(function (index) {
-            $($rows[index]).find(`td[data-field=lastUpdatedTime]`).text(currentTime[index].pattern("hh:mm:ss"));
+            $($rows[index]).find(`td[data-field=lastUpdatedTime]`).text(new Date(data[index].time).pattern("hh:mm:ss"));
             $($rows[index]).find(`td[data-field=licenseplate]`).text(data[index].licenseplate);
             $($rows[index]).find(`td[data-field=lane]`).text(data[index].lane);
             $($rows[index]).find(`td[data-field=acrosstag]`).text(value[data[index].acrosstag]);
             $($rows[index]).find(`td[data-field=weight]`).text(data[index].weight);
             $($rows[index]).find(`td[data-field=axesnumber]`).text(data[index].axesnumber);
-            $($rows[index]).find(`td[data-field=overweighttag]`).text(value[data[index].overweighttag]);
+            $($rows[index]).find(`td[data-field=overweighttag]`).text(data[index].overweighttag);
             $($rows[index]).find(`td[data-field=axesequivalentload1]`).text(data[index].axesequivalentload1);
             $($rows[index]).find(`td[data-field=axesequivalentload2]`).text(data[index].axesequivalentload2);
             $($rows[index]).find(`td[data-field=axesequivalentload3]`).text(data[index].axesequivalentload3);
