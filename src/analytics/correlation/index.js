@@ -94,7 +94,7 @@ const units = {
     '05': '(kN)',
     '06': '(mm/s²)',
     '07': '(℃)',
-    '08': '(mm/a)',
+    '08': '(μm)',
     '09': '(℃)'
 }
 requestUtil.fetchSensorsMeta().then((data) => {

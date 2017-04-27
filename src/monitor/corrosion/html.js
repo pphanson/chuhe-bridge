@@ -5,7 +5,7 @@ const monitor = require("../../component/monitor/html.js");
 module.exports = layout.generate(content({
   monitor: monitor({
     name: '腐蚀',
-    unit: 'mm/a',
+    unit: 'μm',
     values: ['corrosion']
   })
 }));

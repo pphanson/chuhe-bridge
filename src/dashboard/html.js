@@ -77,6 +77,6 @@ module.exports = layout.generate(content({
       title: "腐蚀度传感器",
       className: 'chuhe-corrosion-card',
       name: "腐蚀度",
-      unit: "mm/a"
+      unit: "μm"
   })
 }));
