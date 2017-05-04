@@ -7,6 +7,7 @@ const { id, lineChart, gauge, bridgeScene } = monitor({
     min: 0,
     max: 10,
     unit: 'μm',
-    value: 'corrosion',
+    values: ['CorrAvg', 'CorrMax'],
+    value: 'CorrAvg',
     interval: 60 * 60 * 1000
 });

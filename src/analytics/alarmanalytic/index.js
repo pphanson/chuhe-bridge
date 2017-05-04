@@ -35,7 +35,8 @@ const names = {
     'trafficload': '交通荷载传感器',
     'deflection': '挠度传感器',
     'vibration': '振动传感器',
-    'temperature and humidity': '温湿度传感器'
+    'temperature and humidity': '温湿度传感器',
+    'crack': '裂缝传感器',
 };
 
 /**

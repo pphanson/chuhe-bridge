@@ -188,7 +188,7 @@ function fetchSensorData(sensor) {
             }, (data) => {
                 const type = sensor.meta;
                 if (type === '09') {
-                    $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(data['weight']['total'] ? data['weight']['total'] : '');
+                    $(`div.chuhe-value > div.chuhe-value-item.flow > span`).text(data['id']['total'] ? data['id']['total'] : '');
                 }
             });
         });

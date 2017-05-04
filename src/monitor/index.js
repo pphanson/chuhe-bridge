@@ -104,7 +104,7 @@ function refreshLineChart(data) {
         for (let key in item)
         {
             // let a = collection[key].data[index-1][1];
-            collection[key].data[index] = [from.getTime() + interval * index, item[key] === Number.MIN_SAFE_INTEGER ? collection[key].data[index-1][1] : item[key]];
+            collection[key].data[index] = [from.getTime() + interval * index, item[key] === Number.MIN_SAFE_INTEGER ? null : item[key]];
         }
     });
     lineChart.setData([collection[value]]);
@@ -145,7 +145,7 @@ function updateRealTimeData(data) {
 
             for (let t = to.getTime(); t < timestamp.getTime(); t += interval)
             {
-                collection[v].data.push([timestamp.getTime(), Math.random()*100]);
+                collection[v].data.push([timestamp.getTime(), null]);
             }
             collection[v].data.push([timestamp.getTime(), data.value[v]]);
             to = new Date(timestamp.getTime() + interval) ;
