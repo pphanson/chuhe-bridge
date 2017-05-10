@@ -32,6 +32,7 @@ const units = {
     '07': '(℃)',
     '08': '(μm)',
     '09': '(kg)',
+    '11': '(mm)',
 };
 
 requestUtil.fetchSensorsMeta().then((data) => {

@@ -6,6 +6,6 @@ module.exports = layout.generate(content({
   monitor: monitor({
     name: '腐蚀',
     unit: 'μm',
-    values: ['corrosion']
+    values: [{name: 'CorrAvg', text: '平均值'}, {name: 'CorrMax', text: '最大值'}]
   })
 }));

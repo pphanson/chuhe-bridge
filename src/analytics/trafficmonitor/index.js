@@ -78,7 +78,7 @@ function initRows (count = 7)
 
     for (let i = 0; i < count; i++)
     {
-        let $row = $(`<tr data-row-index=${i}><td data-field="lastUpdatedTime">-</td><td data-field="licenseplate">-</td><td data-field="lane">-</td>
+        let $row = $(`<tr data-row-index=${i}><td data-field="lastUpdatedTime">-</td><td data-field="lane">-</td>
             <td data-field="acrosstag">-</td><td data-field="weight">-</td><td data-field="axesnumber">-</td><td data-field="overweighttag">-</td>
             <td data-field="axesequivalentload1">-</td><td data-field="axesequivalentload2">-</td><td data-field="axesequivalentload3">-</td>
             <td data-field="axesequivalentload4">-</td><td data-field="axesequivalentload5">-</td><td data-field="axesequivalentload6">-</td>
@@ -157,7 +157,7 @@ function getTableData () {
         let $rows = $table.find("tr");
         $rows.each(function (index) {
             $($rows[index]).find(`td[data-field=lastUpdatedTime]`).text(new Date(data[index].time).pattern("hh:mm:ss"));
-            $($rows[index]).find(`td[data-field=licenseplate]`).text(data[index].licenseplate);
+            // $($rows[index]).find(`td[data-field=licenseplate]`).text(data[index].licenseplate);
             $($rows[index]).find(`td[data-field=lane]`).text(data[index].lane);
             $($rows[index]).find(`td[data-field=acrosstag]`).text(value[data[index].acrosstag]);
             $($rows[index]).find(`td[data-field=weight]`).text(data[index].weight);
